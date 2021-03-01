@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class pesage extends Model
 {
+    protected $primaryKey = 'idPesage';
     use HasFactory;
 }

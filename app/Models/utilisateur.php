@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class utilisateur extends Model
 {
+    protected $primaryKey = 'idUtilisateur';
     use HasFactory;
 }

@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class facture extends Model
 {
+    protected $primaryKey = 'idFacture';
     use HasFactory;
 }

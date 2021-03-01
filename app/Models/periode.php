@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class periode extends Model
 {
+    protected $primaryKey = 'idPeriode';
     use HasFactory;
 }

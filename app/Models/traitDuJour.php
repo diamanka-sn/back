@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class traitDuJour extends Model
 {
+    protected $primaryKey = 'idTraitDuJour';
     use HasFactory;
 }

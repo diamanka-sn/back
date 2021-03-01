@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class maladie extends Model
 {
+    protected $primaryKey = 'idMaladie';
     use HasFactory;
 }

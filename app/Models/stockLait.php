@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class stockLait extends Model
 {
+    protected $primaryKey = 'idStockLait';
     use HasFactory;
 }

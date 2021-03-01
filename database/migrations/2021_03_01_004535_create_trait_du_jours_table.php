@@ -14,7 +14,7 @@ class CreateTraitDuJoursTable extends Migration
     public function up()
     {
         Schema::create('trait_du_jours', function (Blueprint $table) {
-            $table->id('idTrait');
+            $table->id('idTraitDuJour');
             $table->date('dateTrait');
             $table->integer('traitMatin');
             $table->integer('traitSoir');
