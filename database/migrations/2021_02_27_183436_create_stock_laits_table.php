@@ -14,16 +14,17 @@ class CreateStockLaitsTable extends Migration
     public function up()
     {
         Schema::create('stock_laits', function (Blueprint $table) {
-            $table->id();
+            $table->id('idStock');
             $table->float('quantiteTotale');
             $table->float('quantiteVendue');
             $table->float('quantiteDispo');
             $table->timestamps();
         });
-
+/*
         Schema::create('bouteilles', function(Blueprint $table){
             $table->integer('stock_lait_id')->unsigned()->index();
-        });
+        });*/
+        
     }
 
     /**

@@ -14,8 +14,8 @@ class CreateBouteillesTable extends Migration
     public function up()
     {
         Schema::create('bouteilles', function (Blueprint $table) {
-            $table->id();
-            $table->string('capacite',255)->nullable();
+            $table->id('idBouteille');
+            $table->float('capacite');
             $table->timestamps();
         });
     }

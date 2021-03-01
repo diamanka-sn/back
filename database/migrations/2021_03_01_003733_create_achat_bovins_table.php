@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRacesTable extends Migration
+class CreateAchatBovinsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateRacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('races', function (Blueprint $table) {
-            $table->id('idRace');
-            $table->string('nomRace',255);
+        Schema::create('achat_bovins', function (Blueprint $table) {
+            $table->id('idAchatBovin');
+            $table->integer('montantBovin');
+            $table->date('dateAchatBovin');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateRacesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('races');
+        Schema::dropIfExists('achat_bovins');
     }
 }

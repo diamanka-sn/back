@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRacesTable extends Migration
+class CreateTraitDuJoursTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateRacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('races', function (Blueprint $table) {
-            $table->id('idRace');
-            $table->string('nomRace',255);
+        Schema::create('trait_du_jours', function (Blueprint $table) {
+            $table->id('idTrait');
+            $table->date('dateTrait');
+            $table->integer('traitMatin');
+            $table->integer('traitSoir');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateRacesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('races');
+        Schema::dropIfExists('trait_du_jours');
     }
 }

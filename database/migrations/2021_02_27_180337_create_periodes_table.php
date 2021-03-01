@@ -14,7 +14,7 @@ class CreatePeriodesTable extends Migration
     public function up()
     {
         Schema::create('periodes', function (Blueprint $table) {
-            $table->id();
+            $table->id('idPeriode');
             $table->string('nomPeriode',255);
             $table->string('phase',255);
             $table->timestamps();
