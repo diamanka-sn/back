@@ -18,7 +18,7 @@ class CreateBovinsTable extends Migration
             $table->string('codeBovin',255);
             $table->string('nom',255);
             $table->string('photo',255);
-            $table->date('dateNaiss');
+//            $table->date('dateNaiss');
             $table->string('etatSante');
             $table->string('geniteur',255);
             $table->string('genitrice',255);
