@@ -10,4 +10,29 @@ class bovin extends Model
     protected $primaryKey = 'idBovin';
     protected $fillable = ['codeBovin','nom','photo','etatSante','geniteur','genitrice','etat','situation'];
     use HasFactory;
+
+    public function race()
+    {
+        return $this->belongsTo('App\Models\race');
+    }
+
+    public function pesages()
+    {
+        return $this->hasMany('App\Models\pesage');
+    }
+
+    public function diagnostics()
+    {
+        return $this->hasMany('App\Models\diagnostic');
+    }
+
+    public function achatBovins()
+    {
+        return $this->hasMany('App\Models\achatBovin');
+    }
+
+    public function venteBovins()
+    {
+        return $this->hasMany('App\Models\venteBovin');
+    }
 }

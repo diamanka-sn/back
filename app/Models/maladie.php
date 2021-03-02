@@ -9,4 +9,10 @@ class maladie extends Model
 {
     protected $primaryKey = 'idMaladie';
     use HasFactory;
+
+    public function diagnostics()
+    {
+        return $this->hasMany('App\Models\diagnostic');
+    }
+
 }

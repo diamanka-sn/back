@@ -9,4 +9,9 @@ class periode extends Model
 {
     protected $primaryKey = 'idPeriode';
     use HasFactory;
+
+    public function vaches()
+    {
+        return $this->hasMany('App\Models\vache');
+    }
 }

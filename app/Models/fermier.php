@@ -10,4 +10,15 @@ class fermier extends Model
     use HasFactory;
     public $incrementing = false;
     protected $primaryKey = 'idUtilisateur';
+
+    public function traiteDuJours()
+    {
+        return $this->hasMany('App\Models\traiteDuJour');
+    }
+
+    public function alimentationDuJours()
+    {
+        return $this->hasMany('App\Models\alimentationDuJour');
+    }
+
 }

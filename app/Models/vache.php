@@ -11,4 +11,14 @@ class vache extends Model
 
     public $incrementing = false;
     protected $primaryKey = 'idBovin';
+
+    public function productionLaits()
+    {
+        return $this->hasMany('App\Models\productionLait');
+    }
+
+    public function periode()
+    {
+        return $this->belongsTo('App\Models\periode');
+    }
 }

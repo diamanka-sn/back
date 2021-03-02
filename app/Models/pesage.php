@@ -9,4 +9,9 @@ class pesage extends Model
 {
     protected $primaryKey = 'idPesage';
     use HasFactory;
+
+    public function bovin()
+    {
+        return $this->belongsTo('App\Models\bovin');
+    }
 }

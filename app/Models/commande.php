@@ -8,5 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class commande extends Model
 {
     protected $primaryKey = 'idCom';
+    protected $fillable = ['dateCom','idUtilisateur'];
     use HasFactory;
+
+    public function venteLaits()
+    {
+        return $this->hasMany('App\Models\venteLait');
+    }
+
+    public function factures()
+    {
+        return $this->hasMany('App\Models\facture');
+    }
+
+    public function venteBovins()
+    {
+        return $this->hasMany('App\Models\venteBovin');
+    }
 }

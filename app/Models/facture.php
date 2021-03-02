@@ -9,4 +9,9 @@ class facture extends Model
 {
     protected $primaryKey = 'idFacture';
     use HasFactory;
+
+    public function commande()
+    {
+        return $this->belongsTo('App\Models\commande');
+    }
 }

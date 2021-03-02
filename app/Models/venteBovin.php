@@ -9,4 +9,14 @@ class venteBovin extends Model
 {
     protected $primaryKey = 'idVenteBovin';
     use HasFactory;
+
+    public function commande()
+    {
+        return $this->belongsTo('App\Models\commande');
+    }
+
+    public function bovin()
+    {
+        return $this->belongsTo('App\Models\bovin');
+    }
 }

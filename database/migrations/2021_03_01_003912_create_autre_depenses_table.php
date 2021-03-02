@@ -16,9 +16,11 @@ class CreateAutreDepensesTable extends Migration
         Schema::create('autre_depenses', function (Blueprint $table) {
             $table->id('idAutreDepense');
             $table->date('dateDepense');
-            $table->text('type');
+            $table->string('type',255);
             $table->text('libelle');
             $table->integer('montant');
+            $table->integer('idUtilisateur')->unsigned();
+            $table->foreign('idUtilisateur')->references('idUtilisateur')-> on ('utilisateurs');
             $table->timestamps();
         });
     }

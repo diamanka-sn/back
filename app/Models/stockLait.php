@@ -9,4 +9,9 @@ class stockLait extends Model
 {
     protected $primaryKey = 'idStockLait';
     use HasFactory;
+
+    public function bouteilles()
+    {
+        return $this->hasMany('App\Models\bouteille');
+    }
 }

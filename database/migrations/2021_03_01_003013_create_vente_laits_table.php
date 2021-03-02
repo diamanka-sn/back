@@ -17,6 +17,10 @@ class CreateVenteLaitsTable extends Migration
             $table->id('idVenteLait');
             $table->integer('prixBouteille');
             $table->integer('nbrBouteille');
+            $table->integer('idBouteille')->unsigned();
+            $table->foreign('idBouteille')->references('idBouteille')-> on ('bouteilles');
+            $table->integer('idCom')->unsigned();
+            $table->foreign('idCom')->references('idCom')-> on ('commandes');
             $table->timestamps();
         });
     }

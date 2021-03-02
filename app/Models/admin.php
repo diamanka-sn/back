@@ -11,4 +11,21 @@ class admin extends Model
 
     public $incrementing = false;
     protected $primaryKey = 'idUtilisateur';
+    protected $fillable = ['idUtilisateur'];
+
+    public function achatAliments()
+    {
+        return $this->hasMany('App\Models\achatAliment');
+    }
+
+    public function autresDepenses()
+    {
+        return $this->hasMany('App\Models\autresDepense');
+    }
+
+    public function achatBovins()
+    {
+        return $this->hasMany('App\Models\achatBovin');
+    }
+
 }

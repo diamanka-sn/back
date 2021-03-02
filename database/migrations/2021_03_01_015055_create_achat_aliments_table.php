@@ -18,7 +18,9 @@ class CreateAchatAlimentsTable extends Migration
             $table->string('nomAliment',255);
             $table->float('quantite');
             $table->integer('montant');
-            $table->date('dateAchatAliment');
+           // $table->date('dateAchatAliment');
+            $table->integer('idUtilisateur')->unsigned();
+            $table->foreign('idUtilisateur')->references('idUtilisateur')->on('utilisateurs');
             $table->timestamps();
         });
     }

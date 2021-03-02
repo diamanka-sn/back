@@ -9,4 +9,9 @@ class race extends Model
 {
     protected $primaryKey = 'idRace';
     use HasFactory;
+
+    public function bovins()
+    {
+        return $this->hasMany('App\Models\bovin');
+    }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTraitDuJoursTable extends Migration
+class CreateClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTraitDuJoursTable extends Migration
      */
     public function up()
     {
-        Schema::create('trait_du_jours', function (Blueprint $table) {
-            $table->id('idTraitDuJour');
-            $table->date('dateTrait');
-            $table->integer('traitMatin');
-            $table->integer('traitSoir');
+        Schema::create('clients', function (Blueprint $table) {
+            $table->integer('idUtilisateur')->unsigned();
+            $table->foreign('idUtilisateur')->references('idUtilisateur')->on('utilisateurs');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateTraitDuJoursTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trait_du_jours');
+        Schema::dropIfExists('clients');
     }
 }

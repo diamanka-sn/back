@@ -16,6 +16,8 @@ class CreateCommandesTable extends Migration
         Schema::create('commandes', function (Blueprint $table) {
             $table->id('idCom');
             $table->date('dateCom');
+            $table->integer('idUtilisateur')->unsigned();
+            $table->foreign('idUtilisateur')->references('idUtilisateur')->on('idUtilisateus');
             $table->timestamps();
         });
     }

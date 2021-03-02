@@ -9,4 +9,15 @@ class traitDuJour extends Model
 {
     protected $primaryKey = 'idTraitDuJour';
     use HasFactory;
+
+    public function fermier()
+    {
+        return $this->belongsTo('App\Models\fermier');
+    }
+
+    public function productionLait()
+    {
+        return $this->belongsTo('App\Models\productionLait');
+    }
+
 }

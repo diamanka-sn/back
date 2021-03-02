@@ -29,8 +29,8 @@ class bovinFactory extends Factory
             'etat' => $this->faker->sentence(6,true),
             'genitrice' => $this->faker->sentence(6,true),
             'situation' => $this->faker->sentence(6,true),
-         //   'dateNaiss' => $this->faker->date_format(),
-            'codeBovin'=>$this->faker->sentence(7,true)
+            'codeBovin'=>$this->faker->sentence(7,true),
+           
         ];
     }
 }

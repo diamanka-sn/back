@@ -16,8 +16,8 @@ class CreateGenissesTable extends Migration
         Schema::create('genisses', function (Blueprint $table) {
             $table->integer('idBovin')->unsigned();
             $table->foreign('idBovin')->references('idBovin')->on('bovins');
-            $table->string('phase');
-            $table->date('dateIa');
+            $table->string('phase',255);
+            $table->date('dateIA');
             $table->timestamps();
         });
     }

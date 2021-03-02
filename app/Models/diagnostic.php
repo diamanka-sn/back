@@ -9,4 +9,14 @@ class diagnostic extends Model
 {
     protected $primaryKey = 'idDiagnostic';
     use HasFactory;
+
+    public function maladie()
+    {
+        return $this->belongsTo('App\Models\maladie');
+    }
+
+    public function bovin()
+    {
+        return $this->belongsTo('App\Models\bovin');
+    }
 }

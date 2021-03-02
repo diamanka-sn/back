@@ -54,7 +54,11 @@ class bovinController extends Controller
      */
     public function update(Request $request, bovin $bovin)
     {
-        //
+        if($bovin->update($request->all())){
+            return response()->json([
+                'success' => 'modifier avec succes'
+            ],200);
+        };
     }
 
     /**
@@ -65,6 +69,10 @@ class bovinController extends Controller
      */
     public function destroy(bovin $bovin)
     {
-        //
+        if($bovin->delete()){
+            return response()->json([
+                'success' => 'Suppression reussie'
+            ],200);
+        };
     }
 }
