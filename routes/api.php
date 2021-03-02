@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('bovin','App\Http\Controllers\bovinController');
+<<<<<<< HEAD
 Route::apiResource('client','App\Http\Controllers\clientController');
 Route::apiResource('achatAliment','App\Http\Controllers\achatAlimentController');
 Route::apiResource('achatBovin','App\Http\Controllers\achatBovinController');
@@ -47,3 +48,9 @@ Route::apiResource('venteBovin','App\Http\Controllers\venteBovinController');
 Route::apiResource('venteLait','App\Http\Controllers\venteLaitController');
 
 
+=======
+Route::apiResource('race','App\Http\Controllers\raceController');
+Route::apiResource('utilisateur','App\Http\Controllers\utilisateurController');
+Route::apiResource('periode','App\Http\Controllers\periodeController');
+Route::apiResource('achatAliment','App\Http\Controllers\achatAlimentController');
+>>>>>>> e0a4ad4cda9138b6bcd878d92f370f6dc62db06d

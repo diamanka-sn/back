@@ -14,9 +14,15 @@ class utilisateurController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
       //  $utilisateur = utilisateur::all();
         //return $utilisateur->toJson(JSON_PRETTY_PRINT);
         return utilisateur::orderByDesc('created_at')->get();
+=======
+            //  $bovin = bovin::all();
+        //return $bovin->toJson(JSON_PRETTY_PRINT);
+        return utilisateur::orderBy('created_at')->get();
+>>>>>>> e0a4ad4cda9138b6bcd878d92f370f6dc62db06d
     }
 
     /**
@@ -27,11 +33,19 @@ class utilisateurController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
       if(utilisateur::create($request->all())){
           return response()->json([
               'success' => 'enregistre avec succes'
           ],200);
       };
+=======
+        if(utilisateur::create($request->all())){
+            return response()->json([
+                'success' => 'enregistre avec succes'
+            ],200);
+        };
+>>>>>>> e0a4ad4cda9138b6bcd878d92f370f6dc62db06d
     }
 
     /**
@@ -54,10 +68,17 @@ class utilisateurController extends Controller
      */
     public function update(Request $request, utilisateur $utilisateur)
     {
+<<<<<<< HEAD
         if($utilisateur->update($request->all())){
             return response()->json([
                 'success' => 'modifier avec succes'
             ],200);
+=======
+        if ($utilisateur->update($request->all())) {
+            return response()->json([
+                'success' => 'Modifier avec succes'
+            ], 200);
+>>>>>>> e0a4ad4cda9138b6bcd878d92f370f6dc62db06d
         };
     }
 
@@ -69,10 +90,18 @@ class utilisateurController extends Controller
      */
     public function destroy(utilisateur $utilisateur)
     {
+<<<<<<< HEAD
         if($utilisateur->delete()){
             return response()->json([
                 'success' => 'Suppression reussie'
             ],200);
         };
+=======
+        if ($utilisateur->delete()) {
+            return response()->json([
+                'success' => 'Supprimer avec succes'
+            ], 200);
+        }
+>>>>>>> e0a4ad4cda9138b6bcd878d92f370f6dc62db06d
     }
 }
