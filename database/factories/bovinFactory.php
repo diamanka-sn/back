@@ -24,12 +24,13 @@ class bovinFactory extends Factory
         return [
             'nom' => $this->faker->sentence(6,true),
             'photo' => $this->faker->sentence(6,true),
-            'etatSante' => $this->faker->sentence(6,true),
+            'etatDeSante' => $this->faker->sentence(6,true),
             'geniteur' => $this->faker->sentence(6,true),
             'etat' => $this->faker->sentence(6,true),
             'genitrice' => $this->faker->sentence(6,true),
             'situation' => $this->faker->sentence(6,true),
             'codeBovin'=>$this->faker->sentence(7,true),
+            'idRace'=>$this->faker->Str::unique()
            
         ];
     }

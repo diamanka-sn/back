@@ -13,10 +13,6 @@ class bovinTableSeeder extends Seeder
      */
     public function run()
     {
-<<<<<<< HEAD
-        \App\Models\bovin::factory(100)->create();
-=======
-        \App\Models\bovin::factory(10000)->create();
->>>>>>> e0a4ad4cda9138b6bcd878d92f370f6dc62db06d
+        \App\Models\bovin::factory(1000)->create();
     }
 }
