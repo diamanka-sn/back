@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class taureau extends Model
 {
     use HasFactory;
+    protected $fillable = ['idBovin'];
 
     public $incrementing = false;
     protected $primaryKey = 'idBovin';

@@ -20,7 +20,7 @@ class CreateAutreDepensesTable extends Migration
             $table->text('libelle');
             $table->integer('montant');
             $table->integer('idUtilisateur')->unsigned();
-            $table->foreign('idUtilisateur')->references('idUtilisateur')-> on ('utilisateurs');
+            $table->foreign('idUtilisateur')->references('idUtilisateur')->on('utilisateurs');
             $table->timestamps();
         });
     }

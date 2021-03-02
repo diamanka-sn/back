@@ -21,7 +21,7 @@ class CreateTraiteDuJoursTable extends Migration
             $table->integer('idUtilisateur')->unsigned();
             $table->foreign('idUtilisateur')->references('idUtilisateur')-> on ('idUtilisateus');
             $table->integer('idProductionLait')->unsigned();
-            $table->foreign('idProductionLait')->references('idProductionLait')-> on ('production_laits');
+            $table->foreign('idProductionLait')->references('idProductionLait')->on('production_laits');
             $table->timestamps();
         });
     }

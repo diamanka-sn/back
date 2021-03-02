@@ -18,7 +18,7 @@ class CreatePesagesTable extends Migration
             $table->date('datePesee');
             $table->float('poids');
             $table->integer('idBovin')->unsigned();
-            $table->foreign('idBovin')->references('idBovin')-> on ('bovins');
+            $table->foreign('idBovin')->references('idBovin')->on('bovins');
             $table->timestamps();
         });
     }

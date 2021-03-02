@@ -14,7 +14,9 @@ class achatBovinController extends Controller
      */
     public function index()
     {
-        //
+      //  $achatBovin = achatBovin::all();
+        //return $achatBovin->toJson(JSON_PRETTY_PRINT);
+        return achatBovin::orderByDesc('created_at')->get();
     }
 
     /**
@@ -25,7 +27,11 @@ class achatBovinController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      if(achatBovin::create($request->all())){
+          return response()->json([
+              'success' => 'enregistre avec succes'
+          ],200);
+      };
     }
 
     /**
@@ -36,7 +42,7 @@ class achatBovinController extends Controller
      */
     public function show(achatBovin $achatBovin)
     {
-        //
+        return $achatBovin;
     }
 
     /**
@@ -48,7 +54,11 @@ class achatBovinController extends Controller
      */
     public function update(Request $request, achatBovin $achatBovin)
     {
-        //
+        if($achatBovin->update($request->all())){
+            return response()->json([
+                'success' => 'modifier avec succes'
+            ],200);
+        };
     }
 
     /**
@@ -59,6 +69,10 @@ class achatBovinController extends Controller
      */
     public function destroy(achatBovin $achatBovin)
     {
-        //
+        if($achatBovin->delete()){
+            return response()->json([
+                'success' => 'Suppression reussie'
+            ],200);
+        };
     }
 }

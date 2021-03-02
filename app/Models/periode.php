@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class periode extends Model
 {
     protected $primaryKey = 'idPeriode';
+    protected $fillable = ['nomPeriode','phase'];
     use HasFactory;
 
     public function vaches()

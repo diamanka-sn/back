@@ -16,7 +16,7 @@ class CreateDiagnosticsTable extends Migration
         Schema::create('diagnostics', function (Blueprint $table) {
             $table->id('idDiagnostic');
             $table->date('dateMalade');
-            $table->date('dateGuerrison');
+            $table->date('dateGuerison');
             $table->integer('idMaladie')->unsigned();
             $table->foreign('idMaladie')->references('idMaladie')->on('maladies');
             $table->integer('idBovin')->unsigned();

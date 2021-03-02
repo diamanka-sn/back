@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class maladie extends Model
 {
     protected $primaryKey = 'idMaladie';
+    protected $fillable = ['nomMaladie'];
     use HasFactory;
 
     public function diagnostics()

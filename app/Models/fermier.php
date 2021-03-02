@@ -9,6 +9,7 @@ class fermier extends Model
 {
     use HasFactory;
     public $incrementing = false;
+    protected $fillable = ['salaire'];
     protected $primaryKey = 'idUtilisateur';
 
     public function traiteDuJours()

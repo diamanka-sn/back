@@ -18,7 +18,7 @@ class CreateFacturesTable extends Migration
             $table->integer('montant');
             $table->date('datePaiement');
             $table->integer('idCom')->unsigned();
-            $table->foreign('idCom')->references('idCom')-> on ('commandes');
+            $table->foreign('idCom')->references('idCom')->on('commandes');
             $table->timestamps();
         });
     }

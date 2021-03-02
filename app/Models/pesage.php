@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class pesage extends Model
 {
     protected $primaryKey = 'idPesage';
+    protected $fillable = ['datePesee','poids','idBovin'];
     use HasFactory;
 
     public function bovin()

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class stockLait extends Model
 {
     protected $primaryKey = 'idStockLait';
+    protected $fillable = ['quantiteTotale','quantiteVendue','quantiteDispo'];
     use HasFactory;
 
     public function bouteilles()

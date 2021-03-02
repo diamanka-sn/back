@@ -11,6 +11,7 @@ class vache extends Model
 
     public $incrementing = false;
     protected $primaryKey = 'idBovin';
+    protected $fillable = ['idBovin'];
 
     public function productionLaits()
     {

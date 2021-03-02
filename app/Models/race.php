@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class race extends Model
 {
     protected $primaryKey = 'idRace';
+    protected $fillable = ['nomRace'];
     use HasFactory;
 
     public function bovins()
