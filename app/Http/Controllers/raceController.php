@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\bovin;
+use App\Models\race;
 use Illuminate\Http\Request;
 
-class bovinController extends Controller
+class raceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class bovinController extends Controller
      */
     public function index()
     {
-        //  $bovin = bovin::all();
+         //  $bovin = bovin::all();
         //return $bovin->toJson(JSON_PRETTY_PRINT);
-        return bovin::orderByDesc('idBovin')->get();
+        return race::orderByDesc('created_at')->get();
     }
 
     /**
@@ -27,34 +27,34 @@ class bovinController extends Controller
      */
     public function store(Request $request)
     {
-        if (bovin::create($request->all())) {
+        if(race::create($request->all())){
             return response()->json([
                 'success' => 'enregistre avec succes'
-            ], 200);
+            ],200);
         };
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\bovin  $bovin
+     * @param  \App\Models\race  $race
      * @return \Illuminate\Http\Response
      */
-    public function show(bovin $bovin)
+    public function show(race $race)
     {
-        return $bovin;
+        return $race;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\bovin  $bovin
+     * @param  \App\Models\race  $race
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, bovin $bovin)
+    public function update(Request $request, race $race)
     {
-        if ($bovin->update($request->all())) {
+        if ($race->update($request->all())) {
             return response()->json([
                 'success' => 'Modifier avec succes'
             ], 200);
@@ -64,13 +64,12 @@ class bovinController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\bovin  $bovin
+     * @param  \App\Models\race  $race
      * @return \Illuminate\Http\Response
      */
-    public function destroy(bovin $bovin)
+    public function destroy(race $race)
     {
-
-        if ($bovin->delete()) {
+        if ($race->delete()) {
             return response()->json([
                 'success' => 'Supprimer avec succes'
             ], 200);

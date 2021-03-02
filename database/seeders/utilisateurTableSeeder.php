@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class bovinTableSeeder extends Seeder
+class utilisateurTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,6 @@ class bovinTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\bovin::factory(10000)->create();
+        \App\Models\utilisateur::factory(1000)->create();
     }
 }

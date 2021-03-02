@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('bovin','App\Http\Controllers\bovinController');
+Route::apiResource('race','App\Http\Controllers\raceController');
+Route::apiResource('utilisateur','App\Http\Controllers\utilisateurController');
