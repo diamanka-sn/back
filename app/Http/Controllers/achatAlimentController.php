@@ -14,13 +14,9 @@ class achatAlimentController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
       //  $achatAliment = achatAliment::all();
         //return $achatAliment->toJson(JSON_PRETTY_PRINT);
         return achatAliment::orderByDesc('created_at')->get();
-=======
-        return achatAliment::orderByDesc('idAchatAliment')->get();
->>>>>>> e0a4ad4cda9138b6bcd878d92f370f6dc62db06d
     }
 
     /**
@@ -31,19 +27,11 @@ class achatAlimentController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
       if(achatAliment::create($request->all())){
           return response()->json([
               'success' => 'enregistre avec succes'
           ],200);
       };
-=======
-        if (achatAliment::create($request->all())) {
-            return response()->json([
-                'success' => 'enregistre avec succes'
-            ], 200);
-        };
->>>>>>> e0a4ad4cda9138b6bcd878d92f370f6dc62db06d
     }
 
     /**
@@ -66,17 +54,10 @@ class achatAlimentController extends Controller
      */
     public function update(Request $request, achatAliment $achatAliment)
     {
-<<<<<<< HEAD
         if($achatAliment->update($request->all())){
             return response()->json([
                 'success' => 'modifier avec succes'
             ],200);
-=======
-        if ($achatAliment->update($request->all())) {
-            return response()->json([
-                'success' => 'Modifier avec succes'
-            ], 200);
->>>>>>> e0a4ad4cda9138b6bcd878d92f370f6dc62db06d
         };
     }
 
@@ -88,18 +69,10 @@ class achatAlimentController extends Controller
      */
     public function destroy(achatAliment $achatAliment)
     {
-<<<<<<< HEAD
         if($achatAliment->delete()){
             return response()->json([
                 'success' => 'Suppression reussie'
             ],200);
         };
-=======
-        if ($achatAliment->delete()) {
-            return response()->json([
-                'success' => 'Supprimer avec succes'
-            ], 200);
-        }
->>>>>>> e0a4ad4cda9138b6bcd878d92f370f6dc62db06d
     }
 }
