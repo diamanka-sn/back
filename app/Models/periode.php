@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class periode extends Model
 {
     protected $primaryKey = 'idPeriode';
+    public $filable = ['nomPeriode','phase'];
     use HasFactory;
 }

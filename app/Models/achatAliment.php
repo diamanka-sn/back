@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class achatAliment extends Model
 {
     protected $primaryKey = 'idAchatAliment';
+    public $filable = ['type','dateDepense','libelle','montant'];
     use HasFactory;
 }
