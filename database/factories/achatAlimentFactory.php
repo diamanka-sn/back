@@ -22,9 +22,9 @@ class achatAlimentFactory extends Factory
     public function definition()
     {
         return [
-            'type' => $this->faker->sentence(6,true),
-            'libelle' => $this->faker->sentence(6,true),
-            'montant' => $this->faker->randomNumber($min = 6000),
+            'nomAliment' => $this->faker->sentence(6,true),
+            'quantite' => $this->faker->randomFloat(),
+            'montant' => $this->faker->randomDigit(),
         ];
     }
 }
