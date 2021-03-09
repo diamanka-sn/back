@@ -75,4 +75,5 @@ class achatBovinController extends Controller
             ],200);
         };
     }
+    
 }

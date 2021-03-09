@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class velle extends Model
 {
     use HasFactory;
-    protected $fillable = ['idBovin'];
-
+    protected $fillable = ['codeBovin','nom','photo','dateNaiss','etatDeSante','geniteur','genitrice','etat','situation','idRace'];
     public $incrementing = false;
     protected $primaryKey = 'idBovin';
 }
