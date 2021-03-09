@@ -13,6 +13,6 @@ class achatAlimentTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\periode::factory(1000)->create();
+        \App\Models\periode::factory(100)->create();
     }
 }

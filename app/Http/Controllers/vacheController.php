@@ -19,6 +19,9 @@ class vacheController extends Controller
         return vache::orderByDesc('created_at')->get();
     }
 
+    public function nbreVache(){
+        return vache::orderByDesc('idBovin')->count();
+    }
     /**
      * Store a newly created resource in storage.
      *

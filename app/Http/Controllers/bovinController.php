@@ -18,7 +18,9 @@ class bovinController extends Controller
         //return $bovin->toJson(JSON_PRETTY_PRINT);
         return bovin::orderByDesc('idBovin')->get();
     }
-
+    public function nbreBovin(){
+        return bovin::orderByDesc('idBovin')->count();
+    }
     /**
      * Store a newly created resource in storage.
      *

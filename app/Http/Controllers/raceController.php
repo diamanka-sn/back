@@ -19,6 +19,10 @@ class raceController extends Controller
         return race::orderByDesc('created_at')->get();
     }
 
+    public function nbreRace(){
+        return race::all('idRace')->count();
+    }
+
     /**
      * Store a newly created resource in storage.
      *

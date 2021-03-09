@@ -19,6 +19,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('bovin','App\Http\Controllers\bovinController');
+//Routes nombre de bovin
+Route::get('nbrebovin','App\Http\Controllers\bovinController@nbreBovin');
+//Routes get nombres de vaches
+Route::get('nbrevache','App\Http\Controllers\vacheController@nbreVache');
+//Routes get nombre de bovin achetes
+Route::get('nbreachatbovin','App\Http\Controllers\achatBovinController@nbreBovinAchete');
+
 Route::apiResource('client','App\Http\Controllers\clientController');
 Route::apiResource('achatAliment','App\Http\Controllers\achatAlimentController');
 Route::apiResource('achatBovin','App\Http\Controllers\achatBovinController');
@@ -36,6 +43,9 @@ Route::apiResource('periode','App\Http\Controllers\periodeController');
 Route::apiResource('pesage','App\Http\Controllers\pesageController');
 Route::apiResource('productionLait','App\Http\Controllers\productionLaitController');
 Route::apiResource('race','App\Http\Controllers\raceController');
+//Nombre de Race dans la ferme
+Route::get('nbrerace','App\Http\Controllers\raceController@nbreRace');
+
 Route::apiResource('stockLait','App\Http\Controllers\stockLaitController');
 Route::apiResource('taureau','App\Http\Controllers\taureauController');
 Route::apiResource('traiteDuJour','App\Http\Controllers\traiteDuJourController');

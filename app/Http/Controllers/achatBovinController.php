@@ -19,6 +19,10 @@ class achatBovinController extends Controller
         return achatBovin::orderByDesc('created_at')->get();
     }
 
+    public function nbreBovinAchete(){
+        return achatBovin::all('idAchatBovin')->count();
+    }
+
     /**
      * Store a newly created resource in storage.
      *

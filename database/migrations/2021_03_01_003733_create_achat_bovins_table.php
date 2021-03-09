@@ -17,7 +17,7 @@ class CreateAchatBovinsTable extends Migration
             $table->id('idAchatBovin');
             $table->integer('montantBovin');
             $table->date('dateAchatBovin');
-            $table->integer('idBovin')->unsigned();
+            $table->integer('idBovin')->unsigned()->default(1);
             $table->foreign('idBovin')->references('idBovin')->on('bovins');
             $table->timestamps();
         });

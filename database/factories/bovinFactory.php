@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\bovin;
+use App\Models\race;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class bovinFactory extends Factory
@@ -13,7 +14,6 @@ class bovinFactory extends Factory
      * @var string
      */
     protected $model = bovin::class;
-
     /**
      * Define the model's default state.
      *
@@ -24,13 +24,12 @@ class bovinFactory extends Factory
         return [
             'nom' => $this->faker->sentence(6,true),
             'photo' => $this->faker->sentence(6,true),
-            'etatSante' => $this->faker->sentence(6,true),
+            'etatDeSante' => $this->faker->sentence(6,true),
             'geniteur' => $this->faker->sentence(6,true),
             'etat' => $this->faker->sentence(6,true),
             'genitrice' => $this->faker->sentence(6,true),
             'situation' => $this->faker->sentence(6,true),
-            'codeBovin'=>$this->faker->sentence(7,true),
-           
+            'codeBovin'=>$this->faker->sentence(7,true), 
         ];
     }
 }
