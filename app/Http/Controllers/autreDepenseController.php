@@ -76,3 +76,4 @@ class autreDepenseController extends Controller
         };
     }
 }
+

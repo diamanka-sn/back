@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\bovin;
+use App\Models\race;
+use App\Models\pesage;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 
 class bovinController extends Controller
@@ -76,5 +80,66 @@ class bovinController extends Controller
                 'success' => 'Suppression reussie'
             ],200);
         };
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    // public function nombreBovin(Request $request)
+    // {
+    //     $request="select count(*) from bovins";
+    //     if (bovin::create($request->all())) {
+    //         return response()->json([
+    //             'success' => 'enregistre avec succes'
+    //         ], 200);
+    //     };
+       
+    // }
+    
+    public function nombreBovin()
+    {
+        return bovin::All()->count();
+    }
+    public function listBovinMalade()
+    {
+        return bovin::where("etatDeSante","souffrant")->orderByDesc('idBovin')->get();
+    }
+
+    public function listBovinSain()
+    {
+        return bovin::where("etatDeSante","Sain")->orderByDesc('idBovin')->get();
+    }
+    public function listBovinEnVente()
+    {
+        return bovin::where("situation","en vente")->orderByDesc('idBovin')->get();
+    }
+    public function listBovinPasEnVente()
+    {
+        return bovin::where("situation","pas en vente")->orderByDesc('idBovin')->get();
+    }
+    public function listBovinVivant()
+    {
+        return bovin::where("etat","vivant")->orderByDesc('idBovin')->get();
+    }
+    public function listBovinMort()
+    {
+        return bovin::where("etat","mort")->orderByDesc('idBovin')->get();
+    }
+    public function listBovinAvecDetaille()
+    {
+        $races=race::All();
+        $pesages=pesage::All();
+
+        $bovins=DB::table('bovins')
+        ->join('races','bovins.idRace','=','races.idRace')
+        ->join('pesages','bovins.idBovin','=','pesages.idBovin')
+       ->select('bovins.*','races.nomRace','pesages.*')
+        ->get();
+    
+    return $bovins;
+         
     }
 }

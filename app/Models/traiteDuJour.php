@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class traitDuJour extends Model
+class traiteDuJour extends Model
 {
     protected $primaryKey = 'idTraiteDuJour';
     protected $fillable = ['dateTraite','traiteMatin','traiteSoir','idUtilisateur','idProductionLait'];

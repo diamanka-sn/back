@@ -10,7 +10,7 @@ class client extends Model
     use HasFactory;
     public $incrementing = false;
     protected $primaryKey = 'idUtilisateur'; 
-    protected $fillable = ['idUtilisateur'];
+    protected $fillable = ['nom','prenom','tel','adresse','photo','login','password','profile'];
 
     public function commandes()
     {

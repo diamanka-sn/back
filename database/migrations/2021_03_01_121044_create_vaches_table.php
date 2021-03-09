@@ -14,8 +14,18 @@ class CreateVachesTable extends Migration
     public function up()
     {
         Schema::create('vaches', function (Blueprint $table) {
-            $table->integer('idBovin')->unsigned();
-            $table->foreign('idBovin')->references('idBovin')->on('bovins');
+            $table->id('idBovin');
+            $table->string('codeBovin',255);
+            $table->string('nom',255);
+            $table->string('photo',255);
+            $table->date('dateNaiss');
+            $table->string('etatDeSante');
+            $table->string('geniteur',255);
+            $table->string('genitrice',255);
+            $table->string('etat',255);
+            $table->string('situation',255);
+            $table->integer('idRace')->unsigned();
+            $table->foreign('idRace')->references('idRace')->on('commandes');
             $table->timestamps();
         });
     }

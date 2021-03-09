@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\velle;
-use Illuminate\Http\Request;
 
+use App\Models\velle;
+use App\Models\race;
+use App\Models\productionLait;
+use App\Models\traiteDuJour;
+use App\Models\pesage;
+use App\Models\periode;
+use App\Models\maladie;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 class velleController extends Controller
 {
     /**
@@ -75,4 +82,50 @@ class velleController extends Controller
             ],200);
         };
     }
+
+    public function nombreVelle()
+    {
+        return velle::All()->count();
+    }
+    public function listVelleMalade()
+    {
+        return velle::where("etatDeSante","souffrant")->orderByDesc('idBovin')->get();
+    }
+
+    public function listVelleSain()
+    {
+        return velle::where("etatDeSante","Sain")->orderByDesc('idBovin')->get();
+    }
+    public function listVelleEnVente()
+    {
+        return velle::where("situation","en vente")->orderByDesc('idBovin')->get();
+    }
+    public function listVellePasEnVente()
+    {
+        return velle::where("situation","pas en vente")->orderByDesc('idBovin')->get();
+    }
+    public function listVelleVivant()
+    {
+        return velle::where("etat","vivant")->orderByDesc('idBovin')->get();
+    }
+    public function listVelleMort()
+    {
+        return velle::where("etat","mort")->orderByDesc('idBovin')->get();
+    }
+    public function listVelleAvecDetaille()
+    {
+        $races=race::All();
+        $pesages=pesage::All();
+    
+
+        $velles=DB::table('velles')
+        ->join('races','velles.idRace','=','races.idRace')
+        ->join('pesages','velles.idBovin','=','pesages.idBovin')
+       ->select('velles.*','races.nomRace','pesages.*')
+        ->get();
+    
+    return $velles;
+         
+    }
+
 }

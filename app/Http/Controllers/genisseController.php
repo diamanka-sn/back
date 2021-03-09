@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\genisse;
+use App\Models\race;
+use App\Models\productionLait;
+use App\Models\traiteDuJour;
+use App\Models\pesage;
+use App\Models\periode;
+use App\Models\maladie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class genisseController extends Controller
 {
@@ -74,5 +81,50 @@ class genisseController extends Controller
                 'success' => 'Suppression reussie'
             ],200);
         };
+    }
+      
+    public function nombreGenisse()
+    {
+        return Genisse::All()->count();
+    }
+    public function listGenisseMalade()
+    {
+        return Genisse::where("etatDeSante","souffrant")->orderByDesc('idBovin')->get();
+    }
+
+    public function listGenisseSain()
+    {
+        return Genisse::where("etatDeSante","Sain")->orderByDesc('idBovin')->get();
+    }
+    public function listGenisseEnVente()
+    {
+        return Genisse::where("situation","en vente")->orderByDesc('idBovin')->get();
+    }
+    public function listGenissePasEnVente()
+    {
+        return Genisse::where("situation","pas en vente")->orderByDesc('idBovin')->get();
+    }
+    public function listGenisseVivant()
+    {
+        return Genisse::where("etat","vivant")->orderByDesc('idBovin')->get();
+    }
+    public function listGenisseMort()
+    {
+        return Genisse::where("etat","mort")->orderByDesc('idBovin')->get();
+    }
+    public function listGenisseAvecDetaille()
+    {
+        $races=race::All();
+        $pesages=pesage::All();
+    
+
+        $genisses=DB::table('genisses')
+        ->join('races','genisses.idRace','=','races.idRace')
+        ->join('pesages','genisses.idBovin','=','pesages.idBovin')
+       ->select('genisses.*','races.nomRace','pesages.*')
+        ->get();
+    
+    return $genisses;
+         
     }
 }

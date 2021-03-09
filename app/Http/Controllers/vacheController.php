@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\vache;
+use App\Models\race;
+use App\Models\productionLait;
+use App\Models\traiteDuJour;
+use App\Models\pesage;
+use App\Models\periode;
+use App\Models\maladie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class vacheController extends Controller
 {
@@ -78,4 +85,143 @@ class vacheController extends Controller
             ],200);
         };
     }
+
+
+    public function nombreVache()
+    {
+        return Vache::All()->count();
+    }
+    public function listVacheMalade()
+    {
+        return Vache::where("etatDeSante","souffrant")->orderByDesc('idBovin')->get();
+    }
+
+    public function listVacheSain()
+    {
+        return Vache::where("etatDeSante","Sain")->orderByDesc('idBovin')->get();
+    }
+    public function listVacheEnVente()
+    {
+        return Vache::where("situation","en vente")->orderByDesc('idBovin')->get();
+    }
+    public function listVachePasEnVente()
+    {
+        return Vache::where("situation","pas en vente")->orderByDesc('idBovin')->get();
+    }
+    public function listVacheVivant()
+    {
+        return Vache::where("etat","vivant")->orderByDesc('idBovin')->get();
+    }
+    public function listVacheMort()
+    {
+        return Vache::where("etat","mort")->orderByDesc('idBovin')->get();
+    }
+    public function listVacheAvecDetaille()
+    {
+        $races=race::All();
+        $pesages=pesage::All();
+        $periodes=periode::All();
+
+        $Vaches=DB::table('Vaches')
+        ->join('races','Vaches.idRace','=','races.idRace')
+        ->join('pesages','Vaches.idBovin','=','pesages.idBovin')
+        ->join('periodes','Vaches.idPeriode','=','periodes.idPeriode')
+       ->select('Vaches.*','races.nomRace','periodes.*','pesages.*')
+        ->get();
+    
+    return $Vaches;
+         
+    }
+
+    public function detailleProductionLaitVache()
+    {
+        $productionLaits=productionLait::All();
+        $traiteDuJours=traiteDuJour::All();
+        
+
+        $Vaches=DB::table('vaches')
+        ->join('production_laits','vaches.idBovin','=','production_laits.idBovin')
+        ->join('traite_du_jours','production_laits.idProductionLait','=','traite_du_jours.idProductionLait')
+        
+       ->select('vaches.*','traite_du_jours.*','production_laits.*')
+        ->get();
+    
+    return $Vaches;
+         
+    }
+
+    public function nombreVacheEnLactation()
+    {     
+        $periodes=periode::All();
+        $Vaches=DB::table('vaches')
+        ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
+       ->select('vaches.*','periodes.nomPeriode')
+        ->get();
+        return $Vaches->where("nomPeriode","Lactation")->count();        
+    }
+    public function listeVacheEnLactation()
+    {     
+        $periodes=periode::All();
+        $Vaches=DB::table('vaches')
+        ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
+       ->select('vaches.*','periodes.nomPeriode')
+        ->get();
+        return $Vaches->where("nomPeriode","Lactation");        
+    }
+    public function listeVacheEnTarissement()
+    {     
+        $periodes=periode::All();
+        $Vaches=DB::table('vaches')
+        ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
+       ->select('vaches.*','periodes.nomPeriode')
+        ->get();
+        return $Vaches->where("nomPeriode","Tarissement");        
+    }
+    public function nombreVacheEnTarissement()
+    {     
+        $periodes=periode::All();
+        $Vaches=DB::table('vaches')
+        ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
+       ->select('vaches.*','periodes.nomPeriode')
+        ->get();
+        return $Vaches->where("nomPeriode","Tarissement")->count();        
+    }
+
+    public function listeVacheEnGestation()
+    {     
+        $periodes=periode::All();
+        $Vaches=DB::table('vaches')
+        ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
+       ->select('vaches.*','periodes.phase')
+        ->get();
+        return $Vaches->where("phase","gestation");        
+    }
+    public function nombreVacheEnGestation()
+    {     
+        $periodes=periode::All();
+        $Vaches=DB::table('vaches')
+        ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
+       ->select('vaches.*','periodes.phase')
+        ->get();
+        return $Vaches->where("phase","gestation")->count();        
+    }
+    public function listeVacheNonGestant()
+    {     
+        $periodes=periode::All();
+        $Vaches=DB::table('vaches')
+        ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
+       ->select('vaches.*','periodes.phase')
+        ->get();
+        return $Vaches->where("phase","non gestant");        
+    }
+    public function nombreVacheNonGestant()
+    {     
+        $periodes=periode::All();
+        $Vaches=DB::table('vaches')
+        ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
+       ->select('vaches.*','periodes.phase')
+        ->get();
+        return $Vaches->where("phase","non gestant")->count();        
+    }
+
 }

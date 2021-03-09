@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\veau;
+use App\Models\race;
+use App\Models\productionLait;
+use App\Models\traiteDuJour;
+use App\Models\pesage;
+use App\Models\periode;
+use App\Models\maladie;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class veauController extends Controller
 {
     /**
@@ -75,4 +81,53 @@ class veauController extends Controller
             ],200);
         };
     }
+
+
+
+    
+    public function nombreVeau()
+    {
+        return veau::All()->count();
+    }
+    public function listVeauMalade()
+    {
+        return veau::where("etatDeSante","souffrant")->orderByDesc('idBovin')->get();
+    }
+
+    public function listVeauSain()
+    {
+        return veau::where("etatDeSante","Sain")->orderByDesc('idBovin')->get();
+    }
+    public function listVeauEnVente()
+    {
+        return veau::where("situation","en vente")->orderByDesc('idBovin')->get();
+    }
+    public function listVeauPasEnVente()
+    {
+        return veau::where("situation","pas en vente")->orderByDesc('idBovin')->get();
+    }
+    public function listVeauVivant()
+    {
+        return veau::where("etat","vivant")->orderByDesc('idBovin')->get();
+    }
+    public function listVeauMort()
+    {
+        return veau::where("etat","mort")->orderByDesc('idBovin')->get();
+    }
+    public function listVeauAvecDetaille()
+    {
+        $races=race::All();
+        $pesages=pesage::All();
+    
+
+        $veaus=DB::table('veaus')
+        ->join('races','veaus.idRace','=','races.idRace')
+        ->join('pesages','veaus.idBovin','=','pesages.idBovin')
+       ->select('veaus.*','races.nomRace','pesages.*')
+        ->get();
+    
+    return $veaus;
+         
+    }
+
 }
