@@ -29,13 +29,10 @@ class bovinFactory extends Factory
             'etat' => $this->faker->sentence(6,true),
             'genitrice' => $this->faker->sentence(6,true),
             'situation' => $this->faker->sentence(6,true),
-<<<<<<< HEAD
-            'codeBovin'=>$this->faker->sentence(7,true), 
-=======
             'codeBovin'=>$this->faker->sentence(7,true),
-            'idRace'=>$this->faker->Str::unique()
            
->>>>>>> 557898fabf757c97e8e3289ccaf31f9cda69fb65
+            'dateNaiss' => $this->faker->date("y-m-d"),
+           
         ];
     }
 }

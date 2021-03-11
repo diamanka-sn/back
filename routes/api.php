@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::get('api/mon', function () {
 //     return response()->json(["utilisateur"=>"Ama"]);
 // });
+//bloc Bovin
 //Route::get('/listeBovinAvecRace',[App\Http\Controllers\bovinController::class,"listBovinAvecRace"]);
 Route::get('/listBovinMalade',[App\Http\Controllers\bovinController::class,"listBovinMalade"]);
 Route::get('/listBovinSain',[App\Http\Controllers\bovinController::class,"listBovinSain"]);
@@ -29,9 +30,9 @@ Route::get('/listBovinPasEnVente',[App\Http\Controllers\bovinController::class,"
 Route::get('/listBovinVivant',[App\Http\Controllers\bovinController::class,"listBovinVivant"]);
 Route::get('/listBovinMort',[App\Http\Controllers\bovinController::class,"listBovinMort"]);
 Route::get('/nombreBovin',[App\Http\Controllers\bovinController::class,"nombreBovin"]);
-Route::get('/listBovinAvecDetaille',[App\Http\Controllers\bovinController::class,"listBovinAvecDetaille"]);
+Route::get('/listBovinAvecDetaille/{idBovin}',[App\Http\Controllers\bovinController::class,"listBovinAvecDetaille"]);
 
-
+//bloc velle
 Route::get('/listVelleMalade',[App\Http\Controllers\velleController::class,"listVelleMalade"]);
 Route::get('/listVelleSain',[App\Http\Controllers\velleController::class,"listVelleSain"]);
 Route::get('/listVelleEnVente',[App\Http\Controllers\velleController::class,"listVelleEnVente"]);
@@ -41,6 +42,7 @@ Route::get('/listVelleMort',[App\Http\Controllers\velleController::class,"listVe
 Route::get('/nombreVelle',[App\Http\Controllers\velleController::class,"nombreVelle"]);
 Route::get('/listVelleAvecDetaille',[App\Http\Controllers\velleController::class,"listVelleAvecDetaille"]);
 
+//bloc veau
 
 
 Route::get('/listVeauMalade',[App\Http\Controllers\veauController::class,"listVeauMalade"]);
@@ -76,6 +78,7 @@ Route::get('/nombreGenisse',[App\Http\Controllers\taureauController::class,"nomb
 Route::get('/listGenisseAvecDetaille',[App\Http\Controllers\taureauController::class,"listGenisseAvecDetaille"]);
 
 
+//bloc vache
 
 Route::get('/listVacheMalade',[App\Http\Controllers\vacheController::class,"listVacheMalade"]);
 Route::get('/listVacheSain',[App\Http\Controllers\vacheController::class,"listVacheSain"]);
@@ -94,6 +97,24 @@ Route::get('/nombreVacheEnGestation',[App\Http\Controllers\vacheController::clas
 Route::get('/listeVacheEnGestation',[App\Http\Controllers\vacheController::class,"listeVacheEnGestation"]);
 Route::get('/nombreVacheNonGestant',[App\Http\Controllers\vacheController::class,"nombreVacheNonGestant"]);
 Route::get('/listeVacheNonGestant',[App\Http\Controllers\vacheController::class,"listeVacheNonGestant"]);
+
+
+//bloc commande 
+Route::get('/nombreCommande',[\App\Http\Controllers\commandeController::class,"nombreCommande"]);
+Route::get('/listClient',[\App\Http\Controllers\commandeController::class,"listClient"]);
+Route::get('/listClientBovinAvecDetails',[\App\Http\Controllers\commandeController::class,"listClientBovinAvecDetails"]);
+Route::get('/listClientLaitAvecDetails',[\App\Http\Controllers\commandeController::class,"listClientLaitAvecDetails"]);
+Route::get('/nombreCommandeParMois',[\App\Http\Controllers\commandeController::class,"nombreCommandeParMois"]);
+Route::get('/nombreCommandeParSemaine',[\App\Http\Controllers\commandeController::class,"nombreCommandeParSemaine"]);
+Route::get('/listeCommandeParMois',[\App\Http\Controllers\commandeController::class,"listeCommandeParMois"]);
+Route::get('/nombreCommandeLait',[\App\Http\Controllers\commandeController::class,"nombreCommandeLait"]);
+Route::get('/nombreCommandeBovin',[\App\Http\Controllers\commandeController::class,"nombreCommandeBovin"]);
+Route::get('/litreVendu',[\App\Http\Controllers\commandeController::class,"litreVendu"]);
+
+
+
+
+
 
 Route::apiResource('bovin','App\Http\Controllers\bovinController');
 //Routes nombre de bovin

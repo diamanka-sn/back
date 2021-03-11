@@ -15,17 +15,19 @@ class CreateVachesTable extends Migration
     {
         Schema::create('vaches', function (Blueprint $table) {
             $table->id('idBovin');
-            $table->string('codeBovin',255);
-            $table->string('nom',255);
-            $table->string('photo',255);
+            $table->string('codeBovin', 255);
+            $table->string('nom', 255);
+            $table->string('photo', 255);
             $table->date('dateNaiss');
             $table->string('etatDeSante');
-            $table->string('geniteur',255);
-            $table->string('genitrice',255);
-            $table->string('etat',255);
-            $table->string('situation',255);
+            $table->string('geniteur', 255);
+            $table->string('genitrice', 255);
+            $table->string('etat', 255);
+            $table->string('situation', 255);
             $table->integer('idRace')->unsigned();
+            $table->integer('idPeriode')->unsigned();
             $table->foreign('idRace')->references('idRace')->on('commandes');
+            $table->foreign('idPeriode')->references('idPeriode')->on('periodes');
             $table->timestamps();
         });
     }

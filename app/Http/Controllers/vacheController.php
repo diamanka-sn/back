@@ -122,11 +122,11 @@ class vacheController extends Controller
         $pesages=pesage::All();
         $periodes=periode::All();
 
-        $Vaches=DB::table('Vaches')
-        ->join('races','Vaches.idRace','=','races.idRace')
-        ->join('pesages','Vaches.idBovin','=','pesages.idBovin')
-        ->join('periodes','Vaches.idPeriode','=','periodes.idPeriode')
-       ->select('Vaches.*','races.nomRace','periodes.*','pesages.*')
+        $Vaches=DB::table('vaches')
+        ->join('races','vaches.idRace','=','races.idRace')
+        ->join('pesages','vaches.idBovin','=','pesages.idBovin')
+        ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
+       ->select('vaches.*','races.nomRace','periodes.*','pesages.*')
         ->get();
     
     return $Vaches;

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\bovinController;
 
 use App\Models\taureau;
@@ -16,8 +17,8 @@ use Illuminate\Support\Facades\DB;
 
 class taureauController extends Controller
 {
-   
-   
+
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +26,7 @@ class taureauController extends Controller
      */
     public function index()
     {
-      //  $taureau = taureau::all();
+        //  $taureau = taureau::all();
         //return $taureau->toJson(JSON_PRETTY_PRINT);
         return taureau::orderByDesc('created_at')->get();
     }
@@ -38,15 +39,15 @@ class taureauController extends Controller
      */
     public function store(Request $request)
     {
-      if(bovin::create($request->all())){
-        if(taureau::create($request->all())){
-            return response()->json([
-                'success' => 'enregistre avec succes dans bovin et Taureau'
-            ],200);
-        };        
-     };
+        if (bovin::create($request->all())) {
+            if (taureau::create($request->all())) {
+                return response()->json([
+                    'success' => 'enregistre avec succes dans bovin et Taureau'
+                ], 200);
+            };
+        };
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -67,25 +68,24 @@ class taureauController extends Controller
      * @param  \App\Models\bovin  $bovin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,taureau $taureau,bovin $bovin)
+    public function update(Request $request, taureau $taureau, bovin $bovin)
     {
-       if($bovin->update($request->all())){
-            if($taureau->update($request->all())){
+        if ($bovin->update($request->all())) {
+            if ($taureau->update($request->all())) {
                 return response()->json([
                     'success' => 'modifier avec succes dans Bovin et Taureau'
-                ],200);
+                ], 200);
             };
-    
-        //    if($taureau->update($request->all())){
-        //                 return response()->json([
-        //                'success' => 'modifier avec succes dans Bovin et Taureau'
-        //            ],200);            
-        //    };
-      }
 
+            //    if($taureau->update($request->all())){
+            //                 return response()->json([
+            //                'success' => 'modifier avec succes dans Bovin et Taureau'
+            //            ],200);            
+            //    };
+        }
     }
 
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -96,64 +96,62 @@ class taureauController extends Controller
      */
     public function destroy(taureau $taureau)
     {
-       
-            if($bovin->delete()){
-                return response()->json([
-                    'success' => 'Suppression reussie dans bovin'
-                ],200);
-            };
-        
-        
+
+        if ($taureau->delete()) {
+            return response()->json([
+                'success' => 'Suppression reussie dans bovin'
+            ], 200);
+        };
+
+
         // if($taureau->delete()){
         //     return response()->json([
         //         'success' => 'Suppression reussie dans Taureau'
         //     ],200);
         // };
     }
-    
+
     public function nombreTaureau()
     {
         return taureau::All()->count();
     }
     public function listTaureauMalade()
     {
-        return taureau::where("etatDeSante","souffrant")->orderByDesc('idBovin')->get();
+        return taureau::where("etatDeSante", "souffrant")->orderByDesc('idBovin')->get();
     }
 
     public function listTaureauSain()
     {
-        return taureau::where("etatDeSante","Sain")->orderByDesc('idBovin')->get();
+        return taureau::where("etatDeSante", "Sain")->orderByDesc('idBovin')->get();
     }
     public function listTaureauEnVente()
     {
-        return taureau::where("situation","en vente")->orderByDesc('idBovin')->get();
+        return taureau::where("situation", "en vente")->orderByDesc('idBovin')->get();
     }
     public function listTaureauPasEnVente()
     {
-        return taureau::where("situation","pas en vente")->orderByDesc('idBovin')->get();
+        return taureau::where("situation", "pas en vente")->orderByDesc('idBovin')->get();
     }
     public function listTaureauVivant()
     {
-        return taureau::where("etat","vivant")->orderByDesc('idBovin')->get();
+        return taureau::where("etat", "vivant")->orderByDesc('idBovin')->get();
     }
     public function listTaureauMort()
     {
-        return taureau::where("etat","mort")->orderByDesc('idBovin')->get();
+        return taureau::where("etat", "mort")->orderByDesc('idBovin')->get();
     }
     public function listTaureauAvecDetaille()
     {
-        $races=race::All();
-        $pesages=pesage::All();
-    
+        $races = race::All();
+        $pesages = pesage::All();
 
-        $taureaus=DB::table('taureaus')
-        ->join('races','taureaus.idRace','=','races.idRace')
-        ->join('pesages','taureaus.idBovin','=','pesages.idBovin')
-       ->select('taureaus.*','races.nomRace','pesages.*')
-        ->get();
-    
-    return $taureaus;
-         
+
+        $taureaus = DB::table('taureaus')
+            ->join('races', 'taureaus.idRace', '=', 'races.idRace')
+            ->join('pesages', 'taureaus.idBovin', '=', 'pesages.idBovin')
+            ->select('taureaus.*', 'races.nomRace', 'pesages.*')
+            ->get();
+
+        return $taureaus;
     }
-
 }
