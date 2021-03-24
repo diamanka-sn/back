@@ -11,6 +11,7 @@ use App\Models\periode;
 use App\Models\maladie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class veauController extends Controller
 {
     /**
@@ -20,7 +21,7 @@ class veauController extends Controller
      */
     public function index()
     {
-      //  $veau = veau::all();
+        //  $veau = veau::all();
         //return $veau->toJson(JSON_PRETTY_PRINT);
         return veau::orderByDesc('created_at')->get();
     }
@@ -33,11 +34,11 @@ class veauController extends Controller
      */
     public function store(Request $request)
     {
-      if(veau::create($request->all())){
-          return response()->json([
-              'success' => 'enregistre avec succes'
-          ],200);
-      };
+        if (veau::create($request->all())) {
+            return response()->json([
+                'success' => 'enregistre avec succes'
+            ], 200);
+        };
     }
 
     /**
@@ -60,10 +61,10 @@ class veauController extends Controller
      */
     public function update(Request $request, veau $veau)
     {
-        if($veau->update($request->all())){
+        if ($veau->update($request->all())) {
             return response()->json([
                 'success' => 'modifier avec succes'
-            ],200);
+            ], 200);
         };
     }
 
@@ -75,59 +76,65 @@ class veauController extends Controller
      */
     public function destroy(veau $veau)
     {
-        if($veau->delete()){
+        if ($veau->delete()) {
             return response()->json([
                 'success' => 'Suppression reussie'
-            ],200);
+            ], 200);
         };
     }
 
 
 
-    
+
     public function nombreVeau()
     {
-        return veau::All()->count();
+        return veau::where("etat", "vivant")->count();
     }
     public function listVeauMalade()
     {
-        return veau::where("etatDeSante","souffrant")->orderByDesc('idBovin')->get();
+        return veau::where("etatDeSante", "souffrant")->orderByDesc('idBovin')->get();
     }
 
     public function listVeauSain()
     {
-        return veau::where("etatDeSante","Sain")->orderByDesc('idBovin')->get();
+        return veau::where("etatDeSante", "Sain")->orderByDesc('idBovin')->get();
     }
     public function listVeauEnVente()
     {
-        return veau::where("situation","en vente")->orderByDesc('idBovin')->get();
+        return veau::where("situation", "en vente")->orderByDesc('idBovin')->get();
     }
     public function listVeauPasEnVente()
     {
-        return veau::where("situation","pas en vente")->orderByDesc('idBovin')->get();
+        return veau::where("situation", "pas en vente")->orderByDesc('idBovin')->get();
     }
     public function listVeauVivant()
     {
-        return veau::where("etat","vivant")->orderByDesc('idBovin')->get();
+        return veau::where("etat", "vivant")->orderByDesc('idBovin')->get();
     }
     public function listVeauMort()
     {
-        return veau::where("etat","mort")->orderByDesc('idBovin')->get();
+        return veau::where("etat", "mort")->orderByDesc('idBovin')->get();
     }
     public function listVeauAvecDetaille()
     {
-        $races=race::All();
-        $pesages=pesage::All();
-    
+        $veaus = DB::table('veaus')
+            ->join('races', 'veaus.idRace', '=', 'races.idRace')
+            ->join('pesages', 'veaus.idBovin', '=', 'pesages.idBovin')
+            ->select('veaus.*', 'races.nomRace', 'pesages.*')
+            ->get();
 
-        $veaus=DB::table('veaus')
-        ->join('races','veaus.idRace','=','races.idRace')
-        ->join('pesages','veaus.idBovin','=','pesages.idBovin')
-       ->select('veaus.*','races.nomRace','pesages.*')
-        ->get();
-    
-    return $veaus;
-         
+        return $veaus;
     }
 
+    public function nombreVeauMois()
+    {
+        $veau = DB::table('veaus')
+            ->where("etat", "vivant")
+            ->select(DB::raw("count(idBovin) as 'nombre'"), DB::raw('YEAR(created_at) annee,MONTH(created_at) mois'))
+            ->groupBy('annee', 'mois')
+            ->orderBy('mois')
+            ->get();
+
+        return $veau->groupBy('annee');
+    }
 }

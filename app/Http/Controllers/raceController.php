@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\race;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class raceController extends Controller
 {
@@ -78,5 +80,16 @@ class raceController extends Controller
                 'success' => 'Suppression reussie'
             ],200);
         };
+    }
+
+    public function raceExistant(){
+        $commandeMois = DB::table('races')
+        ->join('bovins', 'bovins.idRace', '=', 'races.idRace')
+        ->where('bovins.etat','vivant')
+        ->select(DB::raw("count(bovins.idBovin) as 'nombre'"), DB::raw("races.nomRace as 'race'"))
+        ->groupBy('race')
+        ->get();
+
+    return $commandeMois;
     }
 }

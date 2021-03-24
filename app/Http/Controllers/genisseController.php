@@ -21,7 +21,7 @@ class genisseController extends Controller
      */
     public function index()
     {
-      //  $genisse = genisse::all();
+        //  $genisse = genisse::all();
         //return $genisse->toJson(JSON_PRETTY_PRINT);
         return genisse::orderByDesc('created_at')->get();
     }
@@ -34,11 +34,11 @@ class genisseController extends Controller
      */
     public function store(Request $request)
     {
-      if(genisse::create($request->all())){
-          return response()->json([
-              'success' => 'enregistre avec succes'
-          ],200);
-      };
+        if (genisse::create($request->all())) {
+            return response()->json([
+                'success' => 'enregistre avec succes'
+            ], 200);
+        };
     }
 
     /**
@@ -61,10 +61,10 @@ class genisseController extends Controller
      */
     public function update(Request $request, genisse $genisse)
     {
-        if($genisse->update($request->all())){
+        if ($genisse->update($request->all())) {
             return response()->json([
                 'success' => 'modifier avec succes'
-            ],200);
+            ], 200);
         };
     }
 
@@ -76,55 +76,61 @@ class genisseController extends Controller
      */
     public function destroy(genisse $genisse)
     {
-        if($genisse->delete()){
+        if ($genisse->delete()) {
             return response()->json([
                 'success' => 'Suppression reussie'
-            ],200);
+            ], 200);
         };
     }
-      
+
     public function nombreGenisse()
     {
-        return Genisse::All()->count();
+        return Genisse::where("etat", "vivant")->count();
     }
     public function listGenisseMalade()
     {
-        return Genisse::where("etatDeSante","souffrant")->orderByDesc('idBovin')->get();
+        return Genisse::where("etatDeSante", "souffrant")->orderByDesc('idBovin')->get();
     }
 
     public function listGenisseSain()
     {
-        return Genisse::where("etatDeSante","Sain")->orderByDesc('idBovin')->get();
+        return Genisse::where("etatDeSante", "Sain")->orderByDesc('idBovin')->get();
     }
     public function listGenisseEnVente()
     {
-        return Genisse::where("situation","en vente")->orderByDesc('idBovin')->get();
+        return Genisse::where("situation", "en vente")->orderByDesc('idBovin')->get();
     }
     public function listGenissePasEnVente()
     {
-        return Genisse::where("situation","pas en vente")->orderByDesc('idBovin')->get();
+        return Genisse::where("situation", "pas en vente")->orderByDesc('idBovin')->get();
     }
     public function listGenisseVivant()
     {
-        return Genisse::where("etat","vivant")->orderByDesc('idBovin')->get();
+        return Genisse::where("etat", "vivant")->orderByDesc('idBovin')->get();
     }
     public function listGenisseMort()
     {
-        return Genisse::where("etat","mort")->orderByDesc('idBovin')->get();
+        return Genisse::where("etat", "mort")->orderByDesc('idBovin')->get();
     }
     public function listGenisseAvecDetaille()
     {
-        $races=race::All();
-        $pesages=pesage::All();
-    
+        $genisses = DB::table('genisses')
+            ->join('races', 'genisses.idRace', '=', 'races.idRace')
+            ->join('pesages', 'genisses.idBovin', '=', 'pesages.idBovin')
+            ->select('genisses.*', 'races.nomRace', 'pesages.*')
+            ->get();
 
-        $genisses=DB::table('genisses')
-        ->join('races','genisses.idRace','=','races.idRace')
-        ->join('pesages','genisses.idBovin','=','pesages.idBovin')
-       ->select('genisses.*','races.nomRace','pesages.*')
-        ->get();
-    
-    return $genisses;
-         
+        return $genisses;
+    }
+    public function nombreGenisseMois()
+    {
+        $genisses = DB::table('genisses')
+            ->where("etat", "vivant")
+            ->select(DB::raw("count(idBovin) as 'nombre'"),DB::raw('YEAR(created_at) annee , MONTH(created_at) mois'))
+            ->groupBy('annee','mois')
+            ->orderBy('mois')
+            ->get();
+
+        return $genisses ->groupBy('annee');
     }
 }

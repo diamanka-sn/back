@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\achatAliment;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 class achatAlimentController extends Controller
 {
     /**
@@ -14,7 +16,7 @@ class achatAlimentController extends Controller
      */
     public function index()
     {
-      //  $achatAliment = achatAliment::all();
+        //  $achatAliment = achatAliment::all();
         //return $achatAliment->toJson(JSON_PRETTY_PRINT);
         return achatAliment::orderByDesc('created_at')->get();
     }
@@ -27,11 +29,11 @@ class achatAlimentController extends Controller
      */
     public function store(Request $request)
     {
-      if(achatAliment::create($request->all())){
-          return response()->json([
-              'success' => 'enregistre avec succes'
-          ],200);
-      };
+        if (achatAliment::create($request->all())) {
+            return response()->json([
+                'success' => 'enregistre avec succes'
+            ], 200);
+        };
     }
 
     /**
@@ -54,10 +56,10 @@ class achatAlimentController extends Controller
      */
     public function update(Request $request, achatAliment $achatAliment)
     {
-        if($achatAliment->update($request->all())){
+        if ($achatAliment->update($request->all())) {
             return response()->json([
                 'success' => 'modifier avec succes'
-            ],200);
+            ], 200);
         };
     }
 
@@ -69,10 +71,44 @@ class achatAlimentController extends Controller
      */
     public function destroy(achatAliment $achatAliment)
     {
-        if($achatAliment->delete()){
+        if ($achatAliment->delete()) {
             return response()->json([
                 'success' => 'Suppression reussie'
-            ],200);
+            ], 200);
         };
+    }
+
+
+
+    public function quantiteAchetes()
+    {
+        $stock = DB::table('achat_aliments')
+            // ->join('achat_aliments', 'achat_aliments.nomAliment', '=', 'alimentation_du_jours.nomAlimentation')
+            ->where('nomAliment', 'sorgo')
+            ->select(DB::raw("sum(quantite) as 'achetes'"))
+
+            ->get();
+
+        return $stock;
+    }
+
+    public function typeAliment()
+    {
+        $stock = DB::table('achat_aliments')
+            ->select('nomAliment as type')
+            ->distinct()
+            ->get();
+        return $stock;
+    }
+
+    public function chargeAlimentation()
+    {
+        $stock = DB::table('achat_aliments')
+            // ->join('achat_aliments', 'achat_aliments.nomAliment', '=', 'alimentation_du_jours.nomAlimentation')
+            ->select(DB::raw("sum(montant) as 'achetes'"), DB::raw('YEAR(dateAchatAliment) as annee'))
+            ->groupBy('annee')
+            ->get();
+
+        return $stock->groupBy('annee');
     }
 }

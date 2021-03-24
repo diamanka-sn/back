@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\achatBovin;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 class achatBovinController extends Controller
 {
     /**
@@ -79,5 +81,10 @@ class achatBovinController extends Controller
             ],200);
         };
     }
-    
+    public function coutBovin(){
+        $veau = DB::table('achat_bovins')
+        ->select(DB::raw("sum(montantBovin) as 'prix'"))
+        ->get();
+        return $veau;
+    }
 }

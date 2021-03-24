@@ -94,14 +94,15 @@ class commandeController extends Controller
 
         return $commandeLait->count();
     }
-    public function litreVendu(){
+    public function litreVendu()
+    {
         $commandeBovin = DB::table('commandes')
-        ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.idCom')
-        ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.idBouteille')
-        ->select('bouteilles.capacite')
-        ->get();
+            ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.idCom')
+            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.idBouteille')
+            ->select('bouteilles.capacite')
+            ->get();
 
-    return $commandeBovin->sum('capacite');
+        return $commandeBovin->sum('capacite');
     }
     public function nombreCommandeBovin()
     {
@@ -115,21 +116,23 @@ class commandeController extends Controller
     public function nombreCommandeParSemaine()
     {
         $commandeMois = DB::table('commandes')
-            ->select(DB::raw("count(idCom) as 'nombre'"), DB::raw('WEEK(dateCom) semaine,DAY(dateCom) jour'))
-            ->groupBy('semaine', 'jour')
+            ->select(DB::raw("count(idCom) as 'nombre'"), DB::raw('YEAR(dateCom) annee,WEEK(dateCom) semaine'))
+            ->groupBy('annee', 'semaine')
+            ->orderBy('semaine')
             ->get();
 
-        return $commandeMois;
+        return $commandeMois->groupBy('annee');
     }
 
     public function nombreCommandeParMois()
     {
         $commandeMois = DB::table('commandes')
-            ->select(DB::raw("count(idCom) as 'nombre'"),DB::raw('YEAR(dateCom) annee, MONTH(dateCom) mois'))
+            ->select(DB::raw("count(idCom) as 'nombre'"), DB::raw('YEAR(dateCom) annee, MONTH(dateCom) mois'))
             ->groupBy('annee', 'mois')
+            ->orderBy('mois')
             ->get();
 
-        return $commandeMois;
+        return $commandeMois->groupBy('annee');
     }
 
     public function listClient()
@@ -160,9 +163,52 @@ class commandeController extends Controller
             ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.idCom')
             ->join('clients', 'commandes.idUtilisateur', '=', 'clients.idUtilisateur')
             ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.idBouteille')
-            ->select('commandes.*', 'vente_laits.*','clients.*', 'bouteilles.capacite')
+            ->select('commandes.*', 'vente_laits.*', 'clients.*', 'bouteilles.capacite')
             ->get();
 
         return $commandeLait;
+    }
+
+    public function chiffreAffaireLait()
+    {
+        $commandeLait = DB::table('commandes')
+            ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.idCom')
+            ->join('factures', 'commandes.idCom', '=', 'factures.idCom')
+            ->select(DB::raw("sum(factures.montant) as 'chiffre'"), DB::raw('YEAR(factures.datePaiement) annee'), DB::raw("MONTH(factures.datePaiement) as mois"))
+            ->groupBy('annee', 'mois')
+            ->orderBy('mois')
+            ->get();
+        return $commandeLait->groupBy('annee');
+    }
+    public function chiffreAffaireBovin()
+    {
+        $commandeLait = DB::table('commandes')
+            ->join('vente_bovins', 'commandes.idCom', '=', 'vente_bovins.idCom')
+            ->join('factures', 'commandes.idCom', '=', 'factures.idCom')
+            ->select(DB::raw("sum(factures.montant) as 'chiffre'"), DB::raw('YEAR(factures.datePaiement) annee'), DB::raw("MONTH(factures.datePaiement) as mois"))
+            ->groupBy('annee', 'mois')
+            ->orderBy('mois')
+            ->get();
+        return $commandeLait->groupBy('annee');
+    }
+
+    public function chiffreAnnuelleLait(){
+        $commandeLait = DB::table('commandes')
+        ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.idCom')
+        ->join('factures', 'commandes.idCom', '=', 'factures.idCom')
+        ->select(DB::raw("sum(factures.montant) as 'chiffrel'"), DB::raw('YEAR(factures.datePaiement) annee'))
+        ->groupBy('annee')
+        ->get();
+    return $commandeLait;
+    }
+
+    public function chiffreAnnuelleBovin(){
+        $commandeLait = DB::table('commandes')
+        ->join('vente_bovins', 'commandes.idCom', '=', 'vente_bovins.idCom')
+        ->join('factures', 'commandes.idCom', '=', 'factures.idCom')
+        ->select(DB::raw("sum(factures.montant) as 'chiffreb'"), DB::raw('YEAR(factures.datePaiement) annee'))
+        ->groupBy('annee')
+        ->get();
+    return $commandeLait;
     }
 }

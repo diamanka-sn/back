@@ -26,7 +26,7 @@ class bovinFactory extends Factory
             'photo' => $this->faker->sentence(6,true),
             'etatDeSante' => $this->faker->sentence(6,true),
             'geniteur' => $this->faker->sentence(6,true),
-            'etat' => $this->faker->sentence(6,true),
+         //   'etat' => $this->faker->sentence(6,true),
             'genitrice' => $this->faker->sentence(6,true),
             'situation' => $this->faker->sentence(6,true),
             'codeBovin'=>$this->faker->sentence(7,true),

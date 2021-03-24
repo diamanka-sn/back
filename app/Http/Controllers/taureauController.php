@@ -113,7 +113,7 @@ class taureauController extends Controller
 
     public function nombreTaureau()
     {
-        return taureau::All()->count();
+        return taureau::where("etat", "vivant")->count();
     }
     public function listTaureauMalade()
     {
@@ -142,10 +142,6 @@ class taureauController extends Controller
     }
     public function listTaureauAvecDetaille()
     {
-        $races = race::All();
-        $pesages = pesage::All();
-
-
         $taureaus = DB::table('taureaus')
             ->join('races', 'taureaus.idRace', '=', 'races.idRace')
             ->join('pesages', 'taureaus.idBovin', '=', 'pesages.idBovin')
@@ -154,4 +150,15 @@ class taureauController extends Controller
 
         return $taureaus;
     }
+    public function evolutionTaureau(){
+        $commandeMois = DB::table('taureaus')
+        ->where("etat", "vivant")
+        ->select(DB::raw("count(idBovin) as 'nombre'"), DB::raw('YEAR(created_at) annee,MONTH(created_at) mois'))
+        ->groupBy('annee', 'mois')
+        ->orderBy('mois')
+        ->get();
+
+    return $commandeMois->groupBy('annee');
+    }
+
 }

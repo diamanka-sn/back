@@ -102,7 +102,7 @@ class bovinController extends Controller
 
     public function nombreBovin()
     {
-        return bovin::All()->count();
+        return bovin::where("etat", "vivant")->count();
     }
     public function listBovinMalade()
     {
@@ -129,7 +129,7 @@ class bovinController extends Controller
     {
         return bovin::where("etat", "mort")->orderByDesc('idBovin')->get();
     }
-     
+
     public function listBovinAvecDetaille($idBovin)
     {
         $bovin = DB::table('bovins')
@@ -141,4 +141,16 @@ class bovinController extends Controller
 
         return $bovin;
     }
+
+
+    public function santeBovin()
+    {
+        $sante = DB::table('bovins')
+            ->select(DB::raw("count(idBovin) as 'nombre'"), DB::raw("etatDeSante as 'sante'"))
+            ->groupBy('sante')
+            ->get();
+
+        return $sante;
+    }
+
 }
