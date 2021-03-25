@@ -8,6 +8,8 @@ use App\Models\bovin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+class achause Illuminate\Support\Facades\DB;
+
 class achatBovinController extends Controller
 {
     /**
@@ -20,6 +22,10 @@ class achatBovinController extends Controller
       //  $achatBovin = achatBovin::all();
         //return $achatBovin->toJson(JSON_PRETTY_PRINT);
         return achatBovin::orderByDesc('created_at')->get();
+    }
+
+    public function nbreBovinAchete(){
+        return achatBovin::all('idAchatBovin')->count();
     }
 
     /**
@@ -78,6 +84,7 @@ class achatBovinController extends Controller
             ],200);
         };
     }
+
     public function nombreBovinAcheter()
     {
         return achatBovin::count();
@@ -104,5 +111,10 @@ class achatBovinController extends Controller
     {
       
         return DB::table("achat_bovins")->sum("montantBovin");
-    }
-}
+// =======
+//     public function coutBovin(){
+//         $veau = DB::table('achat_bovins')
+//         ->select(DB::raw("sum(montantBovin) as 'prix'"))
+//         ->get();
+//         return $veau;
+// >>>>>>> e002d398770c5357c27be6e9961d44c180864b04

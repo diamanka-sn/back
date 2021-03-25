@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\traiteDuJour;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 class traiteDuJourController extends Controller
 {
     /**
@@ -14,7 +16,7 @@ class traiteDuJourController extends Controller
      */
     public function index()
     {
-      //  $traiteDuJour = traiteDuJour::all();
+        //  $traiteDuJour = traiteDuJour::all();
         //return $traiteDuJour->toJson(JSON_PRETTY_PRINT);
         return traiteDuJour::orderByDesc('created_at')->get();
     }
@@ -27,11 +29,11 @@ class traiteDuJourController extends Controller
      */
     public function store(Request $request)
     {
-      if(traiteDuJour::create($request->all())){
-          return response()->json([
-              'success' => 'enregistre avec succes'
-          ],200);
-      };
+        if (traiteDuJour::create($request->all())) {
+            return response()->json([
+                'success' => 'enregistre avec succes'
+            ], 200);
+        };
     }
 
     /**
@@ -54,10 +56,10 @@ class traiteDuJourController extends Controller
      */
     public function update(Request $request, traiteDuJour $traiteDuJour)
     {
-        if($traiteDuJour->update($request->all())){
+        if ($traiteDuJour->update($request->all())) {
             return response()->json([
                 'success' => 'modifier avec succes'
-            ],200);
+            ], 200);
         };
     }
 
@@ -69,10 +71,34 @@ class traiteDuJourController extends Controller
      */
     public function destroy(traiteDuJour $traiteDuJour)
     {
-        if($traiteDuJour->delete()){
+        if ($traiteDuJour->delete()) {
             return response()->json([
                 'success' => 'Suppression reussie'
-            ],200);
+            ], 200);
         };
+    }
+
+    public function productionLait()
+    {
+        $bovin = DB::table('traite_du_jours')
+            // ->join('production_laits', 'production_laits.idProductionLait', '=', 'traite_du_jours.idProductionLait')
+            ->select(
+                DB::raw("sum(traiteMatin) as 'matin'"),
+                DB::raw("sum(traiteSoir) as 'soir'"),
+                DB::raw("sum(traiteSoir + traiteMatin) as 'total'"),
+                DB::raw('YEAR(dateTraite) annee'),
+                DB::raw("MONTH(dateTraite) as mois")
+            )
+            ->groupBy('annee', 'mois')
+            ->get();
+        return $bovin->groupBy('annee');
+    }
+
+    public function quantiteLaitProduite()
+    {
+        $bovin = DB::table('traite_du_jours')
+            ->select(DB::raw("sum(traiteSoir + traiteMatin) as 'total'"))
+            ->get();
+        return $bovin;
     }
 }

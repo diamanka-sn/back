@@ -13,6 +13,6 @@ class utilisateurTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\utilisateur::factory(1000)->create();
+        \App\Models\utilisateur::factory(100)->create();
     }
 }

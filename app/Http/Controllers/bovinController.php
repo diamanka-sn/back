@@ -22,7 +22,10 @@ class bovinController extends Controller
         //return $bovin->toJson(JSON_PRETTY_PRINT);
         return bovin::orderByDesc('idBovin')->get();
     }
-
+    public function nbreBovin()
+    {
+        return bovin::orderByDesc('idBovin')->count();
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -58,10 +61,10 @@ class bovinController extends Controller
      */
     public function update(Request $request, bovin $bovin)
     {
-        if($bovin->update($request->all())){
+        if ($bovin->update($request->all())) {
             return response()->json([
                 'success' => 'modifier avec succes'
-            ],200);
+            ], 200);
         };
     }
 
@@ -73,10 +76,10 @@ class bovinController extends Controller
      */
     public function destroy(bovin $bovin)
     {
-        if($bovin->delete()){
+        if ($bovin->delete()) {
             return response()->json([
                 'success' => 'Suppression reussie'
-            ],200);
+            ], 200);
         };
     }
 
@@ -94,50 +97,60 @@ class bovinController extends Controller
     //             'success' => 'enregistre avec succes'
     //         ], 200);
     //     };
-       
+
     // }
-    
+
     public function nombreBovin()
     {
-        return bovin::All()->count();
+        return bovin::where("etat", "vivant")->count();
     }
     public function listBovinMalade()
     {
-        return bovin::where("etatDeSante","souffrant")->orderByDesc('idBovin')->get();
+        return bovin::where("etatDeSante", "souffrant")->orderByDesc('idBovin')->get();
     }
 
     public function listBovinSain()
     {
-        return bovin::where("etatDeSante","Sain")->orderByDesc('idBovin')->get();
+        return bovin::where("etatDeSante", "Sain")->orderByDesc('idBovin')->get();
     }
     public function listBovinEnVente()
     {
-        return bovin::where("situation","en vente")->orderByDesc('idBovin')->get();
+        return bovin::where("situation", "en vente")->orderByDesc('idBovin')->get();
     }
     public function listBovinPasEnVente()
     {
-        return bovin::where("situation","pas en vente")->orderByDesc('idBovin')->get();
+        return bovin::where("situation", "pas en vente")->orderByDesc('idBovin')->get();
     }
     public function listBovinVivant()
     {
-        return bovin::where("etat","vivant")->orderByDesc('idBovin')->get();
+        return bovin::where("etat", "vivant")->orderByDesc('idBovin')->get();
     }
     public function listBovinMort()
     {
-        return bovin::where("etat","mort")->orderByDesc('idBovin')->get();
+        return bovin::where("etat", "mort")->orderByDesc('idBovin')->get();
     }
-    public function listBovinAvecDetaille()
-    {
-        $races=race::All();
-        $pesages=pesage::All();
 
-        $bovins=DB::table('bovins')
-        ->join('races','bovins.idRace','=','races.idRace')
-        ->join('pesages','bovins.idBovin','=','pesages.idBovin')
-       ->select('bovins.*','races.nomRace','pesages.*')
-        ->get();
-    
-    return $bovins;
-         
+    public function listBovinAvecDetaille($idBovin)
+    {
+        $bovin = DB::table('bovins')
+            ->join('races', 'bovins.idRace', '=', 'races.idRace')
+            ->join('pesages', 'bovins.idBovin', '=', 'pesages.idBovin')
+            ->select('bovins.*', 'races.nomRace', 'pesages.*')
+            ->where('bovins.idBovin', $idBovin)
+            ->get();
+
+        return $bovin;
     }
+
+
+    public function santeBovin()
+    {
+        $sante = DB::table('bovins')
+            ->select(DB::raw("count(idBovin) as 'nombre'"), DB::raw("etatDeSante as 'sante'"))
+            ->groupBy('sante')
+            ->get();
+
+        return $sante;
+    }
+
 }

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class raceTableSeeder extends Seeder
+class achatBovinTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,6 @@ class raceTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\race::factory(100)->create();
+        \App\Models\achatBovin::factory(10)->create();
     }
 }

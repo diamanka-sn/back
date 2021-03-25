@@ -6,6 +6,8 @@ use App\Models\achatAliment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\DB;
+
 class achatAlimentController extends Controller
 {
     /**
@@ -15,7 +17,7 @@ class achatAlimentController extends Controller
      */
     public function index()
     {
-      //  $achatAliment = achatAliment::all();
+        //  $achatAliment = achatAliment::all();
         //return $achatAliment->toJson(JSON_PRETTY_PRINT);
         return achatAliment::orderByDesc('created_at')->get();
     }
@@ -28,11 +30,11 @@ class achatAlimentController extends Controller
      */
     public function store(Request $request)
     {
-      if(achatAliment::create($request->all())){
-          return response()->json([
-              'success' => 'enregistre avec succes'
-          ],200);
-      };
+        if (achatAliment::create($request->all())) {
+            return response()->json([
+                'success' => 'enregistre avec succes'
+            ], 200);
+        };
     }
 
     /**
@@ -55,10 +57,10 @@ class achatAlimentController extends Controller
      */
     public function update(Request $request, achatAliment $achatAliment)
     {
-        if($achatAliment->update($request->all())){
+        if ($achatAliment->update($request->all())) {
             return response()->json([
                 'success' => 'modifier avec succes'
-            ],200);
+            ], 200);
         };
     }
 
@@ -70,10 +72,10 @@ class achatAlimentController extends Controller
      */
     public function destroy(achatAliment $achatAliment)
     {
-        if($achatAliment->delete()){
+        if ($achatAliment->delete()) {
             return response()->json([
                 'success' => 'Suppression reussie'
-            ],200);
+            ], 200);
         };
     }
 

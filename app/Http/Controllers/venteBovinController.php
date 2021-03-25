@@ -10,6 +10,8 @@ use App\Models\race;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\DB;
+
 class venteBovinController extends Controller
 {
     /**
@@ -19,7 +21,7 @@ class venteBovinController extends Controller
      */
     public function index()
     {
-      //  $venteBovin = venteBovin::all();
+        //  $venteBovin = venteBovin::all();
         //return $venteBovin->toJson(JSON_PRETTY_PRINT);
         return venteBovin::orderByDesc('created_at')->get();
     }
@@ -32,11 +34,11 @@ class venteBovinController extends Controller
      */
     public function store(Request $request)
     {
-      if(venteBovin::create($request->all())){
-          return response()->json([
-              'success' => 'enregistre avec succes'
-          ],200);
-      };
+        if (venteBovin::create($request->all())) {
+            return response()->json([
+                'success' => 'enregistre avec succes'
+            ], 200);
+        };
     }
 
     /**
@@ -59,10 +61,10 @@ class venteBovinController extends Controller
      */
     public function update(Request $request, venteBovin $venteBovin)
     {
-        if($venteBovin->update($request->all())){
+        if ($venteBovin->update($request->all())) {
             return response()->json([
                 'success' => 'modifier avec succes'
-            ],200);
+            ], 200);
         };
     }
 
@@ -74,12 +76,13 @@ class venteBovinController extends Controller
      */
     public function destroy(venteBovin $venteBovin)
     {
-        if($venteBovin->delete()){
+        if ($venteBovin->delete()) {
             return response()->json([
                 'success' => 'Suppression reussie'
-            ],200);
+            ], 200);
         };
     }
+<<<<<<< HEAD
 
 
     public function nombreBovinVendue()
@@ -111,4 +114,27 @@ class venteBovinController extends Controller
         return DB::table("vente_bovins")->sum("prixBovin");
     }
 
+=======
+    public function chiffreBovin($annee)
+    {
+        $bovin = DB::table('vente_bovins')
+            ->join('bovins', 'vente_bovins.idBovin', '=', 'bovins.idBovin')
+            ->join('commandes', 'commandes.idCom', '=', 'vente_bovins.idCom')
+            ->select(DB::raw("sum(vente_bovins.prixBovin) as 'vente'"), DB::raw('MONTH(commandes.dateCom) as mois'))
+            ->whereYear('commandes.dateCom', $annee)
+            ->groupBy('mois')
+            ->get();
+        return $bovin;
+    }
+    public function chiffreAnnuelleBovin($annee)
+    {
+        $bovin = DB::table('vente_bovins')
+            ->join('bovins', 'vente_bovins.idBovin', '=', 'bovins.idBovin')
+            ->join('commandes', 'commandes.idCom', '=', 'vente_bovins.idCom')
+            ->select(DB::raw("sum(vente_bovins.prixBovin) as 'vente'"))
+            ->whereYear('commandes.dateCom', $annee)
+            ->get();
+        return $bovin;
+    }
+>>>>>>> e002d398770c5357c27be6e9961d44c180864b04
 }

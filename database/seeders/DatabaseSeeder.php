@@ -13,10 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(bovinTableSeeder::class); 
         $this->call(raceTableSeeder::class); 
+        $this->call(bovinTableSeeder::class); 
+        $this->call(periodeTableSeeder::class);
         $this->call(utilisateurTableSeeder::class); 
-        $this->call(periodeTableSeeder::class); 
+        $this->call(achatBovinTableSeeder::class); 
+        
         // \App\Models\User::factory(10)->create();
     }
 }

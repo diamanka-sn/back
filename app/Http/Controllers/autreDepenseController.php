@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\autreDepense;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 class autreDepenseController extends Controller
 {
     /**
@@ -78,6 +80,17 @@ class autreDepenseController extends Controller
     public function listDepense()
     {           
         return autreDepense::orderByDesc('created_at')->get();
+
+    public function chargeAutreDepense()
+    {
+        $stock = DB::table('autre_depenses')
+            // ->join('achat_aliments', 'achat_aliments.nomAliment', '=', 'alimentation_du_jours.nomAlimentation')
+            ->select(DB::raw("sum(montant) as 'achetes'"), DB::raw('YEAR(dateDepense) as annee'))
+            ->groupBy('annee')
+            ->get();
+
+            
+            return $stock->groupBy('annee') ;
     }
 }
 
