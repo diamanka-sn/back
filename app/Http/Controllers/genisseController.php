@@ -127,4 +127,23 @@ class genisseController extends Controller
     return $genisses;
          
     }
+
+    public function listGenisseEnVenteAvecDetaille()
+    {
+        $races=race::All();
+        $pesages=pesage::All();
+    
+
+        $genisses=DB::table('genisses')
+        ->join('races','genisses.idRace','=','races.idRace')
+        ->join('pesages','genisses.idBovin','=','pesages.idBovin')
+       ->select('genisses.*','races.nomRace','pesages.*')
+       ->where("situation","en Vente")
+       ->where("etat","vivant")
+        ->get();
+    
+    return $genisses;
+         
+    }
+
 }

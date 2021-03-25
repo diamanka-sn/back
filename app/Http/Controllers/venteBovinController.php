@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\venteBovin;
+use App\Models\bovin;
+use App\Models\client;
+use App\Models\commande;
+use App\Models\race;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class venteBovinController extends Controller
 {
@@ -75,4 +80,35 @@ class venteBovinController extends Controller
             ],200);
         };
     }
+
+
+    public function nombreBovinVendue()
+    {
+        return venteBovin::count();
+    }
+    public function listBovinVendue()
+    {    
+        $bovins=bovin::All();
+        $races=race::All();
+        $commandes=commande::All();
+        $clients=client::All();
+
+        $BovinVendue=DB::table('vente_bovins')
+        ->join('bovins','vente_bovins.idBovin','=','bovins.idBovin')
+        ->join('races','bovins.idRace','=','races.idRace')
+        //->join('vente_bovins','commandes.idCom','=','vente_bovins.idCom')
+        //->join('vente_bovins','commandes.idCom','=','vente_bovins.idCom')
+       ->select('vente_bovins.*','bovins.*','races.nomRace')
+        ->get();
+         
+    return $BovinVendue;
+    }
+
+
+    public function SommeVenteBovin()
+    {
+      
+        return DB::table("vente_bovins")->sum("prixBovin");
+    }
+
 }

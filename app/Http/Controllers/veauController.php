@@ -130,4 +130,22 @@ class veauController extends Controller
          
     }
 
+    public function listVeauEnVenteAvecDetaille()
+    {
+        $races=race::All();
+        $pesages=pesage::All();
+    
+
+        $veaus=DB::table('veaus')
+        ->join('races','veaus.idRace','=','races.idRace')
+        ->join('pesages','veaus.idBovin','=','pesages.idBovin')
+       ->select('veaus.*','races.nomRace','pesages.*')
+       ->where("situation","en Vente")
+       ->where("etat","vivant")
+        ->get();
+    
+    return $veaus;
+         
+    }
+
 }

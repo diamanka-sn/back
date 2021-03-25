@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class bouteille extends Model
 {
     protected $primaryKey = 'idBouteille';
-    protected $fillable = ['idStock','capacite'];
+    protected $fillable = ['idStock','capacite','prix','nombreDispo'];
     
     use HasFactory;
 
@@ -22,4 +22,5 @@ class bouteille extends Model
     {
         return $this->hasMany('App\Models\venteLait');
     }
+    
 }

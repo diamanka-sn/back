@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\achatAliment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class achatAlimentController extends Controller
 {
@@ -74,5 +75,18 @@ class achatAlimentController extends Controller
                 'success' => 'Suppression reussie'
             ],200);
         };
+    }
+
+    // public function listAchatAliment()
+    // {
+    //     return ach
+    //     atAliment::orderByDesc('idAchatAliment')->get();
+    // }
+
+
+    public function SommeAchatAliment()
+    {
+      
+        return DB::table("achat_Aliments")->sum("montant");
     }
 }

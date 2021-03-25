@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\facture;
+use App\Models\venteLait;
+use App\Models\commande;
+use App\Models\venteBovin;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 
 class factureController extends Controller
@@ -74,5 +79,33 @@ class factureController extends Controller
                 'success' => 'Suppression reussie'
             ],200);
         };
+    }
+
+
+    public function listFacture()
+    {           
+        return facture::orderByDesc('created_at')->get();
+    }
+
+
+    public function listFactureDetaille()
+    {    
+       
+        $commandes=commande::All();
+        $venteLait=venteLait::All();
+        $venteBovin=venteBovin::All();
+       
+        $facture=DB::table('factures')
+       ->join('commandes','factures.idCom','=','commandes.idCom')
+       ->join('vente_bovins','vente_bovins.idCom','=','commandes.idCom')
+       ->join('vente_laits','vente_laits.idCom','=','commandes.idCom')
+       ->select('commandes.*','factures.*','vente_bovins.*','vente_laits.*')
+        ->get();
+         
+    return $facture;
+    }
+    public function nombreFacture()
+    {
+        return facture::count();
     }
 }

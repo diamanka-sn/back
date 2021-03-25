@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\utilisateur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+
 
 class utilisateurController extends Controller
 {
@@ -74,5 +77,23 @@ class utilisateurController extends Controller
                 'success' => 'Suppression reussie'
             ],200);
         };
+    }
+
+
+    public function nombreUtilisateur()
+    {
+        return utilisateur::All()->count();
+    } 
+    public function nombreFermier()
+    {
+        return utilisateur::where('profile','fermier')->count();
+    }
+    // public function listClient()
+    // {
+    //     return utilisateur::where('profile','client')->orderByDesc('idUtilisateur')->get();
+    // }
+    public function listFermier()
+    {
+        return utilisateur::where('profile','fermier')->orderByDesc('idUtilisateur')->get();
     }
 }

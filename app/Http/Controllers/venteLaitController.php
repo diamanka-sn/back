@@ -75,4 +75,12 @@ class venteLaitController extends Controller
             ],200);
         };
     }
+
+    public function sommeVenteLait()
+    {
+        return venteLait::select('prixBouteille')->get();
+        //return venteLait::orderByDesc('created_at')->get();
+    }
+
+    
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\bouteille;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class bouteilleController extends Controller
 {
@@ -75,4 +76,13 @@ class bouteilleController extends Controller
             ],200);
         };
     }
+    public function listBouteilleEnligne()
+    {
+        return bouteille::where('nombreDispo', '>' ,0)->get();
+    }
+    public function nombreBouteilleEnligne()
+    {
+        return bouteille::where('nombreDispo', '>' ,0)->count();
+    }
+
 }

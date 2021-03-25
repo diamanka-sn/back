@@ -159,9 +159,19 @@ class vacheController extends Controller
     public function listeVacheEnLactation()
     {     
         $periodes=periode::All();
+        $races=race::All();
+        $periodes=periode::All();
+        $pesages=pesage::All();
+
+
         $Vaches=DB::table('vaches')
         ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
-       ->select('vaches.*','periodes.nomPeriode')
+        ->join('pesages','vaches.idPesage','=','pesage.idPesage')
+        ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
+        ->join('races','vaches.idRace','=','races.idRace')
+
+
+       ->select('vaches.*','periodes.nomPeriode','races.*','pesages.*')
         ->get();
         return $Vaches->where("nomPeriode","Lactation");        
     }
@@ -221,4 +231,22 @@ class vacheController extends Controller
         return $Vaches->where("phase","non gestant")->count();        
     }
 
+    public function listVacheEnVenteAvecDetaille()
+    {
+        $races=race::All();
+        $pesages=pesage::All();
+        $periodes=periode::All();
+
+        $Vaches=DB::table('Vaches')
+        ->join('races','Vaches.idRace','=','races.idRace')
+        ->join('pesages','Vaches.idBovin','=','pesages.idBovin')
+        ->join('periodes','Vaches.idPeriode','=','periodes.idPeriode')
+        ->select('Vaches.*','races.nomRace','periodes.*','pesages.*')
+        ->where("situation","en vente")
+        ->get();
+    
+    return $Vaches;
+         
+    }
+    
 }

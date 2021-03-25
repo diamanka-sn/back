@@ -26,6 +26,8 @@ class CreateBovinsTable extends Migration
             $table->string('situation',255);
             $table->integer('idRace')->unsigned();
             $table->foreign('idRace')->references('idRace')->on('commandes');
+            $table->integer('prixBovin');
+            $table->integer('prix');
             $table->timestamps();
         });
     }

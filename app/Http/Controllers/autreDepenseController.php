@@ -75,5 +75,9 @@ class autreDepenseController extends Controller
             ],200);
         };
     }
+    public function listDepense()
+    {           
+        return autreDepense::orderByDesc('created_at')->get();
+    }
 }
 

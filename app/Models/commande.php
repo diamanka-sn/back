@@ -11,6 +11,11 @@ class commande extends Model
     protected $fillable = ['dateCom','idUtilisateur'];
     use HasFactory;
 
+
+    public function commande()
+    {
+        return $this->belongsTo('App\Models\commande');
+    }
     public function venteLaits()
     {
         return $this->hasMany('App\Models\venteLait');

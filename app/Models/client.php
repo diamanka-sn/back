@@ -16,6 +16,9 @@ class client extends Model
     {
         return $this->hasMany('App\Models\commande');
     }
-
+    public function commandePersonnalises()
+    {
+        return $this->hasMany('App\Models\commandePersonnalise');
+    }
     
 }

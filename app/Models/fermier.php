@@ -9,7 +9,7 @@ class fermier extends Model
 {
     use HasFactory;
     public $incrementing = false;
-    protected $fillable = ['salaire'];
+ 
     protected $fillable = ['nom','prenom','tel','adresse','photo','login','password','profile','salaire'];
 
     public function traiteDuJours()
@@ -21,5 +21,4 @@ class fermier extends Model
     {
         return $this->hasMany('App\Models\alimentationDuJour');
     }
-
 }

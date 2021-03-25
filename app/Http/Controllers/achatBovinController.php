@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\achatBovin;
+use App\Models\race;
+use App\Models\bovin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class achatBovinController extends Controller
 {
@@ -75,5 +78,31 @@ class achatBovinController extends Controller
             ],200);
         };
     }
+    public function nombreBovinAcheter()
+    {
+        return achatBovin::count();
+    }
+    public function listBovinAcheter()
+    {
+       
+        $bovins=bovin::All();
+        $races=race::All();
     
+    
+
+        $BovinAcheter=DB::table('achat_bovins')
+        ->join('bovins','achat_bovins.idBovin','=','bovins.idBovin')
+        ->join('races','bovins.idRace','=','races.idRace')
+       ->select('achat_bovins.*','bovins.*','races.nomRace')
+        ->get();
+    
+    return $BovinAcheter;
+    }
+
+
+    public function SommeAchatBovin()
+    {
+      
+        return DB::table("achat_bovins")->sum("montantBovin");
+    }
 }

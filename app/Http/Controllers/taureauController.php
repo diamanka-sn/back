@@ -67,20 +67,16 @@ class taureauController extends Controller
      * @param  \App\Models\bovin  $bovin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,taureau $taureau,bovin $bovin)
+    public function update(Request $request,taureau $taureau)
     {
-       if($bovin->update($request->all())){
+       if($taureau->update($request->all())){
             if($taureau->update($request->all())){
                 return response()->json([
-                    'success' => 'modifier avec succes dans Bovin et Taureau'
+                    'success' => 'modifier avec succes dans Taureau'
                 ],200);
             };
     
-        //    if($taureau->update($request->all())){
-        //                 return response()->json([
-        //                'success' => 'modifier avec succes dans Bovin et Taureau'
-        //            ],200);            
-        //    };
+       
       }
 
     }
@@ -97,7 +93,7 @@ class taureauController extends Controller
     public function destroy(taureau $taureau)
     {
        
-            if($bovin->delete()){
+            if($taureau->delete()){
                 return response()->json([
                     'success' => 'Suppression reussie dans bovin'
                 ],200);
@@ -115,6 +111,16 @@ class taureauController extends Controller
     {
         return taureau::All()->count();
     }
+    public function nombreTaureauSain()
+    {
+        return taureau::where("etatDeSante","Sain")->orderByDesc('idBovin')->count();
+    }
+    public function nombreTaureauMalade()
+    {
+        return taureau::where("etatDeSante","souffrant")->orderByDesc('idBovin')->count();
+    }
+
+    
     public function listTaureauMalade()
     {
         return taureau::where("etatDeSante","souffrant")->orderByDesc('idBovin')->get();
@@ -154,6 +160,28 @@ class taureauController extends Controller
     
     return $taureaus;
          
+    }
+
+    public function listTaureauEnVenteAvecDetaille()
+    {
+        $races=race::All();
+        $pesages=pesage::All();
+
+        $taureaus=DB::table('taureaus')
+        ->join('races','taureaus.idRace','=','races.idRace')
+        ->join('pesages','taureaus.idBovin','=','pesages.idBovin')
+        ->select('taureaus.*','races.nomRace','pesages.*')
+        ->where("situation","en Vente")
+        ->where("etat","vivant")
+        
+        ->get();
+    
+    return $taureaus;
+         
+    }
+    public function nombreTaureauEnVente()
+    {
+        return taureau::where("situation","en vente")->count();
     }
 
 }

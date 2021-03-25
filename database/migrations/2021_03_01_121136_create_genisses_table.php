@@ -28,6 +28,7 @@ class CreateGenissesTable extends Migration
             $table->foreign('idRace')->references('idRace')->on('commandes');
             $table->string('phase',255);
             $table->date('dateIA');
+            $table->integer('prix');
             $table->timestamps();
         });
     }
