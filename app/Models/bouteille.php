@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class bouteille extends Model
 {
     protected $primaryKey = 'idBouteille';
-    protected $fillable = ['idStock','capacite'];
+    protected $fillable = ['stock_id','capacite','prix','nombreDispo','description'];
     
     use HasFactory;
 

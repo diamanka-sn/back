@@ -15,17 +15,18 @@ class CreateBovinsTable extends Migration
     {
         Schema::create('bovins', function (Blueprint $table) {
             $table->id('idBovin');
-            $table->string('codeBovin',255);
-            $table->string('nom',255);
-            $table->string('photo',255);
-            $table->date('dateNaiss');
+            $table->string('codeBovin', 255);
+            $table->string('nom', 255);
+            $table->string('photo', 255);
+            $table->date('dateNaissance');
             $table->string('etatDeSante');
-            $table->string('geniteur',255);
-            $table->string('genitrice',255);
-            $table->string('etat',255)->default('vivant');
-            $table->string('situation',255);
-            $table->integer('idRace')->unsigned()->default(1);
-            $table->foreign('idRace')->references('idRace')->on('commandes');
+            $table->string('geniteur', 255);
+            $table->string('genitrice', 255);
+            $table->string('etat', 255)->default('vivant');
+            $table->string('situation', 255);
+            $table->integer('prix')->nullable();
+            $table->integer('race_id')->unsigned()->default(1);
+            $table->foreign('race_id')->references('idRace')->on('races');
             $table->timestamps();
         });
     }

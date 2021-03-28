@@ -14,15 +14,9 @@ class CreateFermiersTable extends Migration
     public function up()
     {
         Schema::create('fermiers', function (Blueprint $table) {
-            $table->id('idUtilisateur');
-            $table->string('nom',255);
-            $table->string('prenom',255);
-            $table->integer('tel')->unique();
-            $table->string('adresse',255);
-            $table->string('photo',255);
-            $table->string('login',50)->unique();
-            $table->string('password',255);
-            $table->string('profile',100);
+            $table->id('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+         
             $table->integer('salaire');
             $table->timestamps();
         });

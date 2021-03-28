@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class achatBovin extends Model
 {
-    protected $primaryKey = 'idAchatBovin';
+    protected $primaryKey = 'idAchat';
     protected $fillable = ['montantBovin','dateAchatBovin'];
     use HasFactory;
 

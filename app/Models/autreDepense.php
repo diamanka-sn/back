@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class autreDepense extends Model
 {
-    protected $primaryKey = 'idAutreDepense';
-    protected $fillable = ['dateDepense','type','libelle','montant','idUtilisateur'];
+    protected $primaryKey = 'idDepenses';
+    protected $fillable = ['dateDepenses','type','libelle','montant','admin_id'];
     use HasFactory;
 
     public function admin()

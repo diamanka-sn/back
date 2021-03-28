@@ -15,9 +15,10 @@ class CreateCommandesTable extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id('idCom');
+
+            $table->integer('client_id');
+            $table->foreign('client_id')->references('user_id')->on('clients')->onUpdate('cascade')->onDelete('cascade');
             $table->date('dateCom');
-            $table->integer('idUtilisateur')->unsigned();
-            $table->foreign('idUtilisateur')->references('idUtilisateur')->on('idUtilisateus');
             $table->timestamps();
         });
     }

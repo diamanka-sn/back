@@ -15,12 +15,11 @@ class CreateVenteLaitsTable extends Migration
     {
         Schema::create('vente_laits', function (Blueprint $table) {
             $table->id('idVenteLait');
-            $table->integer('prixBouteille');
-            $table->integer('nbrBouteille');
-            $table->integer('idBouteille')->unsigned();
-            $table->foreign('idBouteille')->references('idBouteille')->on('bouteilles');
-            $table->integer('idCom')->unsigned();
-            $table->foreign('idCom')->references('idCom')->on('commandes');
+            $table->integer('prixTotale');
+            $table->integer('bouteille_id')->unsigned();
+            $table->foreign('bouteille_id')->references('idBouteille')->on('bouteilles');
+            $table->integer('commande_id')->unsigned();
+            $table->foreign('commande_id')->references('idCom')->on('commandes');
             $table->timestamps();
         });
     }

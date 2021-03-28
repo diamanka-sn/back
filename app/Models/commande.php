@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class commande extends Model
 {
     protected $primaryKey = 'idCom';
-    protected $fillable = ['dateCom','idUtilisateur'];
+    protected $fillable = ['dateCom','client_id'];
     use HasFactory;
 
     public function venteLaits()

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class diagnostic extends Model
 {
     protected $primaryKey = 'idDiagnostic';
-    protected $fillable = ['dateMalade','dateGuerison','idMaladie','idBovin'];
+    protected $fillable = ['dateMaladie','dateGuerison','maladie_id','bovin_id'];
     use HasFactory;
 
     public function maladie()

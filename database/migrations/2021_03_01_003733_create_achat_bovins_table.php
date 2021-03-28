@@ -14,13 +14,13 @@ class CreateAchatBovinsTable extends Migration
     public function up()
     {
         Schema::create('achat_bovins', function (Blueprint $table) {
-            $table->id('idAchatBovin');
+            $table->id('idAchat');
             $table->integer('montantBovin');
             $table->date('dateAchatBovin');
-            $table->integer('idBovin')->unsigned()->default(1);
-            $table->foreign('idBovin')->references('idBovin')->on('bovins');
-            $table->integer('idUtilisateur')->unsigned()->default(1);
-            $table->foreign('idUtilisateur')->references('idUtilisateur')->on('admins');
+            $table->integer('bovin_id')->unsigned()->default(1);
+            $table->foreign('bovin_id')->references('idBovin')->on('bovins');
+            $table->integer('admin_id')->unsigned()->default(1);
+            $table->foreign('admin_id')->references('user_id')->on('admins')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

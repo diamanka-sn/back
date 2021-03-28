@@ -15,12 +15,12 @@ class CreateDiagnosticsTable extends Migration
     {
         Schema::create('diagnostics', function (Blueprint $table) {
             $table->id('idDiagnostic');
-            $table->date('dateMalade');
+            $table->date('dateMaladie');
             $table->date('dateGuerison');
-            $table->integer('idMaladie')->unsigned();
-            $table->foreign('idMaladie')->references('idMaladie')->on('maladies');
-            $table->integer('idBovin')->unsigned();
-            $table->foreign('idBovin')->references('idBovin')->on('bovins');
+            $table->integer('maladie_id')->unsigned();
+            $table->foreign('maladie_id')->references('idMaladie')->on('maladies');
+            $table->integer('bovin_id')->unsigned();
+            $table->foreign('bovin_id')->references('idBovin')->on('bovins');
             $table->timestamps();
         });
     }

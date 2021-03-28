@@ -15,9 +15,12 @@ class CreateBouteillesTable extends Migration
     {
         Schema::create('bouteilles', function (Blueprint $table) {
             $table->id('idBouteille');
-            $table->integer('idStock')->unsigned();
-            $table->foreign('idStock')->references('idStock')->on('stock_laits');
+            $table->integer('stock_id')->unsigned();
+            $table->foreign('stock_id')->references('idStock')->on('stock_laits');
             $table->float('capacite');
+            $table->integer('prix');
+            $table->integer('nombreDispo');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

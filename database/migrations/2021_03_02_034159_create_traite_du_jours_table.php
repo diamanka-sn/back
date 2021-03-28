@@ -18,10 +18,10 @@ class CreateTraiteDuJoursTable extends Migration
             $table->date('dateTraite');
             $table->float('traiteMatin');
             $table->float('traiteSoir');
-            $table->integer('idUtilisateur')->unsigned();
-            $table->foreign('idUtilisateur')->references('idUtilisateur')->on('idUtilisateus');
-            $table->integer('idProductionLait')->unsigned();
-            $table->foreign('idProductionLait')->references('idProductionLait')->on('production_laits');
+            $table->integer('fermier_id')->unsigned();
+            $table->foreign('fermier_id')->references('user_id')->on('fermiers');
+            $table->integer('productionLait_id')->unsigned();
+            $table->foreign('productionLait_id')->references('idProductionLait')->on('production_laits');
             $table->timestamps();
         });
     }

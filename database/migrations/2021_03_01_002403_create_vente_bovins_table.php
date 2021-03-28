@@ -17,10 +17,10 @@ class CreateVenteBovinsTable extends Migration
             $table->id('idVenteBovin');
             $table->integer('prixBovin');
             $table->date('dateVenteBovin');
-            $table->integer('idCom')->unsigned();
-            $table->foreign('idCom')->references('idCom')->on('commandes');
-            $table->integer('idBovin')->unsigned();
-            $table->foreign('idBovin')->references('idBovin')->on('Bovins');
+            $table->integer('commande_id')->unsigned();
+            $table->foreign('commande_id')->references('idCom')->on('commandes');
+            $table->integer('bovin_id')->unsigned();
+            $table->foreign('bovin_id')->references('idBovin')->on('Bovins');
             $table->timestamps();
         });
     }

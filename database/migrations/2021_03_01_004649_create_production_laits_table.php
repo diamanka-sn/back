@@ -15,8 +15,8 @@ class CreateProductionLaitsTable extends Migration
     {
         Schema::create('production_laits', function (Blueprint $table) {
             $table->id('idProductionLait');
-            $table->integer('idBovin')->unsigned()->default(1);
-            $table->foreign('idBovin')->references('idBovin')->on('bovins');
+            $table->integer('bovin_id')->unsigned()->default(1);
+            $table->foreign('bovin_id')->references('idBovin')->on('bovins');
             $table->timestamps();
         });
     }
