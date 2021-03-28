@@ -132,7 +132,7 @@ Route::get('/sommeVenteLait',[App\Http\Controllers\venteLaitController::class,"s
 
 //bloc Facture  
 Route::get('/nombreFacture',[App\Http\Controllers\factureController::class,"nombreFacture"]);
-Route::get('/listFacture',[App\Http\Controllers\factureController::class,"listFacture"]);\
+Route::get('/listFacture',[App\Http\Controllers\factureController::class,"listFacture"]);
 Route::get('/SommeFacture',[App\Http\Controllers\factureController::class,"SommeFacture"]);
 Route::get('/listFactureDetaille',[App\Http\Controllers\factureController::class,"listFactureDetaille"]);
 
