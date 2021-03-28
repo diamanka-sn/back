@@ -89,4 +89,6 @@ class achatAlimentController extends Controller
       
         return DB::table("achat_Aliments")->sum("montant");
     }
+
+    
 }
