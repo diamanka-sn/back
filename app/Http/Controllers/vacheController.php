@@ -87,44 +87,91 @@ class vacheController extends Controller
         };
     }
 
-
     public function nombreVache()
     {
-        return Vache::where("etat", "vivant")->count();
+        $commandeLait = DB::table('vaches')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            // ->select(DB::raw("sum(factures.montant) as 'chiffrel'"), DB::raw('YEAR(factures.datePaiement) annee'))
+            ->where("etat", "Vivant")
+            ->count();
+        return $commandeLait;
     }
     public function listVacheMalade()
     {
-        return Vache::where("etatDeSante", "souffrant")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('vaches')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("etat", "Malade")
+            ->get();
+        return $commandeLait;
     }
 
     public function listVacheSain()
     {
-        return Vache::where("etatDeSante", "Sain")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('vaches')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("etat", "Sain")
+            ->get();
+        return $commandeLait;
     }
     public function listVacheEnVente()
     {
-        return Vache::where("situation", "en vente")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('vaches')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("situation", "en vente")
+            ->orderByDesc('idBovin')
+            ->get();
+
+        return $commandeLait;
+        // return Taureau::where("situation", "en vente")->orderByDesc('idBovin')->get();
     }
     public function listVachePasEnVente()
     {
-        return Vache::where("situation", "pas en vente")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('vaches')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("situation", "pas en vente")
+            ->orderByDesc('idBovin')
+            ->get();
+
+        return $commandeLait;
+        // return Taureau::->orderByDesc('idBovin')->get();
     }
     public function listVacheVivant()
     {
-        return Vache::where("etat", "vivant")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('vaches')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("etat", "Vivant")
+            ->orderByDesc('idBovin')
+            ->get();
+
+        return $commandeLait;
+        // return Taureau::where("etat", "vivant")->orderByDesc('idBovin')->get();
     }
     public function listVacheMort()
     {
-        return Vache::where("etat", "mort")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('vaches')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("etat", "Mort")
+            ->orderByDesc('idBovin')
+            ->get();
+
+        return $commandeLait;
+        // return Taureau::where("etat", "mort")->orderByDesc('idBovin')->get();
     }
     public function listVacheAvecDetaille()
     {
         $Vaches = DB::table('vaches')
-            ->join('races', 'vaches.idRace', '=', 'races.idRace')
-            ->join('pesages', 'vaches.idBovin', '=', 'pesages.idBovin')
-            ->join('periodes', 'vaches.idPeriode', '=', 'periodes.idPeriode')
-            ->select('vaches.*', 'races.nomRace', 'periodes.*', 'pesages.*')
-            ->where("etat", "vivant")
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('races', 'bovins.race_id', '=', 'races.idRace')
+            ->join('pesages', 'vaches.idBovin', '=', 'pesages.bovin_id')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
+            ->select('bovins.*', 'races.nomRace', 'periodes.*', 'pesages.*')
+            ->where("etat", "Vivant")
             ->get();
 
         return $Vaches;
@@ -134,9 +181,10 @@ class vacheController extends Controller
     {
 
         $Vaches = DB::table('vaches')
-            ->join('production_laits', 'vaches.idBovin', '=', 'production_laits.idBovin')
-            ->join('traite_du_jours', 'production_laits.idProductionLait', '=', 'traite_du_jours.idProductionLait')
-            ->select('vaches.*', 'traite_du_jours.*', 'production_laits.*')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('production_laits', 'vaches.idBovin', '=', 'production_laits.bovin_id')
+            ->join('traite_du_jours', 'production_laits.idProductionLait', '=', 'traite_du_jours.productionLait_id')
+            ->select('bovins.*', 'traite_du_jours.*', 'production_laits.*')
             ->get();
 
         return $Vaches;
@@ -145,85 +193,91 @@ class vacheController extends Controller
     public function nombreVacheEnLactation()
     {
         $Vaches = DB::table('vaches')
-            ->join('periodes', 'vaches.idPeriode', '=', 'periodes.idPeriode')
-            ->select('vaches.*', 'periodes.nomPeriode')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
+            ->select('bovins.*', 'periodes.nomPeriode')
             ->get();
-        return $Vaches->where("nomPeriode", "Lactation")->count();
+        return $Vaches->where("periodes.nomPeriode", "Lactation")->count();
     }
     public function listeVacheEnLactation()
     {
 
         $Vaches = DB::table('vaches')
-            ->join('periodes', 'vaches.idPeriode', '=', 'periodes.idPeriode')
-            ->select('vaches.*', 'periodes.nomPeriode')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
+            ->select('bovins.*', 'periodes.nomPeriode')
             ->get();
-        return $Vaches->where("nomPeriode", "Lactation");
+        return $Vaches->where("periodes.nomPeriode", "Lactation");
     }
     public function listeVacheEnTarissement()
     {
-        $periodes = periode::All();
         $Vaches = DB::table('vaches')
-            ->join('periodes', 'vaches.idPeriode', '=', 'periodes.idPeriode')
-            ->select('vaches.*', 'periodes.nomPeriode')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
+            ->select('bovins.*', 'periodes.nomPeriode')
             ->get();
-        return $Vaches->where("nomPeriode", "Tarissement");
+        return $Vaches->where("periodes.nomPeriode", "Tarissement");
     }
     public function nombreVacheEnTarissement()
     {
-        $periodes = periode::All();
         $Vaches = DB::table('vaches')
-            ->join('periodes', 'vaches.idPeriode', '=', 'periodes.idPeriode')
-            ->select('vaches.*', 'periodes.nomPeriode')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
+            ->select('bovins.*', 'periodes.nomPeriode')
             ->get();
-        return $Vaches->where("nomPeriode", "Tarissement")->count();
+        return $Vaches->where("periodes.nomPeriode", "Tarissement")->count();
     }
 
     public function listeVacheEnGestation()
     {
-        $periodes = periode::All();
         $Vaches = DB::table('vaches')
-            ->join('periodes', 'vaches.idPeriode', '=', 'periodes.idPeriode')
-            ->select('vaches.*', 'periodes.phase')
-            ->where("etat", "vivant")
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
+            ->select('bovins.*', 'periodes.nomPeriode')
+            ->where("bovins.etat", "Vivant")
             ->get();
-        return $Vaches->where("phase", "gestation");
+        return $Vaches->where("periodes.phase", "gestation");
     }
     public function nombreVacheEnGestation()
     {
 
         $Vaches = DB::table('vaches')
-            ->join('periodes', 'vaches.idPeriode', '=', 'periodes.idPeriode')
-            ->select('vaches.*', 'periodes.phase')
-            ->where("etat", "vivant")
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
+            ->select('bovins.*', 'periodes.nomPeriode')
+            ->where("bovins.etat", "Vivant")
             ->get();
-        return $Vaches->where("phase", "gestation")->count();
+        return $Vaches->where("periodes.phase", "gestation")->count();
     }
     public function listeVacheNonGestant()
     {
 
         $Vaches = DB::table('vaches')
-            ->join('periodes', 'vaches.idPeriode', '=', 'periodes.idPeriode')
-            ->select('vaches.*', 'periodes.phase')
-            ->where("etat", "vivant")
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
+            ->select('bovins.*', 'periodes.nomPeriode')
+            ->where("bovins.etat", "Vivant")
             ->get();
-        return $Vaches->where("phase", "non gestant");
+        return $Vaches->where("periodes.phase", "non gestant");
     }
     public function nombreVacheNonGestant()
     {
 
         $Vaches = DB::table('vaches')
-            ->join('periodes', 'vaches.idPeriode', '=', 'periodes.idPeriode')
-            ->select('vaches.*', 'periodes.phase')
-            ->where("etat", "vivant")
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
+            ->select('bovins.*', 'periodes.nomPeriode')
+            ->where("bovins.etat", "Vivant")
             ->get();
-        return $Vaches->where("phase", "non gestant")->count();
+        return $Vaches->where("periodes.phase", "non gestant")->count();
     }
 
     public function evolutionVache()
     {
         $commandeMois = DB::table('vaches')
-            ->where('etat', 'vivant')
-            ->select(DB::raw("count(idBovin) as 'nombre'"), DB::raw('YEAR(created_at) annee,MONTH(created_at) mois'))
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->where('bovins.etat', 'Vivant')
+            ->select(DB::raw("count(vaches.idBovin) as 'nombre'"), DB::raw('YEAR(vaches.created_at) annee,MONTH(vaches.created_at) mois'))
             ->groupBy('annee', 'mois')
             ->orderBy('mois')
             ->where("etat", "vivant")
@@ -235,11 +289,11 @@ class vacheController extends Controller
     public function phaseVache()
     {
         $phase = DB::table('vaches')
-            ->join('periodes', 'vaches.idPeriode', '=', 'periodes.idPeriode')
-            ->where('etat', 'vivant')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
+            ->where('bovins.etat', 'Vivant')
             ->select(DB::raw("count(vaches.idBovin) as 'nombre'"), DB::raw("periodes.phase as 'phase'"))
             ->groupBy('phase')
-            ->where("etat", "vivant")
             ->get();
 
         return $phase;
@@ -248,8 +302,9 @@ class vacheController extends Controller
     public function periodeVache()
     {
         $phase = DB::table('vaches')
-            ->join('periodes', 'vaches.idPeriode', '=', 'periodes.idPeriode')
-            ->where('etat', 'vivant')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
+            ->where('bovins.etat', 'Vivant')
             ->select(DB::raw("count(vaches.idBovin) as 'nombre'"), DB::raw("periodes.nomPeriode as 'periode'"))
             ->groupBy('periode')
             ->get();
@@ -260,13 +315,14 @@ class vacheController extends Controller
     public function periodeMois()
     {
         $phase = DB::table('vaches')
-            ->join('periodes', 'vaches.idPeriode', '=', 'periodes.idPeriode')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
             ->select(DB::raw("count(vaches.idBovin) as 'nombre'"), DB::raw("periodes.nomPeriode as 'periode'"), DB::raw('YEAR(periodes.created_at) annee,MONTH(periodes.created_at) mois'))
-            ->where('etat', 'vivant')
-            ->groupBy( 'annee','periode', 'mois')
+            ->where('bovins.etat', 'Vivant')
+            ->groupBy('annee', 'periode', 'mois')
             ->orderBy('mois')
             ->get();
 
-        return $phase->groupBy( 'periode');
+        return $phase->groupBy('periode');
     }
 }

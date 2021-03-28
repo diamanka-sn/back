@@ -86,54 +86,103 @@ class velleController extends Controller
 
     public function nombreVelle()
     {
-        return velle::where("etat", "vivant")->count();
+        $commandeLait = DB::table('velles')
+            ->join('bovins', 'velles.idBovin', '=', 'bovins.idBovin')
+            // ->select(DB::raw("sum(factures.montant) as 'chiffrel'"), DB::raw('YEAR(factures.datePaiement) annee'))
+            ->where("etat", "Vivant")
+            ->count();
+        return $commandeLait;
     }
     public function listVelleMalade()
     {
-        return velle::where("etatDeSante", "souffrant")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('velles')
+            ->join('bovins', 'velles.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("etat", "Malade")
+            ->get();
+        return $commandeLait;
     }
 
     public function listVelleSain()
     {
-        return velle::where("etatDeSante", "Sain")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('velles')
+            ->join('bovins', 'velles.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("etat", "Sain")
+            ->get();
+        return $commandeLait;
     }
     public function listVelleEnVente()
     {
-        return velle::where("situation", "en vente")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('velles')
+            ->join('bovins', 'velles.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("situation", "en vente")
+            ->orderByDesc('idBovin')
+            ->get();
+
+        return $commandeLait;
+        // return Taureau::where("situation", "en vente")->orderByDesc('idBovin')->get();
     }
     public function listVellePasEnVente()
     {
-        return velle::where("situation", "pas en vente")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('velles')
+            ->join('bovins', 'velles.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("situation", "pas en vente")
+            ->orderByDesc('idBovin')
+            ->get();
+
+        return $commandeLait;
+        // return Taureau::->orderByDesc('idBovin')->get();
     }
     public function listVelleVivant()
     {
-        return velle::where("etat", "vivant")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('velles')
+            ->join('bovins', 'velles.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("etat", "Vivant")
+            ->orderByDesc('idBovin')
+            ->get();
+
+        return $commandeLait;
+        // return Taureau::where("etat", "vivant")->orderByDesc('idBovin')->get();
     }
     public function listVelleMort()
     {
-        return velle::where("etat", "mort")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('velles')
+            ->join('bovins', 'velles.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("bovins.etat", "Mort")
+            ->orderByDesc('idBovin')
+            ->get();
+
+        return $commandeLait;
+        // return Taureau::where("etat", "mort")->orderByDesc('idBovin')->get();
     }
     public function listVelleAvecDetaille()
     {
-
-
-        $velles = DB::table('velles')
-            ->join('races', 'velles.idRace', '=', 'races.idRace')
-            ->join('pesages', 'velles.idBovin', '=', 'pesages.idBovin')
-            ->select('velles.*', 'races.nomRace', 'pesages.*')
+        $veaus = DB::table('velles')
+            ->join('bovins', 'velles.idBovin', '=', 'bovins.idBovin')
+            ->join('races', 'bovins.race_id', '=', 'races.idRace')
+            ->join('pesages', 'veaus.idBovin', '=', 'pesages.bovin_id')
+            ->select('bovins.*', 'races.nomRace', 'pesages.*')
+            ->where("bovins.etat", "Mort")
             ->get();
 
-        return $velles;
+        return $veaus;
     }
 
-    public function nombreVelleMois(){
+    public function nombreVelleMois()
+    {
         $veau = DB::table('velles')
-        ->where("etat", "vivant")
-        ->select(DB::raw("count(idBovin) as 'nombre'"), DB::raw('YEAR(created_at) annee,MONTH(created_at) mois'))
-        ->groupBy('annee','mois')
-        ->orderBy('mois')
-        ->get();
-        
+            ->join('bovins', 'velles.idBovin', '=', 'bovins.idBovin')
+            ->where("bovins.etat", "Vivant")
+            ->select(DB::raw("count(velles.idBovin) as 'nombre'"), DB::raw('YEAR(velles.created_at) annee,MONTH(velles.created_at) mois'))
+            ->groupBy('annee', 'mois')
+            ->orderBy('mois')
+            ->get();
+
         return $veau->groupBy('annee');
     }
 }

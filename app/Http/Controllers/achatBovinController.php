@@ -85,6 +85,8 @@ class achatBovinController extends Controller
         $veau = DB::table('achat_bovins')
         ->select(DB::raw("sum(montantBovin) as 'prix'"))
         ->get();
+
         return $veau;
+        // return DB::table("achat_bovins")->sum('montantBovin');
     }
 }

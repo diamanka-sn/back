@@ -81,9 +81,9 @@ class venteLaitController extends Controller
     public function chiffreLait($annee)
     {
         $bovin = DB::table('vente_laits')
-            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.idBouteille')
-            ->join('commandes', 'commandes.idCom', '=', 'vente_laits.idCom')
-            ->select(DB::raw("sum(bouteilles.capacite * vente_laits.prixBouteille * vente_laits.nbrBouteille) as 'vente'"), DB::raw('MONTH(commandes.dateCom) as mois'))
+            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.bouteille_id')
+            ->join('commandes', 'commandes.idCom', '=', 'vente_laits.commande_id')
+            ->select(DB::raw("sum(vente_laits.prixTotale) as 'vente'"), DB::raw('MONTH(commandes.dateCom) as mois'))
             ->whereYear('commandes.dateCom', $annee)
             ->groupBy('mois')
             ->get();
@@ -94,9 +94,9 @@ class venteLaitController extends Controller
     {
 
         $bovin = DB::table('vente_laits')
-            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.idBouteille')
-            ->join('commandes', 'commandes.idCom', '=', 'vente_laits.idCom')
-            ->select(DB::raw("sum(bouteilles.capacite * vente_laits.prixBouteille * vente_laits.nbrBouteille) as 'vente'"))
+            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.bouteille_id')
+            ->join('commandes', 'commandes.idCom', '=', 'vente_laits.commande_id')
+            ->select(DB::raw("sum(vente_laits.prixTotale) as 'vente'"))
             ->whereYear('commandes.dateCom', $annee)
             ->get();
         return $bovin;

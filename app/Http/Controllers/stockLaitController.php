@@ -75,4 +75,8 @@ class stockLaitController extends Controller
             ],200);
         };
     }
+
+    public function stockDisponible(){
+        return stockLait::sum('quantiteDispo');
+    }
 }

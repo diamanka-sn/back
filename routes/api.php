@@ -173,7 +173,7 @@ Route::apiResource('productionLait','App\Http\Controllers\productionLaitControll
 Route::apiResource('race','App\Http\Controllers\raceController');
 //Nombre de Race dans la ferme
 Route::get('nbrerace','App\Http\Controllers\raceController@nbreRace');
-Route::get('raceExistant','App\Http\Controllers\raceController@raceExistant');
+Route::get('bovins','App\Http\Controllers\raceController@raceExistant');
 
 Route::apiResource('stockLait','App\Http\Controllers\stockLaitController');
 Route::apiResource('taureau','App\Http\Controllers\taureauController');
@@ -185,6 +185,7 @@ Route::apiResource('velle','App\Http\Controllers\velleController');
 Route::apiResource('venteBovin','App\Http\Controllers\venteBovinController');
 Route::apiResource('venteLait','App\Http\Controllers\venteLaitController');
 
+Route::get('/stockDisponible',[\App\Http\Controllers\stockLaitController::class,"stockDisponible"]);
 
 //bloc alimentation stockAliment stockAliment  
 // Route::apiResource('stockAliment','App\Http\Controllers\achatAlimentController@stockAliment');

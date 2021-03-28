@@ -84,7 +84,7 @@ class alimentationDuJourController extends Controller
         $stock = DB::table('alimentation_du_jours')
             // ->join('achat_aliments', 'achat_aliments.nomAliment', '=', 'alimentation_du_jours.nomAlimentation')
             ->where('nomAlimentation', 'sorgo')
-            ->select(DB::raw("sum(quantiteAlimentation) as 'consommees'"))
+            ->select(DB::raw("sum(quantite) as 'consommees'"))
 
             ->get();
 
@@ -95,7 +95,7 @@ class alimentationDuJourController extends Controller
     {
         $stock = DB::table('alimentation_du_jours')
             ->join('achat_aliments', 'achat_aliments.nomAliment', '=', 'alimentation_du_jours.nomAlimentation')
-            ->select(DB::raw("sum(achat_aliments.quantite-alimentation_du_jours.quantiteAlimentation) as 'stock'"), DB::raw("achat_aliments.nomAliment as 'aliment'"), DB::raw('YEAR(date) as annee'))
+            ->select(DB::raw("sum(achat_aliments.quantite - alimentation_du_jours.quantite) as 'stock'"), DB::raw("achat_aliments.nomAliment as 'aliment'"), DB::raw('YEAR(date) as annee'))
             ->groupBy('annee', 'aliment')
             ->get();
 
@@ -105,18 +105,19 @@ class alimentationDuJourController extends Controller
     public function consommationMois()
     {
         $stock = DB::table('alimentation_du_jours')
-            ->select(DB::raw("sum(quantiteAlimentation) as 'consommation'"), DB::raw("nomAlimentation    as 'aliment'"), DB::raw('YEAR(date) as annee,MONTH(date) mois'))
-            ->groupBy('annee','mois','aliment')
+            ->select(DB::raw("sum(quantite) as 'consommation'"), DB::raw("nomAlimentation    as 'aliment'"), DB::raw('YEAR(date) as annee,MONTH(date) mois'))
+            ->groupBy('annee', 'mois', 'aliment')
             ->get();
 
         return $stock->groupBy('annee');
     }
 
-    public function listeAlimentationJour(){
+    public function listeAlimentationJour()
+    {
         $date = \Carbon\Carbon::now()->format('y.m.d');
         $stock = DB::table('alimentation_du_jours')
-            ->where('date',$date)
-        ->select('nomAlimentation','quantiteAlimentation','date')
+            ->where('date', $date)
+            ->select('nomAlimentation', 'quantite', 'date')
             ->get();
 
         return $stock;

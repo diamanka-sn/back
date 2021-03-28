@@ -80,8 +80,8 @@ class venteBovinController extends Controller
     public function chiffreBovin($annee)
     {
         $bovin = DB::table('vente_bovins')
-            ->join('bovins', 'vente_bovins.idBovin', '=', 'bovins.idBovin')
-            ->join('commandes', 'commandes.idCom', '=', 'vente_bovins.idCom')
+            ->join('bovins', 'vente_bovins.bovin_id', '=', 'bovins.idBovin')
+            ->join('commandes', 'commandes.idCom', '=', 'vente_bovins.commande_id')
             ->select(DB::raw("sum(vente_bovins.prixBovin) as 'vente'"), DB::raw('MONTH(commandes.dateCom) as mois'))
             ->whereYear('commandes.dateCom', $annee)
             ->groupBy('mois')
@@ -91,8 +91,8 @@ class venteBovinController extends Controller
     public function chiffreAnnuelleBovin($annee)
     {
         $bovin = DB::table('vente_bovins')
-            ->join('bovins', 'vente_bovins.idBovin', '=', 'bovins.idBovin')
-            ->join('commandes', 'commandes.idCom', '=', 'vente_bovins.idCom')
+            ->join('bovins', 'vente_bovins.bovin_id', '=', 'bovins.idBovin')
+            ->join('commandes', 'commandes.idCom', '=', 'vente_bovins.commande_id')
             ->select(DB::raw("sum(vente_bovins.prixBovin) as 'vente'"))
             ->whereYear('commandes.dateCom', $annee)
             ->get();
