@@ -20,11 +20,7 @@ class CreateAchatBovinsTable extends Migration
             $table->integer('bovin_id')->unsigned()->default(1);
             $table->foreign('bovin_id')->references('idBovin')->on('bovins');
             $table->integer('admin_id')->unsigned()->default(1);
-<<<<<<< HEAD
-            $table->foreign('admin_id')->references('user_id')->on('admins');
-=======
             $table->foreign('admin_id')->references('user_id')->on('admins')->onUpdate('cascade')->onDelete('cascade');
->>>>>>> 764f3b8423924a5e5abea5b7cb9d24c978bfe902
             $table->timestamps();
         });
     }

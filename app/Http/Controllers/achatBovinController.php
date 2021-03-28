@@ -111,12 +111,13 @@ class achatBovinController extends Controller
     {
       
         return DB::table("achat_bovins")->sum("montantBovin");
-// =======
-//     public function coutBovin(){
-//         $veau = DB::table('achat_bovins')
-//         ->select(DB::raw("sum(montantBovin) as 'prix'"))
-//         ->get();
-//         return $veau;
-// >>>>>>> e002d398770c5357c27be6e9961d44c180864b04
+    }
+
+    public function coutBovin(){
+        $veau = DB::table('achat_bovins')
+        ->select(DB::raw("sum(montantBovin) as 'prix'"))
+        ->get();
+        return $veau;
+
     }
 }
