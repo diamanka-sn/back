@@ -20,7 +20,11 @@ class CreateAutreDepensesTable extends Migration
             $table->text('libelle');
             $table->integer('montant');
             $table->integer('admin_id')->unsigned();
+<<<<<<< HEAD
             $table->foreign('admin_id')->references('user_id')->on('utilisateurs');
+=======
+            $table->foreign('admin_id')->references('user_id')->on('admins')->onUpdate('cascade')->onDelete('cascade');
+>>>>>>> 764f3b8423924a5e5abea5b7cb9d24c978bfe902
             $table->timestamps();
         });
     }

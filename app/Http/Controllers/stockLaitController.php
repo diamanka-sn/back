@@ -79,4 +79,6 @@ class stockLaitController extends Controller
     public function stockDisponible(){
         return stockLait::sum('quantiteDispo');
     }
+
+   
 }

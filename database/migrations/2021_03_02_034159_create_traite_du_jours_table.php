@@ -20,8 +20,13 @@ class CreateTraiteDuJoursTable extends Migration
             $table->float('traiteSoir');
             $table->integer('fermier_id')->unsigned();
             $table->foreign('fermier_id')->references('user_id')->on('fermiers');
+<<<<<<< HEAD
             $table->integer('ProductionLait_id')->unsigned();
             $table->foreign('ProductionLait_id')->references('idProductionLait')->on('production_laits');
+=======
+            $table->integer('productionLait_id')->unsigned();
+            $table->foreign('productionLait_id')->references('idProductionLait')->on('production_laits');
+>>>>>>> 764f3b8423924a5e5abea5b7cb9d24c978bfe902
             $table->timestamps();
         });
     }
