@@ -85,39 +85,87 @@ class genisseController extends Controller
 
     public function nombreGenisse()
     {
-        return Genisse::where("etat", "vivant")->count();
+        $commandeLait = DB::table('genisses')
+            ->join('bovins', 'genisses.idBovin', '=', 'bovins.idBovin')
+            // ->select(DB::raw("sum(factures.montant) as 'chiffrel'"), DB::raw('YEAR(factures.datePaiement) annee'))
+            ->where("etat", "Vivant")
+            ->count();
+        return $commandeLait;
     }
     public function listGenisseMalade()
     {
-        return Genisse::where("etatDeSante", "souffrant")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('genisses')
+            ->join('bovins', 'genisses.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("etat", "Malade")
+            ->get();
+        return $commandeLait;
     }
 
     public function listGenisseSain()
     {
-        return Genisse::where("etatDeSante", "Sain")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('genisses')
+            ->join('bovins', 'genisses.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("etat", "Sain")
+            ->get();
+        return $commandeLait;
     }
     public function listGenisseEnVente()
     {
-        return Genisse::where("situation", "en vente")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('genisses')
+            ->join('bovins', 'genisses.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("situation", "en vente")
+            ->orderByDesc('idBovin')
+            ->get();
+
+        return $commandeLait;
+        // return Genisse::where("situation", "en vente")->orderByDesc('idBovin')->get();
     }
     public function listGenissePasEnVente()
     {
-        return Genisse::where("situation", "pas en vente")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('genisses')
+            ->join('bovins', 'genisses.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("situation", "pas en vente")
+            ->orderByDesc('idBovin')
+            ->get();
+
+        return $commandeLait;
+        // return Genisse::->orderByDesc('idBovin')->get();
     }
     public function listGenisseVivant()
     {
-        return Genisse::where("etat", "vivant")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('genisses')
+            ->join('bovins', 'genisses.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("etat", "Vivant")
+            ->orderByDesc('idBovin')
+            ->get();
+
+        return $commandeLait;
+        // return Genisse::where("etat", "vivant")->orderByDesc('idBovin')->get();
     }
     public function listGenisseMort()
     {
-        return Genisse::where("etat", "mort")->orderByDesc('idBovin')->get();
+        $commandeLait = DB::table('genisses')
+            ->join('bovins', 'genisses.idBovin', '=', 'bovins.idBovin')
+            ->select('bovins.*')
+            ->where("etat", "Mort")
+            ->orderByDesc('idBovin')
+            ->get();
+
+        return $commandeLait;
+        // return Genisse::where("etat", "mort")->orderByDesc('idBovin')->get();
     }
     public function listGenisseAvecDetaille()
     {
         $genisses = DB::table('genisses')
-            ->join('races', 'genisses.idRace', '=', 'races.idRace')
-            ->join('pesages', 'genisses.idBovin', '=', 'pesages.idBovin')
-            ->select('genisses.*', 'races.nomRace', 'pesages.*')
+            ->join('bovins', 'genisses.idBovin', '=', 'bovins.idBovin')
+            ->join('races', 'bovins.race_id', '=', 'races.idRace')
+            ->join('pesages', 'genisses.idBovin', '=', 'pesages.bovin_id')
+            ->select('bovins.*', 'races.nomRace', 'pesages.*')
             ->get();
 
         return $genisses;
@@ -125,13 +173,14 @@ class genisseController extends Controller
     public function nombreGenisseMois()
     {
         $genisses = DB::table('genisses')
+            ->join('bovins', 'genisses.idBovin', '=', 'bovins.idBovin')
             ->where("etat", "vivant")
-            ->select(DB::raw("count(idBovin) as 'nombre'"),DB::raw('YEAR(created_at) annee , MONTH(created_at) mois'))
-            ->groupBy('annee','mois')
+            ->select(DB::raw("count(genisses.idBovin) as 'nombre'"), DB::raw('YEAR(genisses.created_at) annee , MONTH(genisses.created_at) mois'))
+            ->groupBy('annee', 'mois')
             ->orderBy('mois')
             ->get();
 
-        return $genisses ->groupBy('annee');
+        return $genisses->groupBy('annee');
     }
 
     public function listGenisseEnVenteAvecDetaille()

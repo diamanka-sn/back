@@ -88,7 +88,7 @@ class commandeController extends Controller
     public function nombreCommandeLait()
     {
         $commandeLait = DB::table('commandes')
-            ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.idCom')
+            ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.commande_id')
             ->select('commandes.*', 'vente_laits.*')
             ->get();
 
@@ -97,8 +97,8 @@ class commandeController extends Controller
     public function litreVendu()
     {
         $commandeBovin = DB::table('commandes')
-            ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.idCom')
-            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.idBouteille')
+            ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.commande_id')
+            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.bouteille_id')
             ->select('bouteilles.capacite')
             ->get();
 
@@ -107,8 +107,8 @@ class commandeController extends Controller
     public function nombreCommandeBovin()
     {
         $commandeBovin = DB::table('commandes')
-            ->join('vente_bovins', 'commandes.idCom', '=', 'vente_bovins.idCom')
-            ->join('bovins', 'vente_bovins.idBovin', '=', 'bovins.idBovin')
+            ->join('vente_bovins', 'commandes.idCom', '=', 'vente_bovins.commande_id')
+            ->join('bovins', 'vente_bovins.bovin_id', '=', 'bovins.idBovin')
             ->get();
 
         return $commandeBovin->count();
@@ -138,8 +138,9 @@ class commandeController extends Controller
     public function listClient()
     {
         $commande = DB::table('commandes')
-            ->join('clients', 'commandes.idUtilisateur', '=', 'clients.idUtilisateur')
-            ->select('commandes.*', 'clients.nom')
+            ->join('clients', 'commandes.client_id', '=', 'clients.user_id')
+            ->join('users', 'clients.user_id', '=', 'users.id')
+            ->select('commandes.*', 'users.nom')
             ->get();
 
         return $commande;
@@ -148,10 +149,11 @@ class commandeController extends Controller
     public function listClientBovinAvecDetails()
     {
         $commandeBovin = DB::table('commandes')
-            ->join('clients', 'commandes.idUtilisateur', '=', 'clients.idUtilisateur')
-            ->join('vente_bovins', 'commandes.idCom', '=', 'vente_bovins.idCom')
-            ->join('bovins', 'vente_bovins.idBovin', '=', 'bovins.idBovin')
-            ->select('commandes.*', 'clients.*', 'vente_bovins.*', 'bovins.nom')
+            ->join('clients', 'commandes.client_id', '=', 'clients.user_id')
+            ->join('users', 'clients.user_id', '=', 'users.id')
+            ->join('vente_bovins', 'commandes.idCom', '=', 'vente_bovins.commande_id')
+            ->join('bovins', 'vente_bovins.bovin_id', '=', 'bovins.idBovin')
+            ->select('commandes.*', 'users.*', 'vente_bovins.*', 'bovins.nom')
             ->get();
 
         return $commandeBovin;
@@ -160,10 +162,11 @@ class commandeController extends Controller
     public function listClientLaitAvecDetails()
     {
         $commandeLait = DB::table('commandes')
-            ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.idCom')
-            ->join('clients', 'commandes.idUtilisateur', '=', 'clients.idUtilisateur')
-            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.idBouteille')
-            ->select('commandes.*', 'vente_laits.*', 'clients.*', 'bouteilles.capacite')
+            ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.commande_id')
+            ->join('clients', 'commandes.client_id', '=', 'clients.user_id')
+            ->join('users', 'clients.user_id', '=', 'users.id')
+            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.bouteille_id')
+            ->select('commandes.*', 'vente_laits.*', 'users.*', 'bouteilles.capacite')
             ->get();
 
         return $commandeLait;
@@ -172,8 +175,8 @@ class commandeController extends Controller
     public function chiffreAffaireLait()
     {
         $commandeLait = DB::table('commandes')
-            ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.idCom')
-            ->join('factures', 'commandes.idCom', '=', 'factures.idCom')
+            ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.commande_id')
+            ->join('factures', 'commandes.idCom', '=', 'factures.commande_id')
             ->select(DB::raw("sum(factures.montant) as 'chiffre'"), DB::raw('YEAR(factures.datePaiement) annee'), DB::raw("MONTH(factures.datePaiement) as mois"))
             ->groupBy('annee', 'mois')
             ->orderBy('mois')
@@ -183,8 +186,8 @@ class commandeController extends Controller
     public function chiffreAffaireBovin()
     {
         $commandeLait = DB::table('commandes')
-            ->join('vente_bovins', 'commandes.idCom', '=', 'vente_bovins.idCom')
-            ->join('factures', 'commandes.idCom', '=', 'factures.idCom')
+            ->join('vente_bovins', 'commandes.idCom', '=', 'vente_bovins.commande_id')
+            ->join('factures', 'commandes.idCom', '=', 'factures.commande_id')
             ->select(DB::raw("sum(factures.montant) as 'chiffre'"), DB::raw('YEAR(factures.datePaiement) annee'), DB::raw("MONTH(factures.datePaiement) as mois"))
             ->groupBy('annee', 'mois')
             ->orderBy('mois')
@@ -192,23 +195,25 @@ class commandeController extends Controller
         return $commandeLait->groupBy('annee');
     }
 
-    public function chiffreAnnuelleLait(){
+    public function chiffreAnnuelleLait()
+    {
         $commandeLait = DB::table('commandes')
-        ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.idCom')
-        ->join('factures', 'commandes.idCom', '=', 'factures.idCom')
-        ->select(DB::raw("sum(factures.montant) as 'chiffrel'"), DB::raw('YEAR(factures.datePaiement) annee'))
-        ->groupBy('annee')
-        ->get();
-    return $commandeLait;
+            ->join('vente_laits', 'commandes.idCom', '=', 'vente_laits.commande_id')
+            ->join('factures', 'commandes.idCom', '=', 'factures.commande_id')
+            ->select(DB::raw("sum(factures.montant) as 'chiffrel'"), DB::raw('YEAR(factures.datePaiement) annee'))
+            ->groupBy('annee')
+            ->get();
+        return $commandeLait;
     }
 
-    public function chiffreAnnuelleBovin(){
+    public function chiffreAnnuelleBovin()
+    {
         $commandeLait = DB::table('commandes')
-        ->join('vente_bovins', 'commandes.idCom', '=', 'vente_bovins.idCom')
-        ->join('factures', 'commandes.idCom', '=', 'factures.idCom')
-        ->select(DB::raw("sum(factures.montant) as 'chiffreb'"), DB::raw('YEAR(factures.datePaiement) annee'))
-        ->groupBy('annee')
-        ->get();
-    return $commandeLait;
+            ->join('vente_bovins', 'commandes.idCom', '=', 'vente_bovins.commande_id')
+            ->join('factures', 'commandes.idCom', '=', 'factures.commande_id')
+            ->select(DB::raw("sum(factures.montant) as 'chiffreb'"), DB::raw('YEAR(factures.datePaiement) annee'))
+            ->groupBy('annee')
+            ->get();
+        return $commandeLait;
     }
 }

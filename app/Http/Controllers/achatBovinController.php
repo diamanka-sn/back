@@ -102,6 +102,7 @@ class achatBovinController extends Controller
         ->join('races','bovins.idRace','=','races.idRace')
        ->select('achat_bovins.*','bovins.*','races.nomRace')
         ->get();
+<<<<<<< HEAD
     
     return $BovinAcheter;
     }
@@ -118,5 +119,10 @@ class achatBovinController extends Controller
 //         ->get();
 //         return $veau;
 // >>>>>>> e002d398770c5357c27be6e9961d44c180864b04
+=======
+
+        return $veau;
+        // return DB::table("achat_bovins")->sum('montantBovin');
+>>>>>>> 5b01c4f5cb206cbc8ba2eb86e52466cb9c795b06
     }
 }

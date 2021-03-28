@@ -16,12 +16,13 @@ class raceController extends Controller
      */
     public function index()
     {
-      //  $race = race::all();
+        //  $race = race::all();
         //return $race->toJson(JSON_PRETTY_PRINT);
         return race::orderByDesc('created_at')->get();
     }
 
-    public function nbreRace(){
+    public function nbreRace()
+    {
         return race::all('idRace')->count();
     }
 
@@ -33,11 +34,11 @@ class raceController extends Controller
      */
     public function store(Request $request)
     {
-      if(race::create($request->all())){
-          return response()->json([
-              'success' => 'enregistre avec succes'
-          ],200);
-      };
+        if (race::create($request->all())) {
+            return response()->json([
+                'success' => 'enregistre avec succes'
+            ], 200);
+        };
     }
 
     /**
@@ -60,10 +61,10 @@ class raceController extends Controller
      */
     public function update(Request $request, race $race)
     {
-        if($race->update($request->all())){
+        if ($race->update($request->all())) {
             return response()->json([
                 'success' => 'modifier avec succes'
-            ],200);
+            ], 200);
         };
     }
 
@@ -75,21 +76,22 @@ class raceController extends Controller
      */
     public function destroy(race $race)
     {
-        if($race->delete()){
+        if ($race->delete()) {
             return response()->json([
                 'success' => 'Suppression reussie'
-            ],200);
+            ], 200);
         };
     }
 
-    public function raceExistant(){
+    public function raceExistant()
+    {
         $commandeMois = DB::table('races')
-        ->join('bovins', 'bovins.idRace', '=', 'races.idRace')
-        ->where('bovins.etat','vivant')
-        ->select(DB::raw("count(bovins.idBovin) as 'nombre'"), DB::raw("races.nomRace as 'race'"))
-        ->groupBy('race')
-        ->get();
+            ->join('bovins', 'bovins.race_id', '=', 'races.idRace')
+            ->where('bovins.etat', 'vivant')
+            ->select(DB::raw("count(bovins.idBovin) as 'nombre'"), DB::raw("races.nomRace as 'race'"))
+            ->groupBy('race')
+            ->get();
 
-    return $commandeMois;
+        return $commandeMois;
     }
 }
