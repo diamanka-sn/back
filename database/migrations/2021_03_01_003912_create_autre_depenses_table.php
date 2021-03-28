@@ -14,13 +14,13 @@ class CreateAutreDepensesTable extends Migration
     public function up()
     {
         Schema::create('autre_depenses', function (Blueprint $table) {
-            $table->id('idAutreDepense');
-            $table->date('dateDepense');
+            $table->id('idDepenses');
+            $table->date('dateDepenses');
             $table->string('type',255);
             $table->text('libelle');
             $table->integer('montant');
-            $table->integer('idUtilisateur')->unsigned();
-            $table->foreign('idUtilisateur')->references('idUtilisateur')->on('utilisateurs');
+            $table->integer('admin_id')->unsigned();
+            $table->foreign('admin_id')->references('user_id')->on('utilisateurs');
             $table->timestamps();
         });
     }

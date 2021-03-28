@@ -18,8 +18,8 @@ class CreateCommandePersonnalisesTable extends Migration
             $table->integer('prix');
             $table->integer('quantite');
             $table->date('dateComPerso');
-            $table->integer('idUtilisateur')->unsigned();
-            $table->foreign('idUtilisateur')->references('idUtilisateur')->on('clients');
+            $table->integer('client_id')->unsigned();
+            $table->foreign('client_id')->references('user_id')->on('clients');
             $table->timestamps();
         });
     }

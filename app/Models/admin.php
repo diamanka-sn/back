@@ -10,8 +10,8 @@ class admin extends Model
     use HasFactory;
 
     public $incrementing = false;
-    protected $primaryKey = 'idUtilisateur';
-    protected $fillable = ['nom','prenom','tel','adresse','photo','email','password','profile'];
+    protected $primaryKey = 'user_id';
+    protected $fillable = ['user_id'];
 
     public function achatAliments()
     {

@@ -85,9 +85,6 @@ class venteBovinController extends Controller
 
     public function nombreBovinVendue()
     {
-<<<<<<< HEAD
-        return venteBovin::count();
-=======
         $bovin = DB::table('vente_bovins')
             ->join('bovins', 'vente_bovins.bovin_id', '=', 'bovins.idBovin')
             ->join('commandes', 'commandes.idCom', '=', 'vente_bovins.commande_id')
@@ -96,7 +93,6 @@ class venteBovinController extends Controller
             ->groupBy('mois')
             ->get();
         return $bovin;
->>>>>>> 5b01c4f5cb206cbc8ba2eb86e52466cb9c795b06
     }
     public function listBovinVendue()
     {    
@@ -119,18 +115,8 @@ class venteBovinController extends Controller
 
     public function SommeVenteBovin()
     {
-<<<<<<< HEAD
       
         return DB::table("vente_bovins")->sum("prixBovin");
-=======
-        $bovin = DB::table('vente_bovins')
-            ->join('bovins', 'vente_bovins.bovin_id', '=', 'bovins.idBovin')
-            ->join('commandes', 'commandes.idCom', '=', 'vente_bovins.commande_id')
-            ->select(DB::raw("sum(vente_bovins.prixBovin) as 'vente'"))
-            ->whereYear('commandes.dateCom', $annee)
-            ->get();
-        return $bovin;
->>>>>>> 5b01c4f5cb206cbc8ba2eb86e52466cb9c795b06
     }
 
 }

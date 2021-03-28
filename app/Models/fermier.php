@@ -9,8 +9,8 @@ class fermier extends Model
 {
     use HasFactory;
     public $incrementing = false;
- 
-    protected $fillable = ['nom','prenom','tel','adresse','photo','email','password','profile','salaire'];
+    protected $primaryKey = 'user_id';
+    protected $fillable = ['user_id','salaire'];
 
     public function traiteDuJours()
     {

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class achatAliment extends Model
 {
     protected $primaryKey = 'idAchatAliment';
-    protected $fillable = ['nomAliment','quantite','montant','idUtilisateur'];
+    protected $fillable = ['nomAliment','quantite','montant','admin_id'];
     use HasFactory;
 
     public function admin()

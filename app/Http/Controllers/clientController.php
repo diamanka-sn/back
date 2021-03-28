@@ -73,12 +73,6 @@ class clientController extends Controller
             ],200);
         };
     }
-<<<<<<< HEAD
-    public function nombreClient()
-    {
-        return client::All()->count();
-    }
-=======
 
     public function nombreClient()
     {
@@ -86,5 +80,4 @@ class clientController extends Controller
             return client::All()->count();
     }
 
->>>>>>> 5b01c4f5cb206cbc8ba2eb86e52466cb9c795b06
 }

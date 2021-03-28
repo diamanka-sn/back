@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class traiteDuJour extends Model
 {
     protected $primaryKey = 'idTraiteDuJour';
-    protected $fillable = ['dateTraite','traiteMatin','traiteSoir','idUtilisateur','idProductionLait'];
+    protected $fillable = ['dateTraite','traiteMatin','traiteSoir','fermier_id','ProductionLait_id'];
     use HasFactory;
 
     public function fermier()

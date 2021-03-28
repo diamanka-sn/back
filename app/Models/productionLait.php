@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class productionLait extends Model
 {   protected $primaryKey = 'idProductionLait';
-    protected $fillable = ['idBovin'];
+    protected $fillable = ['bovin_id'];
     use HasFactory;
 
     public function traiteDuJours()

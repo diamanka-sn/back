@@ -174,11 +174,6 @@ class veauController extends Controller
 
     public function listVeauEnVenteAvecDetaille()
     {
-<<<<<<< HEAD
-        $races=race::All();
-        $pesages=pesage::All();
-    
-=======
         $veau = DB::table('veaus')
             ->join('bovins', 'veaus.idBovin', '=', 'bovins.idBovin')
             ->where("bovins.etat", "Vivant")
@@ -186,7 +181,6 @@ class veauController extends Controller
             ->groupBy('annee', 'mois')
             ->orderBy('mois')
             ->get();
->>>>>>> 5b01c4f5cb206cbc8ba2eb86e52466cb9c795b06
 
         $veaus=DB::table('veaus')
         ->join('races','veaus.idRace','=','races.idRace')

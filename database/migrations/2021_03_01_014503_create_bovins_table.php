@@ -18,16 +18,15 @@ class CreateBovinsTable extends Migration
             $table->string('codeBovin',255);
             $table->string('nom',255);
             $table->string('photo',255);
-            $table->date('dateNaiss');
+            $table->date('dateNaissance');
             $table->string('etatDeSante');
             $table->string('geniteur',255);
             $table->string('genitrice',255);
             $table->string('etat',255)->default('vivant');
             $table->string('situation',255);
-            $table->integer('idRace')->unsigned()->default(1);
-            $table->foreign('idRace')->references('idRace')->on('commandes');
-            $table->integer('prixBovin');
-            $table->integer('prix');
+            $table->integer('race_id')->unsigned()->default(1);
+            $table->foreign('race_id')->references('idRace')->on('races');
+            $table->integer('prix')->nullable();
             $table->timestamps();
         });
     }

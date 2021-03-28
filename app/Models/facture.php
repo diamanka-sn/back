@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class facture extends Model
 {
     protected $primaryKey = 'idFacture';
-    protected $fillable = ['montant','datePaiement','idCom'];
+    protected $fillable = ['montant','datePaiement','commande_id'];
     use HasFactory;
 
     public function commande()

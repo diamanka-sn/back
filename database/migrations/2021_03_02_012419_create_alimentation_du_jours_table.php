@@ -15,10 +15,10 @@ class CreateAlimentationDuJoursTable extends Migration
     {
         Schema::create('alimentation_du_jours', function (Blueprint $table) {
             $table->id('idAlimentation');
-            $table->integer('idUtilisateur')->unsigned();
-            $table->foreign('idUtilisateur')->references('idUtilisateur')->on('utilisateurs');
+            $table->integer('fermier_id')->unsigned();
+            $table->foreign('fermier_id')->references('user_id')->on('fermiers');
             $table->string('nomAlimentation',255);
-            $table->float('quantiteAlimentation',255);
+            $table->float('quantite',255);
             $table->date('date');
             $table->timestamps();
         });

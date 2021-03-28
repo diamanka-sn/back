@@ -226,7 +226,6 @@ class taureauController extends Controller
 
         return $genisses->groupBy('annee');
     }
-<<<<<<< HEAD
 
     public function listTaureauEnVenteAvecDetaille()
     {
@@ -250,6 +249,4 @@ class taureauController extends Controller
         return taureau::where("situation","en vente")->count();
     }
 
-=======
->>>>>>> 5b01c4f5cb206cbc8ba2eb86e52466cb9c795b06
 }

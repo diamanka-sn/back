@@ -204,28 +204,14 @@ class vacheController extends Controller
         $periodes=periode::All();
         $races=race::All();
         $periodes=periode::All();
-        $pesages=pesage::All();
+        $pesages=pesage::All();66
 
-<<<<<<< HEAD
-
-        $Vaches=DB::table('vaches')
-        ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
-        ->join('pesages','vaches.idPesage','=','pesage.idPesage')
-        ->join('periodes','vaches.idPeriode','=','periodes.idPeriode')
-        ->join('races','vaches.idRace','=','races.idRace')
-
-
-       ->select('vaches.*','periodes.nomPeriode','races.*','pesages.*')
-        ->get();
-        return $Vaches->where("nomPeriode","Lactation");        
-=======
         $Vaches = DB::table('vaches')
             ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
             ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
             ->select('bovins.*', 'periodes.nomPeriode')
             ->get();
         return $Vaches->where("periodes.nomPeriode", "Lactation");
->>>>>>> 5b01c4f5cb206cbc8ba2eb86e52466cb9c795b06
     }
     public function listeVacheEnTarissement()
     {
@@ -332,7 +318,6 @@ class vacheController extends Controller
 
     public function listVacheEnVenteAvecDetaille()
     {
-<<<<<<< HEAD
         $races=race::All();
         $pesages=pesage::All();
         $periodes=periode::All();
@@ -347,18 +332,6 @@ class vacheController extends Controller
     
     return $Vaches;
          
-=======
-        $phase = DB::table('vaches')
-            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
-            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
-            ->select(DB::raw("count(vaches.idBovin) as 'nombre'"), DB::raw("periodes.nomPeriode as 'periode'"), DB::raw('YEAR(periodes.created_at) annee,MONTH(periodes.created_at) mois'))
-            ->where('bovins.etat', 'Vivant')
-            ->groupBy('annee', 'periode', 'mois')
-            ->orderBy('mois')
-            ->get();
-
-        return $phase->groupBy('periode');
->>>>>>> 5b01c4f5cb206cbc8ba2eb86e52466cb9c795b06
     }
     
 }

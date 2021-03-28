@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class bovin extends Model
 {
     protected $primaryKey = 'idBovin';
-    protected $fillable = ['codeBovin','nom','photo','dateNaiss','etatDeSante','geniteur','genitrice','etat','situation','idRace'];
+    protected $fillable = ['codeBovin','nom','photo','dateNaissance','etatDeSante','geniteur','genitrice','etat','situation','race_id','prix'];
     use HasFactory;
 
     public function race()
