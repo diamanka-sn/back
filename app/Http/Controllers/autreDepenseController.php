@@ -81,16 +81,24 @@ class autreDepenseController extends Controller
     {           
         return autreDepense::orderByDesc('created_at')->get();
 
-    public function chargeAutreDepense()
-    {
-        $stock = DB::table('autre_depenses')
-            // ->join('achat_aliments', 'achat_aliments.nomAliment', '=', 'alimentation_du_jours.nomAlimentation')
-            ->select(DB::raw("sum(montant) as 'achetes'"), DB::raw('YEAR(dateDepense) as annee'))
-            ->groupBy('annee')
-            ->get();
+    // public function chargeAutreDepense()
+    // {
+    //     $stock = DB::table('autre_depenses')
+    //         // ->join('achat_aliments', 'achat_aliments.nomAliment', '=', 'alimentation_du_jours.nomAlimentation')
+    //         ->select(DB::raw("sum(montant) as 'achetes'"), DB::raw('YEAR(dateDepense) as annee'))
+    //         ->groupBy('annee')
+    //         ->get();
 
             
-            return $stock->groupBy('annee') ;
+    //         return $stock->groupBy('annee') ;
+     }
+
+
+     public function sommeAutresDepense()
+    {
+       
+        return DB::table("autre_depenses")->sum("montant");
     }
+
 }
 

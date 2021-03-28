@@ -6,8 +6,6 @@ use App\Models\achatAliment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use Illuminate\Support\Facades\DB;
-
 class achatAlimentController extends Controller
 {
     /**

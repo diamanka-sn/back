@@ -11,11 +11,7 @@ class vache extends Model
 
     public $incrementing = false;
     protected $primaryKey = 'idBovin';
-<<<<<<< HEAD
     protected $fillable = ['codeBovin','nom','photo','dateNaiss','etatDeSante','geniteur','genitrice','etat','situation','idRace','prix'];
-=======
-    protected $fillable = ['codeBovin','nom','photo','dateNaiss','etatDeSante','geniteur','genitrice','etat','situation','idRace','idPeriode'];
->>>>>>> e002d398770c5357c27be6e9961d44c180864b04
 
     public function productionLaits()
     {

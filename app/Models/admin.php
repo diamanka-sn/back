@@ -11,7 +11,7 @@ class admin extends Model
 
     public $incrementing = false;
     protected $primaryKey = 'idUtilisateur';
-    protected $fillable = ['nom','prenom','tel','adresse','photo','login','password','profile'];
+    protected $fillable = ['nom','prenom','tel','adresse','photo','email','password','profile'];
 
     public function achatAliments()
     {

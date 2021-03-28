@@ -126,7 +126,6 @@ class veauController extends Controller
         return $veaus;
     }
 
-<<<<<<< HEAD
     public function listVeauEnVenteAvecDetaille()
     {
         $races=race::All();
@@ -145,17 +144,9 @@ class veauController extends Controller
          
     }
 
-=======
-    public function nombreVeauMois()
+    public function nombreVeauEnVente()
     {
-        $veau = DB::table('veaus')
-            ->where("etat", "vivant")
-            ->select(DB::raw("count(idBovin) as 'nombre'"), DB::raw('YEAR(created_at) annee,MONTH(created_at) mois'))
-            ->groupBy('annee', 'mois')
-            ->orderBy('mois')
-            ->get();
-
-        return $veau->groupBy('annee');
+        return veau::where("situation","en vente")->count();
     }
->>>>>>> e002d398770c5357c27be6e9961d44c180864b04
+
 }

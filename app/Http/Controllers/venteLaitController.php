@@ -78,37 +78,11 @@ class venteLaitController extends Controller
         };
     }
 
-<<<<<<< HEAD
     public function sommeVenteLait()
     {
-        return venteLait::select('prixBouteille')->get();
-        //return venteLait::orderByDesc('created_at')->get();
+       
+        return DB::table("vente_laits")->sum("prixBouteille",);
     }
 
     
-=======
-    public function chiffreLait($annee)
-    {
-        $bovin = DB::table('vente_laits')
-            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.idBouteille')
-            ->join('commandes', 'commandes.idCom', '=', 'vente_laits.idCom')
-            ->select(DB::raw("sum(bouteilles.capacite * vente_laits.prixBouteille * vente_laits.nbrBouteille) as 'vente'"), DB::raw('MONTH(commandes.dateCom) as mois'))
-            ->whereYear('commandes.dateCom', $annee)
-            ->groupBy('mois')
-            ->get();
-        return $bovin;
-    }
-
-    public function chiffreAnnuelleLait($annee)
-    {
-
-        $bovin = DB::table('vente_laits')
-            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.idBouteille')
-            ->join('commandes', 'commandes.idCom', '=', 'vente_laits.idCom')
-            ->select(DB::raw("sum(bouteilles.capacite * vente_laits.prixBouteille * vente_laits.nbrBouteille) as 'vente'"))
-            ->whereYear('commandes.dateCom', $annee)
-            ->get();
-        return $bovin;
-    }
->>>>>>> e002d398770c5357c27be6e9961d44c180864b04
 }

@@ -21,9 +21,9 @@ class Cors
         ->header('Access-Control-Alown-Methods',"PUT,POST,DELETE,GET,OPTIONS")
         ->header('Access-Control-Alown-Headers',"Accept,Authorisation,Content-Type,X-Request")
         ->header('Access-Control-Alown-Credentials',"true");
-<<<<<<< HEAD
 
-=======
->>>>>>> e002d398770c5357c27be6e9961d44c180864b04
+
+// =======
+// >>>>>>> e002d398770c5357c27be6e9961d44c180864b04
     }
 }

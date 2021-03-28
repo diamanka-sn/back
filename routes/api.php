@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,13 +44,8 @@ Route::get('/nombreVelle',[App\Http\Controllers\velleController::class,"nombreVe
 Route::get('/listVelleAvecDetaille',[App\Http\Controllers\velleController::class,"listVelleAvecDetaille"]);
 Route::get('/nombreVelleMois',[App\Http\Controllers\velleController::class,"nombreVelleMois"]);
 
-<<<<<<< HEAD
 
 //bloc Veau
-=======
-//bloc veau 
-
->>>>>>> e002d398770c5357c27be6e9961d44c180864b04
 Route::get('/listVeauMalade',[App\Http\Controllers\veauController::class,"listVeauMalade"]);
 Route::get('/listVeauSain',[App\Http\Controllers\veauController::class,"listVeauSain"]);
 Route::get('/listVeauEnVente',[App\Http\Controllers\veauController::class,"listVeauEnVente"]);
@@ -58,12 +54,8 @@ Route::get('/listVeauVivant',[App\Http\Controllers\veauController::class,"listVe
 Route::get('/listVeauMort',[App\Http\Controllers\veauController::class,"listVeauMort"]);
 Route::get('/nombreVeau',[App\Http\Controllers\veauController::class,"nombreVeau"]);
 Route::get('/listVeauAvecDetaille',[App\Http\Controllers\veauController::class,"listVeauAvecDetaille"]);
-<<<<<<< HEAD
 Route::get('/listVeauEnVenteAvecDetaille',[App\Http\Controllers\veauController::class,"listVeauEnVenteAvecDetaille"]);
-=======
-Route::get('/nombreVeauMois',[App\Http\Controllers\veauController::class,"nombreVeauMois"]);
->>>>>>> e002d398770c5357c27be6e9961d44c180864b04
-
+Route::get('/nombreVeauEnVente',[App\Http\Controllers\veauController::class,"nombreVeauEnVente"]);
 
 //bloc taureau
 
@@ -76,7 +68,6 @@ Route::get('/nombreTaureauEnVente',[App\Http\Controllers\taureauController::clas
 Route::get('/listTaureauMort',[App\Http\Controllers\taureauController::class,"listTaureauMort"]);
 Route::get('/nombreTaureau',[App\Http\Controllers\taureauController::class,"nombreTaureau"]);
 Route::get('/listTaureauAvecDetaille',[App\Http\Controllers\taureauController::class,"listTaureauAvecDetaille"]);
-<<<<<<< HEAD
 Route::get('/listTaureauEnVenteAvecDetaille',[App\Http\Controllers\taureauController::class,"listTaureauEnVenteAvecDetaille"]);
 Route::get('/nombreTaureauSain',[App\Http\Controllers\taureauController::class,"nombreTaureauSain"]);
 Route::get('/nombreTaureauMalade',[App\Http\Controllers\taureauController::class,"nombreTaureauMalade"]);
@@ -86,9 +77,6 @@ Route::get('/nombreTaureauMalade',[App\Http\Controllers\taureauController::class
 Route::get('/commandePersonnaliseDetaille',[App\Http\Controllers\CommandePersonnaliseController::class,"commandePersonnaliseDetaille"]);
 Route::get('/nombreCommandePersonnalise',[App\Http\Controllers\CommandePersonnaliseController::class,"nombreCommandePersonnalise"]);
 Route::get('/commandePersoDetailleSuppression',[App\Http\Controllers\CommandePersonnaliseController::class,"commandePersoDetailleSuppression"]);
-=======
-Route::get('/evolutionTaureau',[App\Http\Controllers\taureauController::class,"evolutionTaureau"]);
->>>>>>> e002d398770c5357c27be6e9961d44c180864b04
 
 
 //bloc genisse
@@ -101,11 +89,13 @@ Route::get('/listGenisseVivant',[App\Http\Controllers\genisseController::class,"
 Route::get('/listGenisseMort',[App\Http\Controllers\genisseController::class,"listGenisseMort"]);
 Route::get('/nombreGenisse',[App\Http\Controllers\genisseController::class,"nombreGenisse"]);
 Route::get('/listGenisseAvecDetaille',[App\Http\Controllers\genisseController::class,"listGenisseAvecDetaille"]);
-<<<<<<< HEAD
 Route::get('/listGenisseEnVenteAvecDetaille',[App\Http\Controllers\genisseController::class,"listGenisseEnVenteAvecDetaille"]);
 
 //bloc autreDepense
 Route::get('/listDepense',[App\Http\Controllers\autreDepenseController::class,"listDepense"]);
+Route::get('/sommeAutresDepense',[App\Http\Controllers\autreDepenseController::class,"sommeAutresDepense"]);
+
+
 //bloc Utilisateur  
 
 Route::get('/nombreUtilisateur',[App\Http\Controllers\utilisateurController::class,"nombreUtilisateur"]);
@@ -131,14 +121,6 @@ Route::get('/listBouteilleEnligne',[App\Http\Controllers\bouteilleController::cl
 Route::get('/nombreBouteilleEnligne',[App\Http\Controllers\bouteilleController::class,"nombreBouteilleEnligne"]);
 
 //bloc VenteBovin  
-=======
-Route::get('/nombreGenisseMois',[App\Http\Controllers\genisseController::class,"nombreGenisseMois"]);
-
-//sante bovin santeBovin
-Route::get('/santeBovin',[App\Http\Controllers\bovinController::class,"santeBovin"]);
-
-//bloc vache 
->>>>>>> e002d398770c5357c27be6e9961d44c180864b04
 
 Route::get('/nombreBovinVendue',[App\Http\Controllers\venteBovinController::class,"nombreBovinVendue"]);
 Route::get('/listBovinVendue',[App\Http\Controllers\venteBovinController::class,"listBovinVendue"]);
@@ -172,47 +154,9 @@ Route::get('/nombreVacheEnGestation',[App\Http\Controllers\vacheController::clas
 Route::get('/listeVacheEnGestation',[App\Http\Controllers\vacheController::class,"listeVacheEnGestation"]);
 Route::get('/nombreVacheNonGestant',[App\Http\Controllers\vacheController::class,"nombreVacheNonGestant"]);
 Route::get('/listeVacheNonGestant',[App\Http\Controllers\vacheController::class,"listeVacheNonGestant"]);
-<<<<<<< HEAD
 Route::get('/listVacheEnVenteAvecDetaille',[App\Http\Controllers\vacheController::class,"listVacheEnVenteAvecDetaille"]);
 
 
-=======
-Route::get('/evolutionVache',[App\Http\Controllers\vacheController::class,"evolutionVache"]);
-Route::get('/phaseVache',[App\Http\Controllers\vacheController::class,"phaseVache"]);
-Route::get('/periodeVache',[App\Http\Controllers\vacheController::class,"periodeVache"]);
-Route::get('/periodeMois',[App\Http\Controllers\vacheController::class,"periodeMois"]);
-
-
-//bloc commande chiffreLait
-Route::get('/nombreCommande',[\App\Http\Controllers\commandeController::class,"nombreCommande"]);
-Route::get('/listClient',[\App\Http\Controllers\commandeController::class,"listClient"]);
-Route::get('/listClientBovinAvecDetails',[\App\Http\Controllers\commandeController::class,"listClientBovinAvecDetails"]);
-Route::get('/listClientLaitAvecDetails',[\App\Http\Controllers\commandeController::class,"listClientLaitAvecDetails"]);
-Route::get('/nombreCommandeParMois',[\App\Http\Controllers\commandeController::class,"nombreCommandeParMois"]);
-Route::get('/nombreCommandeParSemaine',[\App\Http\Controllers\commandeController::class,"nombreCommandeParSemaine"]);
-Route::get('/listeCommandeParMois',[\App\Http\Controllers\commandeController::class,"listeCommandeParMois"]);
-Route::get('/nombreCommandeLait',[\App\Http\Controllers\commandeController::class,"nombreCommandeLait"]);
-Route::get('/nombreCommandeBovin',[\App\Http\Controllers\commandeController::class,"nombreCommandeBovin"]);
-Route::get('/litreVendu',[\App\Http\Controllers\commandeController::class,"litreVendu"]);
-Route::get('/chiffreAffaireLait',[\App\Http\Controllers\commandeController::class,"chiffreAffaireLait"]);
-Route::get('/chiffreAffaireBovin',[\App\Http\Controllers\commandeController::class,"chiffreAffaireBovin"]);
-Route::get('/chiffreAnnuelleLait',[\App\Http\Controllers\commandeController::class,"chiffreAnnuelleLait"]);
-Route::get('/chiffreAnnuelleBovin',[\App\Http\Controllers\commandeController::class,"chiffreAnnuelleBovin"]);
-
-
-
-//vente lait 
-Route::get('/chiffreLait/{dateCom}',[\App\Http\Controllers\venteLaitController::class,"chiffreLait"]);
-Route::get('/chiffreAnnuelleLait/{dateCom}',[\App\Http\Controllers\venteLaitController::class,"chiffreAnnuelleLait"]);
-
-//vente bovin  
-Route::get('/chiffreBovin/{dateCom}',[\App\Http\Controllers\venteBovinController::class,"chiffreBovin"]);
-Route::get('/chiffreAnnuelleBovin/{dateCom}',[\App\Http\Controllers\venteBovinController::class,"chiffreAnnuelleBovin"]);
-
-//productionLait
-Route::get('/production',[\App\Http\Controllers\traiteDuJourController::class,"productionLait"]);
-Route::get('/quantiteLaitProduite',[\App\Http\Controllers\traiteDuJourController::class,"quantiteLaitProduite"]);
->>>>>>> e002d398770c5357c27be6e9961d44c180864b04
 
 
 Route::apiResource('bovin','App\Http\Controllers\bovinController');
@@ -274,3 +218,15 @@ Route::get('/quantiteConsommes',[\App\Http\Controllers\alimentationDuJourControl
 Route::get('/consommationMois',[\App\Http\Controllers\alimentationDuJourController::class,"consommationMois"]);
 
 Route::get('/stock',[\App\Http\Controllers\alimentationDuJourController::class,"stockAliment"]);
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+});

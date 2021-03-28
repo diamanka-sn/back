@@ -65,38 +65,17 @@ class taureauController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request 
      * @param  \App\Models\taureau  $taureau
-     * @param  \App\Models\bovin  $bovin
      * @return \Illuminate\Http\Response
      */
-<<<<<<< HEAD
-    public function update(Request $request,taureau $taureau)
+    public function update(Request $request, taureau $taureau)
     {
-       if($taureau->update($request->all())){
-            if($taureau->update($request->all())){
-                return response()->json([
-                    'success' => 'modifier avec succes dans Taureau'
-                ],200);
-            };
-    
        
-      }
-=======
-    public function update(Request $request, taureau $taureau, bovin $bovin)
-    {
-        if ($bovin->update($request->all())) {
             if ($taureau->update($request->all())) {
                 return response()->json([
                     'success' => 'modifier avec succes dans Bovin et Taureau'
                 ], 200);
             };
->>>>>>> e002d398770c5357c27be6e9961d44c180864b04
-
-            //    if($taureau->update($request->all())){
-            //                 return response()->json([
-            //                'success' => 'modifier avec succes dans Bovin et Taureau'
-            //            ],200);            
-            //    };
-        }
+      
     }
 
 
@@ -110,16 +89,6 @@ class taureauController extends Controller
      */
     public function destroy(taureau $taureau)
     {
-<<<<<<< HEAD
-       
-            if($taureau->delete()){
-                return response()->json([
-                    'success' => 'Suppression reussie dans bovin'
-                ],200);
-            };
-        
-        
-=======
 
         if ($taureau->delete()) {
             return response()->json([
@@ -128,7 +97,6 @@ class taureauController extends Controller
         };
 
 
->>>>>>> e002d398770c5357c27be6e9961d44c180864b04
         // if($taureau->delete()){
         //     return response()->json([
         //         'success' => 'Suppression reussie dans Taureau'

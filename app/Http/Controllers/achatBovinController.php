@@ -8,7 +8,7 @@ use App\Models\bovin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class achause Illuminate\Support\Facades\DB;
+//class achause Illuminate\Support\Facades\DB;
 
 class achatBovinController extends Controller
 {
@@ -118,3 +118,5 @@ class achatBovinController extends Controller
 //         ->get();
 //         return $veau;
 // >>>>>>> e002d398770c5357c27be6e9961d44c180864b04
+    }
+}

@@ -20,7 +20,7 @@ class CreateUtilisateursTable extends Migration
             $table->integer('tel')->unique();
             $table->string('adresse',255);
             $table->string('photo',255);
-            $table->string('login',50)->unique();
+            $table->string('email',50)->unique();
             $table->string('password',255);
             $table->string('profile',100);
             $table->timestamps();
