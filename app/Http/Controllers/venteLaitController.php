@@ -80,9 +80,31 @@ class venteLaitController extends Controller
 
     public function sommeVenteLait()
     {
-       
+
         return DB::table("vente_laits")->sum("prixBouteille",);
     }
 
-    
+    public function chiffreLait($annee)
+    {
+        $bovin = DB::table('vente_laits')
+            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.bouteille_id')
+            ->join('commandes', 'commandes.idCom', '=', 'vente_laits.commande_id')
+            ->select(DB::raw("sum(vente_laits.prixTotale) as 'vente'"), DB::raw('MONTH(commandes.dateCom) as mois'))
+            ->whereYear('commandes.dateCom', $annee)
+            ->groupBy('mois')
+            ->get();
+        return $bovin;
+    }
+
+    public function chiffreAnnuelleLait($annee)
+    {
+
+        $bovin = DB::table('vente_laits')
+            ->join('bouteilles', 'bouteilles.idBouteille', '=', 'vente_laits.bouteille_id')
+            ->join('commandes', 'commandes.idCom', '=', 'vente_laits.commande_id')
+            ->select(DB::raw("sum(vente_laits.prixTotale) as 'vente'"))
+            ->whereYear('commandes.dateCom', $annee)
+            ->get();
+        return $bovin;
+    }
 }

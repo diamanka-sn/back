@@ -14,17 +14,12 @@ class CreateVachesTable extends Migration
     public function up()
     {
         Schema::create('vaches', function (Blueprint $table) {
-<<<<<<< HEAD
             $table->integer('idBovin')->unsigned();
             $table->foreign('idBovin')->references('idBovin')->on('bovins');
+            $table->integer('periode_id')->unsigned();
+            $table->foreign('periode_id')->references('idPeriode')->on('periodes');
             $table->string('codeBovin')->unique();
             $table->timestamps();
-=======
-            $table->id('idBovin')->unsigned();
-            $table->foreign('idBovin')->references('idBovin')->on('bovins')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('codeBovin')->unique();
-         $table->timestamps();
->>>>>>> 764f3b8423924a5e5abea5b7cb9d24c978bfe902
         });
     }
 

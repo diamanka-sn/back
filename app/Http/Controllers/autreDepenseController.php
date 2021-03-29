@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\autreDepense;
+
+use App\Models\autresDepense;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,7 @@ class autreDepenseController extends Controller
     {
       //  $autreDepense = autreDepense::all();
         //return $autreDepense->toJson(JSON_PRETTY_PRINT);
-        return autreDepense::orderByDesc('created_at')->get();
+        return autresDepense::orderByDesc('created_at')->get();
     }
 
     /**
@@ -29,7 +30,7 @@ class autreDepenseController extends Controller
      */
     public function store(Request $request)
     {
-      if(autreDepense::create($request->all())){
+      if(autresDepense::create($request->all())){
           return response()->json([
               'success' => 'enregistre avec succes'
           ],200);
@@ -42,7 +43,7 @@ class autreDepenseController extends Controller
      * @param  \App\Models\autreDepense  $autreDepense
      * @return \Illuminate\Http\Response
      */
-    public function show(autreDepense $autreDepense)
+    public function show(autresDepense $autreDepense)
     {
         return $autreDepense;
     }
@@ -54,7 +55,7 @@ class autreDepenseController extends Controller
      * @param  \App\Models\autreDepense  $autreDepense
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, autreDepense $autreDepense)
+    public function update(Request $request, autresDepense $autreDepense)
     {
         if($autreDepense->update($request->all())){
             return response()->json([
@@ -69,7 +70,7 @@ class autreDepenseController extends Controller
      * @param  \App\Models\autreDepense  $autreDepense
      * @return \Illuminate\Http\Response
      */
-    public function destroy(autreDepense $autreDepense)
+    public function destroy(autresDepense $autreDepense)
     {
         if($autreDepense->delete()){
             return response()->json([
@@ -79,7 +80,7 @@ class autreDepenseController extends Controller
     }
     public function listDepense()
     {           
-        return autreDepense::orderByDesc('created_at')->get();
+        return autresDepense::orderByDesc('created_at')->get();
 
     // public function chargeAutreDepense()
     // {
@@ -97,7 +98,18 @@ class autreDepenseController extends Controller
      public function sommeAutresDepense()
     {
        
-        return DB::table("autre_depenses")->sum("montant");
+        return DB::table("autres_depenses")->sum("montant");
+    }
+    public function chargeAutreDepense()
+    {
+        $stock = DB::table('autres_depenses')
+            // ->join('achat_aliments', 'achat_aliments.nomAliment', '=', 'alimentation_du_jours.nomAlimentation')
+            ->select(DB::raw("sum(montant) as 'achetes'"), DB::raw('YEAR(dateDepenses) as annee'))
+            ->groupBy('annee')
+            ->get();
+
+            
+            return $stock->groupBy('annee') ;
     }
 
 }

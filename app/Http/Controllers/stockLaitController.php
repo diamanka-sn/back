@@ -80,5 +80,14 @@ class stockLaitController extends Controller
         return stockLait::sum('quantiteDispo');
     }
 
+    public function productionM(){
+        return stockLait::sum('quantiteTotale');
+    }
+    public function quantiteVenduM(){
+        return stockLait::sum('quantiteVendue');
+    }
+
+
+
    
 }

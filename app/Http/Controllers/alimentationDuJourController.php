@@ -121,5 +121,6 @@ class alimentationDuJourController extends Controller
             ->get();
 
         return $stock;
-    }
+    }   
+
 }

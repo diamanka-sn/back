@@ -201,10 +201,7 @@ class vacheController extends Controller
     }
     public function listeVacheEnLactation()
     {     
-        $periodes=periode::All();
-        $races=race::All();
-        $periodes=periode::All();
-        $pesages=pesage::All();66
+     
 
         $Vaches = DB::table('vaches')
             ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
@@ -296,7 +293,7 @@ class vacheController extends Controller
             ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
             ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
             ->where('bovins.etat', 'Vivant')
-            ->select(DB::raw("count(vaches.idBovin) as 'nombre'"), DB::raw("periodes.phase as 'phase'"))
+            ->select(DB::raw("count(vaches.periode_id) as 'nombre'"), DB::raw("periodes.phase as 'phase'"))
             ->groupBy('phase')
             ->get();
 
@@ -318,9 +315,7 @@ class vacheController extends Controller
 
     public function listVacheEnVenteAvecDetaille()
     {
-        $races=race::All();
-        $pesages=pesage::All();
-        $periodes=periode::All();
+        
 
         $Vaches=DB::table('Vaches')
         ->join('races','Vaches.idRace','=','races.idRace')
@@ -332,6 +327,20 @@ class vacheController extends Controller
     
     return $Vaches;
          
+    } 
+
+    public function periodeMois()
+    {
+        $phase = DB::table('vaches')
+            ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
+            ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
+            ->select(DB::raw("count(vaches.idBovin) as 'nombre'"), DB::raw("periodes.nomPeriode as 'periode'"), DB::raw('YEAR(periodes.created_at) annee,MONTH(periodes.created_at) mois'))
+            ->where('bovins.etat', 'Vivant')
+            ->groupBy('annee', 'periode', 'mois')
+            ->orderBy('mois')
+            ->get();
+
+        return $phase->groupBy('periode');
     }
     
 }

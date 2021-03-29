@@ -89,6 +89,36 @@ class achatAlimentController extends Controller
       
         return DB::table("achat_Aliments")->sum("montant");
     }
+    public function quantiteAchetes()
+    {
+        $stock = DB::table('achat_aliments')
+            // ->join('achat_aliments', 'achat_aliments.nomAliment', '=', 'alimentation_du_jours.nomAlimentation')
+            ->where('nomAliment', 'sorgo')
+            ->select(DB::raw("sum(quantite) as 'achetes'"))
 
+            ->get();
+
+        return $stock;
+    }
+
+    public function typeAliment()
+    {
+        $stock = DB::table('achat_aliments')
+            ->select('nomAliment as type')
+            ->distinct()
+            ->get();
+        return $stock;
+    }
+
+    public function chargeAlimentation()
+    {
+        $stock = DB::table('achat_aliments')
+            // ->join('achat_aliments', 'achat_aliments.nomAliment', '=', 'alimentation_du_jours.nomAlimentation')
+            ->select(DB::raw("sum(montant) as 'achetes'"), DB::raw('YEAR(dateAchatAliment) as annee'))
+            ->groupBy('annee')
+            ->get();
+
+        return $stock->groupBy('annee');
+    }
     
 }

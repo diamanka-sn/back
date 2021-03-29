@@ -94,11 +94,5 @@ class traiteDuJourController extends Controller
         return $bovin->groupBy('annee');
     }
 
-    public function quantiteLaitProduite()
-    {
-        $bovin = DB::table('traite_du_jours')
-            ->select(DB::raw("sum(traiteSoir + traiteMatin) as 'total'"))
-            ->get();
-        return $bovin;
-    }
+  
 }

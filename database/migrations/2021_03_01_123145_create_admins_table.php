@@ -14,14 +14,8 @@ class CreateAdminsTable extends Migration
     public function up()
     {
         Schema::create('admins', function (Blueprint $table) {
-<<<<<<< HEAD
             $table->id('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-=======
-            $table->id('admin_id')->unsigned();
-            $table->foreign('admin_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-         
->>>>>>> 764f3b8423924a5e5abea5b7cb9d24c978bfe902
             $table->timestamps();
         });
     }

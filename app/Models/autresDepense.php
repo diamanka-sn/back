@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class autreDepense extends Model
+class autresDepense extends Model
 {
+   
     protected $primaryKey = 'idDepenses';
     protected $fillable = ['dateDepenses','type','libelle','montant','admin_id'];
     use HasFactory;

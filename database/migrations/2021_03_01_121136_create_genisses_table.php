@@ -14,19 +14,11 @@ class CreateGenissesTable extends Migration
     public function up()
     {
         Schema::create('genisses', function (Blueprint $table) {
-<<<<<<< HEAD
             $table->integer('idBovin')->unsigned();
             $table->foreign('idBovin')->references('idBovin')->on('bovins');
             $table->string('codeBovin')->unique();
             $table->string('phase',255);
             $table->date('dateIA');          
-=======
-            $table->id('idBovin')->unsigned();
-            $table->foreign('idBovin')->references('idBovin')->on('bovins')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('codeBovin')->unique();
-            $table->string('phase', 255);
-            $table->date('dateIA');
->>>>>>> 764f3b8423924a5e5abea5b7cb9d24c978bfe902
             $table->timestamps();
         });
     }

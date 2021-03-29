@@ -193,7 +193,18 @@ class veauController extends Controller
     return $veaus;
          
     }
+    public function nombreVeauMois()
+    {
+        $veau = DB::table('veaus')
+            ->join('bovins', 'veaus.idBovin', '=', 'bovins.idBovin')
+            ->where("bovins.etat", "Vivant")
+            ->select(DB::raw("count(veaus.idBovin) as 'nombre'"), DB::raw('YEAR(veaus.created_at) annee,MONTH(veaus.created_at) mois'))
+            ->groupBy('annee', 'mois')
+            ->orderBy('mois')
+            ->get();
 
+        return $veau->groupBy('annee');
+    }
     public function nombreVeauEnVente()
     {
         return veau::where("situation","en vente")->count();

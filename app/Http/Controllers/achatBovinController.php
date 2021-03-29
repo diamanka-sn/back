@@ -25,7 +25,7 @@ class achatBovinController extends Controller
     }
 
     public function nbreBovinAchete(){
-        return achatBovin::all('idAchatBovin')->count();
+        return achatBovin::all('idAchat')->count();
     }
 
     /**
@@ -98,8 +98,8 @@ class achatBovinController extends Controller
     
 
         $BovinAcheter=DB::table('achat_bovins')
-        ->join('bovins','achat_bovins.idBovin','=','bovins.idBovin')
-        ->join('races','bovins.idRace','=','races.idRace')
+        ->join('bovins','achat_bovins.bovin_id','=','bovins.idBovin')
+        ->join('races','bovins.race_id','=','races.idRace')
        ->select('achat_bovins.*','bovins.*','races.nomRace')
         ->get();
     

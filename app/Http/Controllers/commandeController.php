@@ -104,7 +104,7 @@ class commandeController extends Controller
 
         return $commandeBovin->sum('capacite');
     }
-    public function nombreCommandeBovin()
+    public function nombreCommandeBovinM()
     {
         $commandeBovin = DB::table('commandes')
             ->join('vente_bovins', 'commandes.idCom', '=', 'vente_bovins.commande_id')
@@ -216,4 +216,21 @@ class commandeController extends Controller
             ->get();
         return $commandeLait;
     }
+   
+   
+    public function nombreCommandeBovin()
+    {
+        $commandeBovin = DB::table('commandes')
+            ->join('vente_bovins', 'commandes.idCom', '=', 'vente_bovins.commande_id')
+            ->join('bovins', 'vente_bovins.bovin_id', '=', 'bovins.idBovin')
+            ->get();
+
+        return $commandeBovin->count();
+    }
+   
+
+    
+   
+
 }
+ 

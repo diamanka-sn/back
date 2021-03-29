@@ -199,6 +199,6 @@ class genisseController extends Controller
     
     return $genisses;
          
-    }
+    }  
 
 }

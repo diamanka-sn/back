@@ -133,8 +133,8 @@ class bovinController extends Controller
     public function listBovinAvecDetaille($idBovin)
     {
         $bovin = DB::table('bovins')
-            ->join('races', 'bovins.idRace', '=', 'races.idRace')
-            ->join('pesages', 'bovins.idBovin', '=', 'pesages.idBovin')
+            ->join('races', 'bovins.race_id', '=', 'races.idRace')
+            ->join('pesages', 'bovins.idBovin', '=', 'pesages.bovin_id')
             ->select('bovins.*', 'races.nomRace', 'pesages.*')
             ->where('bovins.idBovin', $idBovin)
             ->get();
