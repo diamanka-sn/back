@@ -185,10 +185,7 @@ class genisseController extends Controller
 
     public function listGenisseEnVenteAvecDetaille()
     {
-        $races=race::All();
-        $pesages=pesage::All();
-    
-
+        
         $genisses=DB::table('genisses')
         ->join('races','genisses.idRace','=','races.idRace')
         ->join('pesages','genisses.idBovin','=','pesages.idBovin')

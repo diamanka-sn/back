@@ -102,11 +102,15 @@ class bovinController extends Controller
 
     public function nombreBovin()
     {
-        return bovin::where("etat", "vivant")->count();
+        return bovin::where("etat", "Vivant")->count();
+    }
+    public function nombreBovinM()
+    {
+        return bovin::count('idBovin');
     }
     public function listBovinMalade()
     {
-        return bovin::where("etatDeSante", "souffrant")->orderByDesc('idBovin')->get();
+        return bovin::where("etatDeSante", "Malade")->orderByDesc('idBovin')->get();
     }
 
     public function listBovinSain()
@@ -123,7 +127,7 @@ class bovinController extends Controller
     }
     public function listBovinVivant()
     {
-        return bovin::where("etat", "vivant")->orderByDesc('idBovin')->get();
+        return bovin::where("etat", "Vivant")->orderByDesc('idBovin')->get();
     }
     public function listBovinMort()
     {
@@ -142,6 +146,32 @@ class bovinController extends Controller
         return $bovin;
     }
 
+    public function evolutionPoids($idBovin)
+    {
+        $bovin = DB::table('bovins')
+            // ->join('races', 'bovins.race_id', '=', 'races.idRace')
+            ->join('pesages', 'bovins.idBovin', '=', 'pesages.bovin_id')
+            ->select("pesages.poids as poids", DB::raw('YEAR(pesages.datePesee) annee'), DB::raw('MONTH(pesages.datePesee) mois'))
+            ->where('bovins.idBovin', $idBovin)
+            ->orderBy('mois')
+            ->get();
+
+        return $bovin->groupBy('annee');
+    }
+    public function evolutionLait($idBovin)
+    {
+        $bovin = DB::table('bovins')
+            ->join('vaches', 'bovins.idBovin', '=', 'vaches.idBovin')
+            ->join('production_laits', 'production_laits.bovin_id', '=', 'vaches.idBovin')
+            ->join('traite_du_jours', 'traite_du_jours.productionLait_id', '=', 'production_laits.idProductionLait')
+            ->select(DB::raw("sum(traite_du_jours.traiteMatin + traite_du_jours.traiteSoir) as production"), DB::raw('YEAR(traite_du_jours.dateTraite) annee'), DB::raw('MONTH(traite_du_jours.dateTraite) mois'))
+            ->where('bovins.idBovin', $idBovin)
+            ->groupBy('annee', 'mois')
+            ->orderBy('mois')
+            ->get();
+
+        return $bovin->groupBy('annee');
+    }
 
     public function santeBovin()
     {
@@ -153,4 +183,14 @@ class bovinController extends Controller
         return $sante;
     }
 
+    public function prixBovinExistant()
+    {
+        // $sante = DB::table('bovins')
+        //     ->join('achat_bovins', 'bovins.idBovin', '<>', 'achat_bovins.bovin_id')
+        //     ->select(DB::raw("sum(bovins.prix)"))
+        //     // ->groupBy('sante')
+        //     ->get();
+
+        return bovin::join('achat_bovins', 'bovins.idBovin', '<>', 'achat_bovins.bovin_id')->sum('bovins.prix');
+    }
 }

@@ -313,34 +313,19 @@ class vacheController extends Controller
         return $phase;
     }
 
-    public function listVacheEnVenteAvecDetaille()
-    {
-        
-
-        $Vaches=DB::table('Vaches')
-        ->join('races','Vaches.idRace','=','races.idRace')
-        ->join('pesages','Vaches.idBovin','=','pesages.idBovin')
-        ->join('periodes','Vaches.idPeriode','=','periodes.idPeriode')
-        ->select('Vaches.*','races.nomRace','periodes.*','pesages.*')
-        ->where("situation","en vente")
-        ->get();
     
-    return $Vaches;
-         
-    } 
 
     public function periodeMois()
     {
         $phase = DB::table('vaches')
             ->join('bovins', 'vaches.idBovin', '=', 'bovins.idBovin')
             ->join('periodes', 'vaches.periode_id', '=', 'periodes.idPeriode')
-            ->select(DB::raw("count(vaches.idBovin) as 'nombre'"), DB::raw("periodes.nomPeriode as 'periode'"), DB::raw('YEAR(periodes.created_at) annee,MONTH(periodes.created_at) mois'))
+            ->select(DB::raw("count(vaches.idBovin) as 'nombre'"), DB::raw("periodes.nomPeriode as 'periode'"), DB::raw('YEAR(periodes.created_at) annee'))
             ->where('bovins.etat', 'Vivant')
-            ->groupBy('annee', 'periode', 'mois')
-            ->orderBy('mois')
+            ->groupBy('annee', 'periode')
             ->get();
 
-        return $phase->groupBy('periode');
+        return $phase->groupBy('annee');
     }
     
 }

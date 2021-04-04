@@ -131,5 +131,8 @@ class venteBovinController extends Controller
             ->get();
         return $bovin;
     }
-
+    public function nombreBovinVendueM()
+    {
+        return venteBovin::count();
+    }
 }

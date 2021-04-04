@@ -305,3 +305,21 @@ Route::get('/quantiteConsommes',[\App\Http\Controllers\alimentationDuJourControl
 Route::get('/consommationMois',[\App\Http\Controllers\alimentationDuJourController::class,"consommationMois"]);
 
 Route::get('/stock',[\App\Http\Controllers\alimentationDuJourController::class,"stockAliment"]);
+Route::get('/evolutionPoids/{idBovin}',[\App\Http\Controllers\bovinController::class,"evolutionPoids"]);
+Route::get('/evolutionLait/{idBovin}',[\App\Http\Controllers\bovinController::class,"evolutionLait"]);
+Route::get('/repartitionMaladieM',[\App\Http\Controllers\diagnosticController::class,"repartitionMaladieM"]);
+Route::get('/BovinMaladeM',[\App\Http\Controllers\diagnosticController::class,"BovinMaladeM"]);
+Route::get('/BovinGueriM',[\App\Http\Controllers\diagnosticController::class,"BovinGueriM"]);
+Route::get('/NombreBovinGueriM',[\App\Http\Controllers\diagnosticController::class,"NombreBovinGueriM"]);
+Route::get('/chargeSanteM',[\App\Http\Controllers\autreDepenseController::class,"chargeSanteM"]);
+Route::get('/listeDepenseSanteM',[\App\Http\Controllers\autreDepenseController::class,"listeDepenseSanteM"]);
+Route::get('/listFactureBovinDetaille',[\App\Http\Controllers\factureController::class,"listFactureBovinDetaille"]);
+Route::get('/listFactureLaitDetaille',[\App\Http\Controllers\factureController::class,"listFactureLaitDetaille"]);
+Route::get('/coutTransportM',[\App\Http\Controllers\autreDepenseController::class,"coutTransportM"]);
+Route::get('/nombreBovinM',[\App\Http\Controllers\bovinController::class,"nombreBovinM"]);
+Route::get('/nombreBovinVendueM',[\App\Http\Controllers\venteBovinController::class,"nombreBovinVendueM"]);
+Route::get('/prixBovinExistant',[\App\Http\Controllers\bovinController::class,"prixBovinExistant"]);
+
+
+
+

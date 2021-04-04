@@ -19,7 +19,7 @@ class factureController extends Controller
      */
     public function index()
     {
-      //  $facture = facture::all();
+        //  $facture = facture::all();
         //return $facture->toJson(JSON_PRETTY_PRINT);
         return facture::orderByDesc('created_at')->get();
     }
@@ -32,11 +32,11 @@ class factureController extends Controller
      */
     public function store(Request $request)
     {
-      if(facture::create($request->all())){
-          return response()->json([
-              'success' => 'enregistre avec succes'
-          ],200);
-      };
+        if (facture::create($request->all())) {
+            return response()->json([
+                'success' => 'enregistre avec succes'
+            ], 200);
+        };
     }
 
     /**
@@ -59,10 +59,10 @@ class factureController extends Controller
      */
     public function update(Request $request, facture $facture)
     {
-        if($facture->update($request->all())){
+        if ($facture->update($request->all())) {
             return response()->json([
                 'success' => 'modifier avec succes'
-            ],200);
+            ], 200);
         };
     }
 
@@ -74,35 +74,62 @@ class factureController extends Controller
      */
     public function destroy(facture $facture)
     {
-        if($facture->delete()){
+        if ($facture->delete()) {
             return response()->json([
                 'success' => 'Suppression reussie'
-            ],200);
+            ], 200);
         };
     }
 
 
     public function listFacture()
-    {           
+    {
         return facture::orderByDesc('created_at')->get();
     }
 
 
     public function listFactureDetaille()
-    {    
-       
-        $commandes=commande::All();
-        $venteLait=venteLait::All();
-        $venteBovin=venteBovin::All();
-       
-        $facture=DB::table('factures')
-       ->join('commandes','factures.idCom','=','commandes.idCom')
-       ->join('vente_bovins','vente_bovins.idCom','=','commandes.idCom')
-       ->join('vente_laits','vente_laits.idCom','=','commandes.idCom')
-       ->select('commandes.*','factures.*','vente_bovins.*','vente_laits.*')
-        ->get();
-         
-    return $facture;
+    {
+
+
+
+        $facture = DB::table('factures')
+            ->join('commandes', 'factures.commande_id', '=', 'commandes.idCom')
+            ->join('vente_bovins', 'vente_bovins.commande_id', '=', 'commandes.idCom')
+            ->join('vente_laits', 'vente_laits.commande_id', '=', 'commandes.idCom')
+            ->select('commandes.*', 'factures.*', 'vente_bovins.*', 'vente_laits.*')
+            ->get();
+
+        return $facture;
+    }
+
+    public function listFactureLaitDetaille()
+    {
+
+
+
+        $facture = DB::table('factures')
+            ->join('commandes', 'factures.commande_id', '=', 'commandes.idCom')
+            //->join('vente_bovins','vente_bovins.commande_id','=','commandes.idCom')
+            ->join('vente_laits', 'vente_laits.commande_id', '=', 'commandes.idCom')
+            ->select('commandes.*', 'factures.*', 'vente_laits.*')
+            ->get();
+
+        return $facture;
+    }
+    public function listFactureBovinDetaille()
+    {
+
+
+
+        $facture = DB::table('factures')
+            ->join('commandes', 'factures.commande_id', '=', 'commandes.idCom')
+            ->join('vente_bovins','vente_bovins.commande_id','=','commandes.idCom')
+            //->join('vente_laits', 'vente_laits.commande_id', '=', 'commandes.idCom')
+            ->select('commandes.*', 'factures.*', 'vente_bovins.*')
+            ->get();
+
+        return $facture;
     }
     public function nombreFacture()
     {

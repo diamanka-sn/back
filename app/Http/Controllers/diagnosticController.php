@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\diagnostic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class diagnosticController extends Controller
 {
@@ -74,5 +75,53 @@ class diagnosticController extends Controller
                 'success' => 'Suppression reussie'
             ],200);
         };
+    }
+
+    public function repartitionMaladieM(){
+        $commandeMois = DB::table('diagnostics')
+        ->join('bovins', 'bovins.idBovin', '=', 'diagnostics.bovin_id')
+        ->join('maladies', 'maladies.idMaladie', '=', 'diagnostics.maladie_id')
+        //->where('bovins.etat', 'vivant')
+        ->select(DB::raw("count(bovins.idBovin) as 'nombre'"), DB::raw("maladies.nomMaladie as 'maladie'"))
+        ->groupBy('maladie')
+        ->get();
+
+    return $commandeMois;
+    }
+
+    public function BovinMaladeM(){
+        $commandeMois = DB::table('diagnostics')
+        ->join('bovins', 'bovins.idBovin', '=', 'diagnostics.bovin_id')
+        ->join('maladies', 'maladies.idMaladie', '=', 'diagnostics.maladie_id')
+        ->select('bovins.nom','maladies.nomMaladie as maladie','diagnostics.dateMaladie as date')
+        ->where('bovins.etatDeSante', 'Malade')
+        ->where('diagnostics.dateGuerison',null)
+        ->get();
+
+    return $commandeMois;
+    }
+    
+    public function BovinGueriM(){
+        $commandeMois = DB::table('diagnostics')
+        ->join('bovins', 'bovins.idBovin', '=', 'diagnostics.bovin_id')
+        ->join('maladies', 'maladies.idMaladie', '=', 'diagnostics.maladie_id')
+        ->select('bovins.nom','maladies.nomMaladie as maladie','diagnostics.dateMaladie','diagnostics.dateGuerison')
+        ->where('bovins.etatDeSante', 'Malade')
+        ->where('diagnostics.dateGuerison','<>',null)
+        ->get();
+
+    return $commandeMois;
+    }
+     
+    public function NombreBovinGueriM(){
+        $commandeMois = DB::table('diagnostics')
+        ->join('bovins', 'bovins.idBovin', '=', 'diagnostics.bovin_id')
+        ->join('maladies', 'maladies.idMaladie', '=', 'diagnostics.maladie_id')
+        ->select('bovins.nom','maladies.nomMaladie as maladie','diagnostics.dateMaladie','diagnostics.dateGuerison')
+        ->where('bovins.etatDeSante', 'Malade')
+        ->where('diagnostics.dateGuerison','<>',null)
+        ->count();
+
+    return $commandeMois;
     }
 }
